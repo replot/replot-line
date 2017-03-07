@@ -28,7 +28,47 @@ render() {
 ```
 
 Or specify a dictionary of dataset titles mapped to the corresponding array of dataset values.
-CODE
+
+```javascript
+render() {
+	let populations = {
+		"Global": [
+			[2010, 6916183482],
+			[2011, 6997998760],
+			[2012, 7080072417],
+			[2013, 7162119434],
+			[2014, 7243784121],
+			[2015, 7324782225],
+			[2016, 7404976783]
+		],
+		"US": [
+			[2010, 310559000],
+			[2011, 312917100],
+			[2012, 315219700],
+			[2013, 317474000],
+			[2014, 319849000],
+			[2015, 322060100],
+			[2016, 324304400]
+		],
+		"India": [
+			[2010, 1186000000],
+			[2011, 1210570000],
+			[2012, 1213370000],
+			[2013, 1223000000],
+			[2014, 1267000000],
+			[2015, 1283000000],
+			[2016, 1299000000]
+		]
+	}
+
+	return(
+		<LineChart data={populations} 
+		titleLabel="Populations Per Year"
+		xLabel="Year"
+		yLabel="Population" />
+	)
+}
+```
 
 - `data` is the only required prop
 - `titleLabel` (string) defaults to `"title"`
@@ -40,38 +80,38 @@ CODE
 	- specify number of steps on the x-axis
 - `ySteps` (integer) defaults to number calculated by program based off of y-axis data
 	- specify number of steps on the y-axis
-- `xScale` defaults to `lin`
-	- `lin`: linear scale
-	- `log`: logarithmic scale (base 10)
-	- `per`: percentage scale (0 to 100%)
-- `yScale` defaults to `lin`, same possible values as `xScale`
-- `xLines` defaults to `none`
-	- `none`: no vertical backing lines for x-axis values
-	- `dash`: dashed vertical backing lines
-	- `solid`: solid vertical backing lines
-- `yLines` defaults to `none`
-	- `none`: no horizontal backing lines for y-axis values
-	- `dash`: dashed horizontal backing lines
-	- `solid`: solid horizontal backing lines
-- `transpose`: defaults to `no`
-	- `no`: first value of tuple on x-axis, second value of tuple on y-axis
-	- `yes`: first value of tuple on y-axis, second value of tuple on x-axis
+- `xScale` defaults to `"lin"`
+	- `"lin"`: linear scale
+	- `"log"`: logarithmic scale (base 10)
+	- `"per"`: percentage scale (0 to 100%)
+- `yScale` defaults to `"lin"`, same possible values as `xScale`
+- `xLines` defaults to `"none"`
+	- `"none"`: no vertical backing lines for x-axis values
+	- `"dash"`: dashed vertical backing lines
+	- `"solid"`: solid vertical backing lines
+- `yLines` defaults to `"none"`
+	- `"none"`: no horizontal backing lines for y-axis values
+	- `"dash"`: dashed horizontal backing lines
+	- `"solid"`: solid horizontal backing lines
+- `transpose`: defaults to `"no"`
+	- `"no"`: first value of tuple on x-axis, second value of tuple on y-axis
+	- `"yes"`: first value of tuple on y-axis, second value of tuple on x-axis
 
 ### Line Customization
 - `color`: defaults to preset palette
 	- specify an array of color hex codes, e.g. `["#FF0000, "#00FF00", "#0000FF"]`
 	- if length of color array is less than the number of datasets, will reiterate through array to set colors from the beginning
-- `shape`: defaults to `none`
-	- `none`: line is continuous without any shape marking the data points
-	- `disc`: data points are marked by a filled circle
-	- `circle`: data points are marked by an unfilled circle
-	- `square`: data points are marked by a square
-	- `triangle`: data points are marked by a triangle
+- `shape`: defaults to `"none"`
+	- `"none"`: line is continuous without any shape marking the data points
+	- `"disc"`: data points are marked by a filled circle
+	- `"circle"`: data points are marked by an unfilled circle
+	- `"square"`: data points are marked by a square
+	- `"triangle"`: data points are marked by a triangle
 
 ### Key Customization
-- `keyPosition`: defaults to `right`
-	- `none`: no key display
-	- `right`: key displayed to the right of the chart
-	- `left`: key displayed to the left of the chart
-	- `top`: key displayed on top of the chart (under the title)
-	- `bottom`: key displayed below the chart
+- `keyPosition`: defaults to `"right"`
+	- `"none"`: no key display
+	- `"right"`: key displayed to the right of the chart
+	- `"left"`: key displayed to the left of the chart
+	- `"top"`: key displayed on top of the chart (under the title)
+	- `"bottom"`: key displayed below the chart
