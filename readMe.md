@@ -99,7 +99,7 @@ render() {
 
 ### Line Customization
 - `color`: defaults to preset palette
-	- specify an array of color hex codes, e.g. `["#FF0000, "#00FF00", "#0000FF"]`
+	- specify an array of color hex codes, e.g. `["#FF0000", "#00FF00", "#0000FF"]`
 	- if length of color array is less than the number of datasets, will reiterate through array to set colors from the beginning
 - `shape`: defaults to `"none"`
 	- `"none"`: line is continuous without any shape marking the data points
@@ -108,10 +108,10 @@ render() {
 	- `"square"`: data points are marked by a square
 	- `"triangle"`: data points are marked by a triangle
 
-### Key Customization
-- `keyPosition`: defaults to `"right"`
-	- `"none"`: no key display
-	- `"right"`: key displayed to the right of the chart
-	- `"left"`: key displayed to the left of the chart
-	- `"top"`: key displayed on top of the chart (under the title)
-	- `"bottom"`: key displayed below the chart
+### Legend Customization
+- `legendPosition`: defaults to `"right"`
+	- `"none"`: no legend display
+	- `"right"`: legend displayed to the right of the chart
+	- `"left"`: legend displayed to the left of the chart
+	- `"top"`: legend displayed on top of the chart (under the title)
+	- `"bottom"`: legend displayed below the chart
