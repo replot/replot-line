@@ -2,75 +2,57 @@
 Intelligent and customizable line chart components for react.
 
 ## API
-
-### Basic Usage
-Specicfy an array of tuples to create one line chart.
-
-```javascript
-render() {
-	let populations = [
-		[2010, 6916183482],
-		[2011, 6997998760],
-		[2012, 7080072417],
-		[2013, 7162119434],
-		[2014, 7243784121],
-		[2015, 7324782225],
-		[2016, 7404976783]
-	]
-
-	return(
-		<LineChart data={populations} 
-		titleLabel="Global Population Per Year"
-		xLabel="Year"
-		yLabel="Global Population" />
-	)
-}
-```
-
-Or specify a dictionary of dataset titles mapped to the corresponding array of dataset values.
+Supply data and specify keys for the titles of each dataset in JSON format. 
 
 ```javascript
 render() {
 	let populations = {
-		"Global": [
-			[2010, 6916183482],
-			[2011, 6997998760],
-			[2012, 7080072417],
-			[2013, 7162119434],
-			[2014, 7243784121],
-			[2015, 7324782225],
-			[2016, 7404976783]
-		],
-		"US": [
-			[2010, 310559000],
-			[2011, 312917100],
-			[2012, 315219700],
-			[2013, 317474000],
-			[2014, 319849000],
-			[2015, 322060100],
-			[2016, 324304400]
-		],
-		"India": [
-			[2010, 1186000000],
-			[2011, 1210570000],
-			[2012, 1213370000],
-			[2013, 1223000000],
-			[2014, 1267000000],
-			[2015, 1283000000],
-			[2016, 1299000000]
-		]
+		{location: "Global", year: 2010, population: 6916183482},
+		{location: "Global", year: 2011, population: 6997998760},
+		{location: "Global", year: 2012, population: 7080072417},
+		{location: "Global", year: 2013, population: 7162119434},
+		{location: "Global", year: 2014, population: 7243784121},
+		{location: "Global", year: 2015, population: 7324782225},
+		{location: "Global", year: 2016, population: 7404976783},
+		{location: "US", year: 2010, population: 310559000},
+		{location: "US", year: 2011, population: 312917100},
+		{location: "US", year: 2012, population: 315219700},
+		{location: "US", year: 2013, population: 317474000},
+		{location: "US", year: 2014, population: 319849000},
+		{location: "US", year: 2015, population: 322060100},
+		{location: "US", year: 2016, population: 324304400},
+		{location: "India", year: 2010, population: 1186000000},
+		{location: "India", year: 2011, population: 1210570000},
+		{location: "India", year: 2012, population: 1213370000},
+		{location: "India", year: 2013, population: 1223000000},
+		{location: "India", year: 2014, population: 1267000000},
+		{location: "India", year: 2015, population: 1283000000},
+		{location: "India", year: 2016, population: 1299000000},
 	}
 
 	return(
 		<LineChart data={populations} 
-		titleLabel="Populations Per Year"
-		xLabel="Year"
-		yLabel="Population" />
+		titleKey="location"
+		xKey="year"
+		yKey="population" />
 	)
 }
 ```
 
 - `data` is the only required prop
+- `titleKey` defaults to `"title"`
+- `xKey` defaults to `"x"`
+- `yKey` defaults to `"y"`
+
+### Color Customization
+- `color`: defaults to preset palette
+	- specify an array of color hex codes, e.g. `["#FF0000", "#00FF00", "#0000FF"]`
+	- specify a function 
+
+Note: legend is automatically generated
+
+## Future Implementation
+
 - `titleLabel` (string) defaults to `"title"`
 - `xLabel` (string) defaults to `"x-axis"`
 - `yLabel` (string) defaults to `"y-axis"`
@@ -98,9 +80,6 @@ render() {
 	- `"yes"`: first value of tuple on y-axis, second value of tuple on x-axis
 
 ### Line Customization
-- `color`: defaults to preset palette
-	- specify an array of color hex codes, e.g. `["#FF0000", "#00FF00", "#0000FF"]`
-	- if length of color array is less than the number of datasets, will reiterate through array to set colors from the beginning
 - `shape`: defaults to `"none"`
 	- `"none"`: line is continuous without any shape marking the data points
 	- `"disc"`: data points are marked by a filled circle
