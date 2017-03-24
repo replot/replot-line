@@ -164,11 +164,16 @@ class LineChart extends React.Component {
           stroke={"rgb(0,0,0)"} />
       )
       series.push(
-        <text x={chartX+j*xSpace} y={chartY+chartHeight+buffer*0.2} fontSize={buffer/5} style={{"writing-mode": "tb"}}>
+        <text x={chartX+j*xSpace} y={chartY+chartHeight+buffer*0.2} fontSize={10} style={{"writing-mode": "tb"}}>
         {(minX + j*xSpace*(maxX-minX)/(chartWidth)).toFixed(2)}
       </text>
       )
     }
+    series.push(
+      <text x={width/2} y={height-10} fontSize={10} style={{"text-align": "center"}}>
+        {xKey}
+      </text>
+    )
 
     // y-axis
     series.push(
@@ -188,11 +193,16 @@ class LineChart extends React.Component {
           stroke={"rgb(0,0,0)"} />
       )
       series.push(
-        <text x={0} y={chartHeight+chartY-k*ySpace+buffer/10} fontSize={buffer/5}>
+        <text x={20} y={chartHeight+chartY-k*ySpace+5} fontSize={10}>
         {(minY + k*ySpace*(maxY-minY)/(chartHeight)).toFixed(2)}
        </text>
      )
     }
+    series.push(
+      <text x={10} y={height/2} fontSize={10} style={{"writing-mode": "tb"}}>
+        {yKey}
+      </text>
+    )
 
     return(
       <svg width={width} height={height}>
@@ -205,7 +215,7 @@ class LineChart extends React.Component {
 
 LineChart.defaultProps = {
   width: 800,
-  height: 400,
+  height: 600,
 }
 
 export default LineChart

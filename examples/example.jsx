@@ -5,21 +5,30 @@ import LineChart from "../src/index.jsx"
 
 class KeyValueRow extends React.Component {
 
-  changeHandlerX(e) {
+  changeHandler(e) {
+    console.log(e.target.value)
     this.props.updateData({
-      title: this.props.title,
-      x: e.target.value,
-      y: this.props.y
+      location: this.props.location,
+      year: this.props.year,
+      population: e.target.value
     })
   }
 
-  changeHandlerY(e) {
-    this.props.updateData({
-      title: this.props.title,
-      x: this.props.x,
-      y: e.target.value
-    })
-  }
+  // changeHandlerX(e) {
+  //   this.props.updateData({
+  //     title: this.props.title,
+  //     x: e.target.value,
+  //     y: this.props.y
+  //   })
+  // }
+  //
+  // changeHandlerY(e) {
+  //   this.props.updateData({
+  //     title: this.props.title,
+  //     x: this.props.x,
+  //     y: e.target.value
+  //   })
+  // }
 
   render() {
     const style = {
@@ -29,18 +38,28 @@ class KeyValueRow extends React.Component {
     }
 
     return(
-      <tr key={this.props.title}>
-        <td style={style.cell}>{this.props.title} </td>
+      <tr key={this.props.location.concat(this.props.year)}>
+        <td style={style.cell}>{this.props.location.concat(this.props.year)} </td>
         <td style={style.cell}>
-          <input type="text" value={parseInt(this.props.x)}
-            onChange={this.changeHandlerX.bind(this)} />
-        </td>
-        <td style={style.cell}>
-          <input type="text" value={parseInt(this.props.y)}
-            onChange={this.changeHandlerY.bind(this)} />
+          <input type="text" value={parseFloat(this.props.population)}
+            onChange={this.changeHandler.bind(this)} />
         </td>
       </tr>
     )
+
+    // return(
+    //   <tr key={this.props.title}>
+    //     <td style={style.cell}>{this.props.title} </td>
+    //     <td style={style.cell}>
+    //       <input type="text" value={parseInt(this.props.x)}
+    //         onChange={this.changeHandlerX.bind(this)} />
+    //     </td>
+    //     <td style={style.cell}>
+    //       <input type="text" value={parseInt(this.props.y)}
+    //         onChange={this.changeHandlerY.bind(this)} />
+    //     </td>
+    //   </tr>
+    // )
   }
 }
 
@@ -59,11 +78,19 @@ class KeyValueTable extends React.Component {
     let rows = []
     for (let dataPoint of this.props.data) {
       rows.push(
-        <KeyValueRow key={dataPoint[this.props.titleKey]+"-"+dataPoint[this.props.xKey]}
-          title={dataPoint[this.props.titleKey]} x={dataPoint[this.props.xKey]} y={dataPoint[this.props.yKey]}
+        <KeyValueRow key={dataPoint.location.concat(dataPoint.year)}
+          location={dataPoint.location} year={dataPoint.year} population={dataPoint.population}
           updateData={this.props.updateData.bind(this)} />
       )
     }
+    // let rows = []
+    // for (let dataPoint of this.props.data) {
+    //   rows.push(
+    //     <KeyValueRow key={dataPoint[this.props.titleKey]+"-"+dataPoint[this.props.xKey]}
+    //       title={dataPoint[this.props.titleKey]} x={dataPoint[this.props.xKey]} y={dataPoint[this.props.yKey]}
+    //       updateData={this.props.updateData.bind(this)} />
+    //   )
+    // }
 
     return (
       <div className="container" style={style.container}>
@@ -126,17 +153,29 @@ class ExampleApp extends React.Component {
   }
 
   updateData(mutatedObject) {
+    // let mutatedData = JSON.parse(JSON.stringify(this.state.data))
+    // let chosenIndex = -1
+    // for (let index=0; index < mutatedData.length; index++) {
+    //   if (mutatedData[index].title === mutatedObject.title && mutatedData[index].x == mutatedObject.x) {
+    //     chosenIndex = index
+    //     break
+    //   }
+    // }
+    // if (chosenIndex > -1) {
+    //   mutatedData[chosenIndex].x = parseFloat(mutatedObject.x)
+    //   mutatedData[chosenIndex].y = parseFloat(mutatedObject.y)
+    //   this.setState({data: mutatedData})
+    // }
     let mutatedData = JSON.parse(JSON.stringify(this.state.data))
     let chosenIndex = -1
     for (let index=0; index < mutatedData.length; index++) {
-      if (mutatedData[index].title === mutatedObject.title && mutatedData[index].x == mutatedObject.x) {
+      if (mutatedData[index].location === mutatedObject.location && mutatedData[index].year === mutatedObject.year) {
         chosenIndex = index
         break
       }
     }
     if (chosenIndex > -1) {
-      mutatedData[chosenIndex].x = parseFloat(mutatedObject.x)
-      mutatedData[chosenIndex].y = parseFloat(mutatedObject.y)
+      mutatedData[chosenIndex].population = parseFloat(mutatedObject.population)
       this.setState({data: mutatedData})
     }
   }
@@ -145,7 +184,7 @@ class ExampleApp extends React.Component {
     return(
       <div className="container">
         <h1 style={{textAlign: "center"}}> Ent: Linecharts for react </h1>
-        <KeyValueTable data={this.state.data} updateData={this.updateData.bind(this)} titleKey="location" xKey="year" yKey="population" />
+        <KeyValueTable data={this.state.data} updateData={this.updateData.bind(this)} />
         <div style={{width:"70%", display:"inline-block"}}>
           <LineChart data={this.state.data} titleKey="location" xKey="year" yKey="population"/>
         </div>
