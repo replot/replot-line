@@ -6,7 +6,6 @@ import LineChart from "../src/index.jsx"
 class KeyValueRow extends React.Component {
 
   changeHandler(e) {
-    console.log(e.target.value)
     this.props.updateData({
       location: this.props.location,
       year: this.props.year,
@@ -39,7 +38,8 @@ class KeyValueRow extends React.Component {
 
     return(
       <tr key={this.props.location.concat(this.props.year)}>
-        <td style={style.cell}>{this.props.location.concat(this.props.year)} </td>
+        <td style={style.cell}>{this.props.location} </td>
+        <td style={style.cell}>{this.props.year}</td>
         <td style={style.cell}>
           <input type="text" value={parseFloat(this.props.population)}
             onChange={this.changeHandler.bind(this)} />
@@ -140,14 +140,14 @@ class ExampleApp extends React.Component {
         {location: "Global", year: 2014, population: 9},
         {location: "Global", year: 2015, population: 8},
         {location: "Global", year: 2016, population: 7},
-        {location: "US", year: 2010, population: 3},
-        {location: "US", year: 2011, population: 4},
-        {location: "US", year: 2012, population: 4},
         {location: "US", year: 2013, population: 3},
-        {location: "India", year: 2005, population: 0},
-        {location: "India", year: 2006, population: 1},
-        {location: "India", year: 2007, population: 5},
-        {location: "India", year: 2008, population: 6},
+        {location: "US", year: 2014, population: 4},
+        {location: "US", year: 2015, population: 4},
+        {location: "US", year: 2016, population: 3},
+        {location: "India", year: 2013, population: 0},
+        {location: "India", year: 2014, population: 1},
+        {location: "India", year: 2015, population: 5},
+        {location: "India", year: 2016, population: 6},
       ]
     }
   }
