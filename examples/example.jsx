@@ -134,20 +134,33 @@ class ExampleApp extends React.Component {
     //     {location: "India", year: 2015, population: 1283000000},
     //     {location: "India", year: 2016, population: 1299000000},
     //   ]
-    // }
+      // data: [
+      //   {location: "Global", year: 2013, population: 10},
+      //   {location: "Global", year: 2014, population: 9},
+      //   {location: "Global", year: 2015, population: 8},
+      //   {location: "Global", year: 2016, population: 7},
+      //   {location: "US", year: 2013, population: 3},
+      //   {location: "US", year: 2014, population: 4},
+      //   {location: "US", year: 2015, population: 4},
+      //   {location: "US", year: 2016, population: 3},
+      //   {location: "India", year: 2013, population: 0},
+      //   {location: "India", year: 2014, population: 1},
+      //   {location: "India", year: 2015, population: 5},
+      //   {location: "India", year: 2016, population: 6},
+      // ]
       data: [
-        {location: "Global", year: 2013, population: 10},
-        {location: "Global", year: 2014, population: 9},
-        {location: "Global", year: 2015, population: 8},
-        {location: "Global", year: 2016, population: 7},
-        {location: "US", year: 2013, population: 3},
-        {location: "US", year: 2014, population: 4},
-        {location: "US", year: 2015, population: 4},
-        {location: "US", year: 2016, population: 3},
-        {location: "India", year: 2013, population: 0},
-        {location: "India", year: 2014, population: 1},
-        {location: "India", year: 2015, population: 5},
-        {location: "India", year: 2016, population: 6},
+        {location: "Global", year: 2013, population: 10000000},
+        {location: "Global", year: 2014, population: 1000000},
+        {location: "Global", year: 2015, population: 100000},
+        {location: "Global", year: 2016, population: 10000},
+        {location: "US", year: 2013, population: 0.1},
+        {location: "US", year: 2014, population: 1},
+        {location: "US", year: 2015, population: 1},
+        {location: "US", year: 2016, population: 0.1},
+        {location: "India", year: 2013, population: 0.0001},
+        {location: "India", year: 2014, population: 10},
+        {location: "India", year: 2015, population: 100},
+        {location: "India", year: 2016, population: 10000},
       ]
     }
   }
@@ -186,7 +199,8 @@ class ExampleApp extends React.Component {
         <h1 style={{textAlign: "center"}}> Ent: Linecharts for react </h1>
         <KeyValueTable data={this.state.data} updateData={this.updateData.bind(this)} />
         <div style={{width:"70%", display:"inline-block"}}>
-          <LineChart data={this.state.data} titleKey="location" xKey="year" yKey="population"/>
+          {/* <LineChart data={this.state.data} titleKey="location" xKey="year" yKey="population"/> */}
+          <LineChart data={this.state.data} titleKey="location" xKey="year" yKey="population" scale="log"/>
         </div>
       </div>
     )

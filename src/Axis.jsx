@@ -8,6 +8,7 @@ class Axis extends React.Component {
     let y = this.props.y
     let width = this.props.width
     let height = this.props.height
+    let scale = this.props.scale
     let xLabel = this.props.xLabel
     let yLabel = this.props.yLabel
     let xTicks = this.props.xTicks
@@ -29,9 +30,10 @@ class Axis extends React.Component {
       xAxis.push(
         <Line x1={x+i*xSpace} y1={y+height} x2={x+i*xSpace} y2={y+height+10} />
       )
+      let xVal = minX + i*xSpace*(maxX-minX)/width
       xAxis.push(
         <text x={x+i*xSpace} y={y+height+10} fontSize={10} style={{"writing-mode": "tb"}}>
-          {(minX + i*xSpace*(maxX-minX)/width).toFixed(2)}
+          {xVal.toFixed(2)}
         </text>
       )
     }
@@ -44,13 +46,21 @@ class Axis extends React.Component {
       <text x={10} y={y+height/2} fontSize={10} style={{"writing-mode": "tb"}}>{yLabel}</text>
     )
     let ySpace = height / (yTicks - 1)
-    for (var j=0; j< yTicks; j++) {
+    for (var j=0; j < yTicks; j++) {
       yAxis.push(
         <Line x1={x} y1={height+y-j*ySpace} x2={x-10} y2={height+y-j*ySpace} />
       )
+      let yVal = 0
+      if (scale == "log") {
+        yVal = Math.log10(minY) + j*ySpace*(Math.log10(maxY)-Math.log10(minY))/height
+        // yVal = Math.pow(10, (Math.log10(minY) + j*ySpace*(Math.log10(maxY)-Math.log10(minY))/height))
+      } else {
+        yVal = minY + j*ySpace*(maxY-minY)/height
+      }
       yAxis.push(
         <text x={20} y={height+y-j*ySpace+5} fontSize={10}>
-          {(minY + j*ySpace*(maxY-minY)/height).toFixed(2)}
+          {"10^".concat(yVal.toFixed(2))}
+          {/* {yVal} */}
         </text>
       )
     }
@@ -71,6 +81,7 @@ Axis.defaultProps = {
   y: 0,
   width: 800,
   height: 600,
+  scale: "default",
   xLabel: "x-axis",
   yLabel: "y-axis",
   xTicks: 5,

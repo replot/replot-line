@@ -39,6 +39,7 @@ class LineChart extends React.Component {
     let titleKey = this.props.titleKey
     let xKey = this.props.xKey
     let yKey = this.props.yKey
+    let scale = this.props.scale
 
     let xvals = data.map(function(d) {return parseFloat(d[xKey])})
     let yvals = data.map(function(d) {return parseFloat(d[yKey])})
@@ -60,8 +61,16 @@ class LineChart extends React.Component {
     let setTitles = []
     for (let member of data) {
       let key = setTitles.indexOf(member[titleKey])
-      let modX = (parseFloat(member[xKey])-minX) * chartWidth / (maxX-minX) + chartX
-      let modY = chartHeight - (parseFloat(member[yKey])-minY) * (chartHeight) / (maxY-minY) + chartY
+
+      let modX = 0
+      let modY = 0
+      if (scale == "log") {
+        modX = (parseFloat(member[xKey])-minX) * chartWidth / (maxX-minX) + chartX
+        modY = chartHeight - (Math.log10(parseFloat(member[yKey]))-Math.log10(minY)) * (chartHeight) / (Math.log10(maxY)-Math.log10(minY)) + chartY
+      } else {
+        modX = (parseFloat(member[xKey])-minX) * chartWidth / (maxX-minX) + chartX
+        modY = chartHeight - (parseFloat(member[yKey])-minY) * (chartHeight) / (maxY-minY) + chartY
+      }
 
       if (key != -1) {
         sets[key].push([modX, modY])
@@ -85,7 +94,7 @@ class LineChart extends React.Component {
 
     series.push(
       <Axis x={chartX} y={chartY} width={chartWidth} height={chartHeight}
-        xLabel={xKey} yLabel={yKey}
+        scale={scale} xLabel={xKey} yLabel={yKey}
         xTicks={7} yTicks={Math.round((chartHeight)/50)+1}
         maxX={maxX} minX={minX} maxY={maxY} minY={minY} />
     )
@@ -102,6 +111,7 @@ class LineChart extends React.Component {
 LineChart.defaultProps = {
   width: 800,
   height: 600,
+  scale: "default"
 }
 
 export default LineChart
