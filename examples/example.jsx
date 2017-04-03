@@ -1,7 +1,8 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import LineChart from "../src/index.jsx"
-
+import Color from "../src/Color.js"
+import ColorPalette from "../src/ColorPalette.js"
 
 class KeyValueRow extends React.Component {
 
@@ -12,22 +13,6 @@ class KeyValueRow extends React.Component {
       population: e.target.value
     })
   }
-
-  // changeHandlerX(e) {
-  //   this.props.updateData({
-  //     title: this.props.title,
-  //     x: e.target.value,
-  //     y: this.props.y
-  //   })
-  // }
-  //
-  // changeHandlerY(e) {
-  //   this.props.updateData({
-  //     title: this.props.title,
-  //     x: this.props.x,
-  //     y: e.target.value
-  //   })
-  // }
 
   render() {
     const style = {
@@ -46,32 +31,17 @@ class KeyValueRow extends React.Component {
         </td>
       </tr>
     )
-
-    // return(
-    //   <tr key={this.props.title}>
-    //     <td style={style.cell}>{this.props.title} </td>
-    //     <td style={style.cell}>
-    //       <input type="text" value={parseInt(this.props.x)}
-    //         onChange={this.changeHandlerX.bind(this)} />
-    //     </td>
-    //     <td style={style.cell}>
-    //       <input type="text" value={parseInt(this.props.y)}
-    //         onChange={this.changeHandlerY.bind(this)} />
-    //     </td>
-    //   </tr>
-    // )
   }
-}
 
+}
 
 class KeyValueTable extends React.Component {
 
   render() {
     const style = {
       container: {
-        width:"30%",
-        display:"inline-block",
-        verticalAlign: "top",
+        width: "30%",
+        float: "left",
         padding: "20px",
       }
     }
@@ -83,14 +53,6 @@ class KeyValueTable extends React.Component {
           updateData={this.props.updateData.bind(this)} />
       )
     }
-    // let rows = []
-    // for (let dataPoint of this.props.data) {
-    //   rows.push(
-    //     <KeyValueRow key={dataPoint[this.props.titleKey]+"-"+dataPoint[this.props.xKey]}
-    //       title={dataPoint[this.props.titleKey]} x={dataPoint[this.props.xKey]} y={dataPoint[this.props.yKey]}
-    //       updateData={this.props.updateData.bind(this)} />
-    //   )
-    // }
 
     return (
       <div className="container" style={style.container}>
@@ -105,6 +67,70 @@ class KeyValueTable extends React.Component {
 
 }
 
+class ScaleButton extends React.Component {
+
+  clickHandler() {
+    this.props.updateScale({
+      scale: this.props.title
+    })
+  }
+
+  render() {
+    let style = {
+      button: {
+        width: "50%",
+        float: "left",
+        padding: "10px",
+        textAlign: "center",
+        color: "#FFFFFF",
+        backgroundColor: this.props.color,
+      }
+    }
+
+    return (
+      <div className="button" style={style.button} onClick={this.clickHandler.bind(this)}>{this.props.title}</div>
+    )
+  }
+
+}
+
+class ScaleSwitch extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      scale: "log"
+    }
+  }
+
+  render() {
+    const style = {
+      switch: {
+        width: "300px",
+        float: "left",
+      }
+    }
+
+    let types = ["default", "log"]
+    let buttons = []
+    let color = ""
+    for (var i=0; i < types.length; i++) {
+      if (types[i] == this.props.scale) {
+        color = "#00AA00"
+      } else {
+        color = "#444444"
+      }
+      buttons.push(<ScaleButton title={types[i]} updateScale={this.props.updateScale.bind(this)} color={color}/>)
+    }
+
+    return(
+      <div className="switch" style={style.switch}>
+        {buttons}
+      </div>
+    )
+  }
+
+}
 
 class ExampleApp extends React.Component {
 
@@ -161,24 +187,13 @@ class ExampleApp extends React.Component {
         {location: "India", year: 2014, population: 10},
         {location: "India", year: 2015, population: 100},
         {location: "India", year: 2016, population: 10000},
-      ]
+      ],
+      scale: "log",
+      color: new ColorPalette(new Color(255,0,0), new Color(0,0,255), 3)
     }
   }
 
   updateData(mutatedObject) {
-    // let mutatedData = JSON.parse(JSON.stringify(this.state.data))
-    // let chosenIndex = -1
-    // for (let index=0; index < mutatedData.length; index++) {
-    //   if (mutatedData[index].title === mutatedObject.title && mutatedData[index].x == mutatedObject.x) {
-    //     chosenIndex = index
-    //     break
-    //   }
-    // }
-    // if (chosenIndex > -1) {
-    //   mutatedData[chosenIndex].x = parseFloat(mutatedObject.x)
-    //   mutatedData[chosenIndex].y = parseFloat(mutatedObject.y)
-    //   this.setState({data: mutatedData})
-    // }
     let mutatedData = JSON.parse(JSON.stringify(this.state.data))
     let chosenIndex = -1
     for (let index=0; index < mutatedData.length; index++) {
@@ -193,14 +208,18 @@ class ExampleApp extends React.Component {
     }
   }
 
+  updateScale(mutatedObject) {
+    this.setState({scale: mutatedObject.scale})
+  }
+
   render() {
     return(
       <div className="container">
         <h1 style={{textAlign: "center"}}> Ent: Linecharts for react </h1>
         <KeyValueTable data={this.state.data} updateData={this.updateData.bind(this)} />
-        <div style={{width:"70%", display:"inline-block"}}>
-          {/* <LineChart data={this.state.data} titleKey="location" xKey="year" yKey="population"/> */}
-          <LineChart data={this.state.data} titleKey="location" xKey="year" yKey="population" scale="log"/>
+        <ScaleSwitch scale={this.state.scale} updateScale={this.updateScale.bind(this)} />
+        <div style={{width:"70%", float:"right"}}>
+          <LineChart data={this.state.data} titleKey="location" xKey="year" yKey="population" scale={this.state.scale} color={this.state.color}/>
         </div>
       </div>
     )

@@ -1,17 +1,20 @@
 import React from "react"
 import Line from "./Line.jsx"
 import Axis from "./Axis.jsx"
+import Color from "./Color.js"
+import ColorPalette from "./ColorPalette.js"
 
-const palette = [
-  "#4cab92",
-  "#ca0004",
-  "#003953",
-  "#eccc00",
-  "#9dbd5f",
-  "#0097bf",
-  "#005c7a",
-  "#fc6000"
-]
+// const defPalette = [
+//   "#4cab92",
+//   "#ca0004",
+//   "#003953",
+//   "#eccc00",
+//   "#9dbd5f",
+//   "#0097bf",
+//   "#005c7a",
+//   "#fc6000"
+// ]
+const defPalette = new ColorPalette(new Color(76,171,146), new Color(252,96,0), 8)
 
 class LineSeries extends React.Component {
 
@@ -57,6 +60,9 @@ class LineChart extends React.Component {
     let chartX = buffer
     let chartY = buffer
 
+    let color = this.props.color
+    let palette = color.palette
+
     let sets = []
     let setTitles = []
     for (let member of data) {
@@ -88,7 +94,7 @@ class LineChart extends React.Component {
       })
 
       series.push(
-        <LineSeries points={sets[i]} numpoints={sets[i].length} color={palette[i%palette.length]} />
+        <LineSeries points={sets[i]} numpoints={sets[i].length} color={palette[i%palette.length].rgb()} />
       )
     }
 
@@ -111,7 +117,8 @@ class LineChart extends React.Component {
 LineChart.defaultProps = {
   width: 800,
   height: 600,
-  scale: "default"
+  scale: "default",
+  color: defPalette
 }
 
 export default LineChart

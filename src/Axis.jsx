@@ -53,16 +53,20 @@ class Axis extends React.Component {
       let yVal = 0
       if (scale == "log") {
         yVal = Math.log10(minY) + j*ySpace*(Math.log10(maxY)-Math.log10(minY))/height
-        // yVal = Math.pow(10, (Math.log10(minY) + j*ySpace*(Math.log10(maxY)-Math.log10(minY))/height))
+        yAxis.push(
+          <text x={20} y={height+y-j*ySpace+5} fontSize={10}>
+            {"10^".concat(yVal.toFixed(2))}
+          </text>
+        )
       } else {
         yVal = minY + j*ySpace*(maxY-minY)/height
+        yAxis.push(
+          <text x={20} y={height+y-j*ySpace+5} fontSize={10}>
+            {yVal}
+          </text>
+        )
       }
-      yAxis.push(
-        <text x={20} y={height+y-j*ySpace+5} fontSize={10}>
-          {"10^".concat(yVal.toFixed(2))}
-          {/* {yVal} */}
-        </text>
-      )
+
     }
 
     let axis = []
