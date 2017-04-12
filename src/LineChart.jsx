@@ -1,6 +1,7 @@
 import React from "react"
 import Line from "./Line.jsx"
 import Axis from "./Axis.jsx"
+import Legend from "./Legend.jsx"
 import Color from "./Color.js"
 import ColorPalette from "./ColorPalette.js"
 
@@ -14,7 +15,7 @@ import ColorPalette from "./ColorPalette.js"
 //   "#005c7a",
 //   "#fc6000"
 // ]
-const defPalette = new ColorPalette(new Color(76,171,146), new Color(252,96,0), 8)
+const defPalette = new ColorPalette(new Color(75,255,255), new Color(255,0,150), 6)
 
 class LineSeries extends React.Component {
 
@@ -56,12 +57,21 @@ class LineChart extends React.Component {
     let buffer = 75
 
     let chartWidth = width - 2*buffer
-    let chartHeight = height - 2*buffer
+    let chartHeight = height - 2*buffer - 30
     let chartX = buffer
-    let chartY = buffer
+    let chartY = buffer + 30
 
     let color = this.props.color
     let palette = color.palette
+
+    let series = []
+
+    series.push(
+      <Axis x={chartX} y={chartY} width={chartWidth} height={chartHeight}
+        scale={scale} xLabel={xKey} yLabel={yKey}
+        xTicks={4} yTicks={Math.round((chartHeight)/50)+1}
+        maxX={maxX} minX={minX} maxY={maxY} minY={minY} />
+    )
 
     let sets = []
     let setTitles = []
@@ -86,23 +96,19 @@ class LineChart extends React.Component {
       }
     }
 
-    let series = []
     let numsets = setTitles.length
     for (var i=0; i < numsets; i++) {
       sets[i].sort(function(a, b) {
         return a[0] - b[0]
       })
-
       series.push(
         <LineSeries points={sets[i]} numpoints={sets[i].length} color={palette[i%palette.length].rgb()} />
       )
     }
 
     series.push(
-      <Axis x={chartX} y={chartY} width={chartWidth} height={chartHeight}
-        scale={scale} xLabel={xKey} yLabel={yKey}
-        xTicks={7} yTicks={Math.round((chartHeight)/50)+1}
-        maxX={maxX} minX={minX} maxY={maxY} minY={minY} />
+      <Legend x={chartX} y={buffer} width={chartWidth}
+        titles={setTitles} color={color} />
     )
 
     return(

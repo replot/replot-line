@@ -187,9 +187,21 @@ class ExampleApp extends React.Component {
         {location: "India", year: 2014, population: 10},
         {location: "India", year: 2015, population: 100},
         {location: "India", year: 2016, population: 10000},
+        {location: "China", year: 2013, population: 1000000},
+        {location: "China", year: 2014, population: 10000},
+        {location: "China", year: 2015, population: 100000},
+        {location: "China", year: 2016, population: 1000},
+        {location: "Russia", year: 2013, population: 100},
+        {location: "Russia", year: 2014, population: 1000},
+        {location: "Russia", year: 2015, population: 10000},
+        {location: "Russia", year: 2016, population: 100000},
+        {location: "Antarctica", year: 2013, population: 0.0001},
+        {location: "Antarctica", year: 2014, population: 0.01},
+        {location: "Antarctica", year: 2015, population: 0.001},
+        {location: "Antarctica", year: 2016, population: 0.0001},
       ],
       scale: "log",
-      color: new ColorPalette(new Color(255,0,0), new Color(0,0,255), 3)
+      // color: new ColorPalette(new Color(255,0,0), new Color(0,0,255), 3)
     }
   }
 

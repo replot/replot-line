@@ -27,7 +27,8 @@ class Line extends React.Component {
                 y1={interpolatingStyles.y1}
                 x2={interpolatingStyles.x2}
                 y2={interpolatingStyles.y2}
-                stroke={this.props.stroke} />
+                stroke={this.props.stroke}
+                strokeWidth={2} />
             </g>
         }
       </Motion>

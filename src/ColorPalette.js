@@ -7,11 +7,18 @@ class ColorPalette {
     let dgreen = color2.green - color1.green
     let dblue = color2.blue - color1.blue
 
+    let slopeRed = Math.abs(dred / 255)
+    let slopeGreen = Math.abs(dgreen / 255)
+    let slopeBlue = Math.abs(dblue / 255)
+
+    let end1 = color1.endpoint(slopeRed, slopeGreen, slopeBlue)
+    let end2 = color2.endpoint(slopeRed, slopeGreen, slopeBlue)
+
     let palette = []
     for (var i=0; i < numcolors; i++) {
-      let r = color1.red + i*dred/numcolors
-      let g = color1.green + i*dgreen/numcolors
-      let b = color1.blue + i*dblue/numcolors
+      let r = end1.red + i*(end2.red - end1.red)/numcolors
+      let g = end1.green + i*(end2.green - end1.green)/numcolors
+      let b = end1.blue + i*(end2.blue - end1.blue)/numcolors
       let c = new Color(r,g,b)
       palette.push(c)
     }
