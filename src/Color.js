@@ -6,10 +6,12 @@ class Color {
     this.blue = blue
   }
 
-  // string rgb constructor
-  // string hex val constructor
   rgb() {
-    return "rgb("+String(Math.round(this.red))+","+String(Math.round(this.green))+","+String(Math.round(this.blue))+")"
+    let str = "rgb("
+    str += String(Math.round(this.red)) + ","
+    str += String(Math.round(this.green)) + ","
+    str += String(Math.round(this.blue)) + ")"
+    return str
   }
 
   endpoint(slopeRed, slopeGreen, slopeBlue) {

@@ -5,16 +5,6 @@ import Legend from "./Legend.jsx"
 import Color from "./Color.js"
 import ColorPalette from "./ColorPalette.js"
 
-// const defPalette = [
-//   "#4cab92",
-//   "#ca0004",
-//   "#003953",
-//   "#eccc00",
-//   "#9dbd5f",
-//   "#0097bf",
-//   "#005c7a",
-//   "#fc6000"
-// ]
 const defPalette = new ColorPalette(new Color(75,255,255), new Color(255,0,150), 6)
 
 class LineSeries extends React.Component {
@@ -44,6 +34,7 @@ class LineChart extends React.Component {
     let xKey = this.props.xKey
     let yKey = this.props.yKey
     let scale = this.props.scale
+    let grid = this.props.grid
 
     let xvals = data.map(function(d) {return parseFloat(d[xKey])})
     let yvals = data.map(function(d) {return parseFloat(d[yKey])})
@@ -68,7 +59,7 @@ class LineChart extends React.Component {
 
     series.push(
       <Axis x={chartX} y={chartY} width={chartWidth} height={chartHeight}
-        scale={scale} xLabel={xKey} yLabel={yKey}
+        scale={scale} grid={grid} xLabel={xKey} yLabel={yKey}
         xTicks={4} yTicks={Math.round((chartHeight)/50)+1}
         maxX={maxX} minX={minX} maxY={maxY} minY={minY} />
     )
@@ -78,15 +69,17 @@ class LineChart extends React.Component {
     for (let member of data) {
       let key = setTitles.indexOf(member[titleKey])
 
-      let modX = 0
-      let modY = 0
+      let widthRatio = (parseFloat(member[xKey])-minX) / (maxX-minX)
+      let modX = widthRatio*chartWidth + chartX
+
+      let heightRatio = 0
       if (scale == "log") {
-        modX = (parseFloat(member[xKey])-minX) * chartWidth / (maxX-minX) + chartX
-        modY = chartHeight - (Math.log10(parseFloat(member[yKey]))-Math.log10(minY)) * (chartHeight) / (Math.log10(maxY)-Math.log10(minY)) + chartY
+        let logDiff = (Math.log10(parseFloat(member[yKey]))-Math.log10(minY))
+        heightRatio = logDiff / (Math.log10(maxY)-Math.log10(minY))
       } else {
-        modX = (parseFloat(member[xKey])-minX) * chartWidth / (maxX-minX) + chartX
-        modY = chartHeight - (parseFloat(member[yKey])-minY) * (chartHeight) / (maxY-minY) + chartY
+        heightRatio = (parseFloat(member[yKey])-minY) / (maxY-minY)
       }
+      let modY = chartHeight - heightRatio*chartHeight + chartY
 
       if (key != -1) {
         sets[key].push([modX, modY])
@@ -102,7 +95,8 @@ class LineChart extends React.Component {
         return a[0] - b[0]
       })
       series.push(
-        <LineSeries points={sets[i]} numpoints={sets[i].length} color={palette[i%palette.length].rgb()} />
+        <LineSeries points={sets[i]} numpoints={sets[i].length}
+          color={palette[i%palette.length].rgb()} />
       )
     }
 
@@ -124,6 +118,7 @@ LineChart.defaultProps = {
   width: 800,
   height: 600,
   scale: "default",
+  grid: "default",
   color: defPalette
 }
 

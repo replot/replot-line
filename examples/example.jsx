@@ -1,8 +1,6 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import LineChart from "../src/index.jsx"
-import Color from "../src/Color.js"
-import ColorPalette from "../src/ColorPalette.js"
 
 class KeyValueRow extends React.Component {
 
@@ -88,7 +86,10 @@ class ScaleButton extends React.Component {
     }
 
     return (
-      <div className="button" style={style.button} onClick={this.clickHandler.bind(this)}>{this.props.title}</div>
+      <div className="button" style={style.button}
+        onClick={this.clickHandler.bind(this)}>
+        {this.props.title}
+      </div>
     )
   }
 
@@ -120,7 +121,10 @@ class ScaleSwitch extends React.Component {
       } else {
         color = "#444444"
       }
-      buttons.push(<ScaleButton title={types[i]} updateScale={this.props.updateScale.bind(this)} color={color}/>)
+      buttons.push(
+        <ScaleButton title={types[i]}
+        updateScale={this.props.updateScale.bind(this)} color={color} />
+      )
     }
 
     return(
@@ -137,43 +141,6 @@ class ExampleApp extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-    //   data: [
-    //     {location: "Global", year: 2010, population: 6916183482},
-    //     {location: "Global", year: 2011, population: 6997998760},
-    //     {location: "Global", year: 2012, population: 7080072417},
-    //     {location: "Global", year: 2013, population: 7162119434},
-    //     {location: "Global", year: 2014, population: 7243784121},
-    //     {location: "Global", year: 2015, population: 7324782225},
-    //     {location: "Global", year: 2016, population: 7404976783},
-    //     {location: "US", year: 2010, population: 310559000},
-    //     {location: "US", year: 2011, population: 312917100},
-    //     {location: "US", year: 2012, population: 315219700},
-    //     {location: "US", year: 2013, population: 317474000},
-    //     {location: "US", year: 2014, population: 319849000},
-    //     {location: "US", year: 2015, population: 322060100},
-    //     {location: "US", year: 2016, population: 324304400},
-    //     {location: "India", year: 2010, population: 1186000000},
-    //     {location: "India", year: 2011, population: 1210570000},
-    //     {location: "India", year: 2012, population: 1213370000},
-    //     {location: "India", year: 2013, population: 1223000000},
-    //     {location: "India", year: 2014, population: 1267000000},
-    //     {location: "India", year: 2015, population: 1283000000},
-    //     {location: "India", year: 2016, population: 1299000000},
-    //   ]
-      // data: [
-      //   {location: "Global", year: 2013, population: 10},
-      //   {location: "Global", year: 2014, population: 9},
-      //   {location: "Global", year: 2015, population: 8},
-      //   {location: "Global", year: 2016, population: 7},
-      //   {location: "US", year: 2013, population: 3},
-      //   {location: "US", year: 2014, population: 4},
-      //   {location: "US", year: 2015, population: 4},
-      //   {location: "US", year: 2016, population: 3},
-      //   {location: "India", year: 2013, population: 0},
-      //   {location: "India", year: 2014, population: 1},
-      //   {location: "India", year: 2015, population: 5},
-      //   {location: "India", year: 2016, population: 6},
-      // ]
       data: [
         {location: "Global", year: 2013, population: 10000000},
         {location: "Global", year: 2014, population: 1000000},
@@ -200,8 +167,7 @@ class ExampleApp extends React.Component {
         {location: "Antarctica", year: 2015, population: 0.001},
         {location: "Antarctica", year: 2016, population: 0.0001},
       ],
-      scale: "log",
-      // color: new ColorPalette(new Color(255,0,0), new Color(0,0,255), 3)
+      scale: "log"
     }
   }
 

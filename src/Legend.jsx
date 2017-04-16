@@ -1,7 +1,5 @@
 import React from "react"
 import Line from "./Line.jsx"
-import Color from "./Color.js"
-import ColorPalette from "./ColorPalette.js"
 
 class Legend extends React.Component {
 
@@ -18,7 +16,8 @@ class Legend extends React.Component {
     let legend = []
     for (var i=0; i < titles.length; i++) {
       legend.push(
-        <Line x1={x+i*segment} y1={y} x2={x+i*segment+50} y2={y} stroke={palette[i%palette.length].rgb()} />
+        <Line x1={x+i*segment} y1={y} x2={x+i*segment+50} y2={y}
+          stroke={palette[i%palette.length].rgb()} />
       )
       legend.push(
         <text x={x+i*segment+55} y={y+5} fontSize={10}>{titles[i]}</text>
