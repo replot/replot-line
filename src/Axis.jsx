@@ -15,10 +15,17 @@ class XTickLabel extends React.Component {
 
     let rotation = "rotate("+String(tilt)+","+String(x)+","+String(y+size)+")"
 
+    let printVal = value
+    if (value >= 10000) {
+      printVal = Humanize.compactInteger(value,2)
+    } else {
+      printVal = value.toFixed(2)
+    }
+
     return(
       <g>
         <text x={x} y={y+2*size} fontSize={size} transform={rotation}>
-          {value.toFixed(2)}
+          {printVal}
         </text>
       </g>
     )
@@ -91,6 +98,8 @@ class YTickLabel extends React.Component {
     let printVal = value
     if (value >= 1) {
       printVal = Humanize.compactInteger(value,2)
+    } else {
+      printVal = value.toFixed(2)
     }
 
     return (

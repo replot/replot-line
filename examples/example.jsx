@@ -193,11 +193,13 @@ class ExampleApp extends React.Component {
   render() {
     return(
       <div className="container">
-        <h1 style={{textAlign: "center"}}> Ent: Linecharts for react </h1>
+        <h1 style={{textAlign: "center"}}> Linecharts for react </h1>
         <KeyValueTable data={this.state.data} updateData={this.updateData.bind(this)} />
         <ScaleSwitch scale={this.state.scale} updateScale={this.updateScale.bind(this)} />
         <div style={{width:"70%", float:"right"}}>
-          <LineChart data={this.state.data} titleKey="location" xKey="year" yKey="population" scale={this.state.scale} color={this.state.color}/>
+          <LineChart data={this.state.data} titleKey="location"
+            xKey="year" yKey="population" scale={this.state.scale}
+            grid="default" legend="default" color={this.state.color} />
         </div>
       </div>
     )
