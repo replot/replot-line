@@ -35,6 +35,7 @@ class LineChart extends React.Component {
     let yKey = this.props.yKey
     let scale = this.props.scale
     let grid = this.props.grid
+    let legend = this.props.legend
 
     let xvals = data.map(function(d) {return parseFloat(d[xKey])})
     let yvals = data.map(function(d) {return parseFloat(d[yKey])})
@@ -100,10 +101,12 @@ class LineChart extends React.Component {
       )
     }
 
-    series.push(
-      <Legend x={chartX} y={buffer} width={chartWidth}
-        titles={setTitles} color={color} />
-    )
+    if (legend == "default") {
+      series.push(
+        <Legend x={chartX} y={buffer} width={chartWidth}
+          titles={setTitles} color={color} />
+      )
+    }
 
     return(
       <svg width={width} height={height}>
@@ -119,6 +122,7 @@ LineChart.defaultProps = {
   height: 600,
   scale: "default",
   grid: "default",
+  legend: "default",
   color: defPalette
 }
 
