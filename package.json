@@ -1,7 +1,7 @@
 {
-  "name": "react-ent",
-  "version": "15.4.2",
-  "description": "SVG linechart react component",
+  "name": "replot-line",
+  "version": "0.1.0",
+  "description": "Replot line chart React component",
   "main": "index.js",
   "directories": {
     "doc": "docs",
