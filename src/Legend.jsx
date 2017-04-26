@@ -4,23 +4,18 @@ import Line from "./Line.jsx"
 class Legend extends React.Component {
 
   render() {
-    let x = this.props.x
-    let y = this.props.y
-    let width = this.props.width
-    let titles = this.props.titles
-    let color = this.props.color
-    let palette = color.palette
-
-    let segment = width / titles.length
+    let palette = this.props.color.palette
+    let segment = this.props.width / this.props.titles.length
 
     let legend = []
-    for (var i=0; i < titles.length; i++) {
+    for (var i=0; i < this.props.titles.length; i++) {
       legend.push(
-        <Line x1={x+i*segment} y1={y} x2={x+i*segment+50} y2={y}
+        <Line x1={this.props.x+i*segment} y1={this.props.y}
+          x2={this.props.x+i*segment+50} y2={this.props.y}
           stroke={palette[i%palette.length].rgb()} />
       )
       legend.push(
-        <text x={x+i*segment+55} y={y+5} fontSize={10}>{titles[i]}</text>
+        <text x={this.props.x+i*segment+55} y={this.props.y+5} fontSize={10}>{this.props.titles[i]}</text>
       )
     }
 

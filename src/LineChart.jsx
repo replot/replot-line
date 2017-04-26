@@ -30,36 +30,31 @@ class LineChart extends React.Component {
 
   render() {
     let data = JSON.parse(JSON.stringify(this.props.data))
-    let titleKey = this.props.titleKey
     let xKey = this.props.xKey
     let yKey = this.props.yKey
-    let scale = this.props.scale
-    let grid = this.props.grid
-
     let xvals = data.map(function(d) {return parseFloat(d[xKey])})
     let yvals = data.map(function(d) {return parseFloat(d[yKey])})
+
     let maxX = Math.max.apply(Math, xvals)
     let minX = Math.min.apply(Math, xvals)
     let maxY = Math.max.apply(Math, yvals)
     let minY = Math.min.apply(Math, yvals)
 
-    let width = this.props.width
-    let height = this.props.height
     let buffer = 75
 
-    let chartWidth = width - 2*buffer
-    let chartHeight = height - 2*buffer - 30
+    let chartWidth = this.props.width - 2*buffer
+    let chartHeight = this.props.height - 2*buffer - 30
     let chartX = buffer
     let chartY = buffer + 30
 
-    let color = this.props.color
-    let palette = color.palette
+    let palette = this.props.color.palette
 
     let series = []
 
     series.push(
       <Axis x={chartX} y={chartY} width={chartWidth} height={chartHeight}
-        scale={scale} grid={grid} xLabel={xKey} yLabel={yKey}
+        scale={this.props.scale} grid={this.props.grid}
+        xLabel={this.props.xKey} yLabel={this.props.yKey}
         xTicks={4} yTicks={Math.round((chartHeight)/50)+1}
         maxX={maxX} minX={minX} maxY={maxY} minY={minY} />
     )
@@ -67,24 +62,24 @@ class LineChart extends React.Component {
     let sets = []
     let setTitles = []
     for (let member of data) {
-      let key = setTitles.indexOf(member[titleKey])
+      let key = setTitles.indexOf(member[this.props.titleKey])
 
-      let widthRatio = (parseFloat(member[xKey])-minX) / (maxX-minX)
+      let widthRatio = (parseFloat(member[this.props.xKey])-minX) / (maxX-minX)
       let modX = widthRatio*chartWidth + chartX
 
       let heightRatio = 0
-      if (scale == "log") {
-        let logDiff = (Math.log10(parseFloat(member[yKey]))-Math.log10(minY))
+      if (this.props.scale == "log") {
+        let logDiff = (Math.log10(parseFloat(member[this.props.yKey]))-Math.log10(minY))
         heightRatio = logDiff / (Math.log10(maxY)-Math.log10(minY))
       } else {
-        heightRatio = (parseFloat(member[yKey])-minY) / (maxY-minY)
+        heightRatio = (parseFloat(member[this.props.yKey])-minY) / (maxY-minY)
       }
       let modY = chartHeight - heightRatio*chartHeight + chartY
 
       if (key != -1) {
         sets[key].push([modX, modY])
       } else {
-        setTitles.push(member[titleKey])
+        setTitles.push(member[this.props.titleKey])
         sets.push([[modX, modY]])
       }
     }
@@ -102,11 +97,11 @@ class LineChart extends React.Component {
 
     series.push(
       <Legend x={chartX} y={buffer} width={chartWidth}
-        titles={setTitles} color={color} />
+        titles={setTitles} color={this.props.color} />
     )
 
     return(
-      <svg width={width} height={height}>
+      <svg width={this.props.width} height={this.props.height}>
         {series}
       </svg>
     )

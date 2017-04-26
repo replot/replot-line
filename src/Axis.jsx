@@ -7,18 +7,12 @@ const gridColor = "rgb(225,225,225)"
 class XTickLabel extends React.Component {
 
   render() {
-    let x = this.props.x
-    let y = this.props.y
-    let value = this.props.value
-    let size = this.props.size
-    let tilt = this.props.tilt
-
-    let rotation = "rotate("+String(tilt)+","+String(x)+","+String(y+size)+")"
+    let rotation = `rotate(${this.props.tilt},${this.props.x},${this.props.y+this.props.size})`
 
     return(
       <g>
-        <text x={x} y={y+2*size} fontSize={size} transform={rotation}>
-          {value.toFixed(2)}
+        <text x={this.props.x} y={this.props.y+2*this.props.size} fontSize={this.props.size} transform={rotation}>
+          {this.props.value.toFixed(2)}
         </text>
       </g>
     )
@@ -29,15 +23,10 @@ class XTickLabel extends React.Component {
 class XTick extends React.Component {
 
   render() {
-    let x = this.props.x
-    let y = this.props.y
-    let value = this.props.value
-    let length = this.props.length
-
     return(
       <g>
-        <Line x1={x} y1={y} x2={x} y2={y+length} />
-        <XTickLabel x={x} y={y} value={value} size={10} tilt={45} />
+        <Line x1={this.props.x} y1={this.props.y} x2={this.props.x} y2={this.props.y+this.props.length} />
+        <XTickLabel x={this.props.x} y={this.props.y} value={this.props.value} size={10} tilt={45} />
       </g>
     )
   }
@@ -47,29 +36,23 @@ class XTick extends React.Component {
 class XAxis extends React.Component {
 
   render() {
-    let x = this.props.x
-    let y = this.props.y
-    let width = this.props.width
-    let height = this.props.height
-    let xLabel = this.props.xLabel
-    let xTicks = this.props.xTicks
-    let maxX = this.props.maxX
-    let minX = this.props.minX
-
     let xAxis = []
     xAxis.push(
-      <Line x1={x} y1={y+height} x2={x+width} y2={y+height} />
+      <Line x1={this.props.x} y1={this.props.y+this.props.height}
+        x2={this.props.x+this.props.width} y2={this.props.y+this.props.height} />
     )
     xAxis.push(
-      <text x={x+width/2} y={y+height+60} fontSize={10}>{xLabel}</text>
+      <text x={this.props.x+this.props.width/2} y={this.props.y+this.props.height+60} fontSize={10}>
+        {this.props.xLabel}
+      </text>
     )
 
-    let xSpace = width / (xTicks - 1)
-    for (var i=0; i < xTicks; i++) {
-      let valueRatio = (maxX - minX) / (xTicks - 1)
-      let xVal = minX + i * valueRatio
+    let xSpace = this.props.width / (this.props.xTicks - 1)
+    for (var i=0; i < this.props.xTicks; i++) {
+      let valueRatio = (this.props.maxX - this.props.minX) / (this.props.xTicks - 1)
+      let xVal = this.props.minX + i * valueRatio
       xAxis.push(
-        <XTick x={x+i*xSpace} y={y+height} value={xVal} length={10} />
+        <XTick x={this.props.x+i*xSpace} y={this.props.y+this.props.height} value={xVal} length={10} />
       )
     }
 
@@ -91,6 +74,8 @@ class YTickLabel extends React.Component {
     let printVal = value
     if (value >= 1) {
       printVal = Humanize.compactInteger(value,2)
+    } else {
+      printVal = value.toFixed(4)
     }
 
     return (
@@ -107,15 +92,11 @@ class YTickLabel extends React.Component {
 class YTick extends React.Component {
 
   render() {
-    let x = this.props.x
-    let y = this.props.y
-    let value = this.props.value
-    let length = this.props.length
-
     return(
       <g>
-        <Line x1={x} y1={y} x2={x-length} y2={y} />
-        <YTickLabel x={x-50} y={y} value={value} size={10} />
+        <Line x1={this.props.x} y1={this.props.y}
+          x2={this.props.x-this.props.length} y2={this.props.y} />
+        <YTickLabel x={this.props.x-50} y={this.props.y} value={this.props.value} size={10} />
       </g>
     )
   }
@@ -125,48 +106,39 @@ class YTick extends React.Component {
 class YAxis extends React.Component {
 
   render() {
-    let x = this.props.x
-    let y = this.props.y
-    let width = this.props.width
-    let height = this.props.height
-    let yLabel = this.props.yLabel
-    let yTicks = this.props.yTicks
-    let maxY = this.props.maxY
-    let minY = this.props.minY
-    let scale = this.props.scale
-    let grid = this.props.grid
-
     let yAxis = []
     yAxis.push(
-      <Line x1={x} y1={y} x2={x} y2={y+height} />
+      <Line x1={this.props.x} y1={this.props.y}
+        x2={this.props.x} y2={this.props.y+this.props.height} />
     )
-    let rotation = "rotate(-90,10,"+String(y+height/2)+")"
+    let rotation = "rotate(-90,10,"+String(this.props.y+this.props.height/2)+")"
     yAxis.push(
-      <text x={10} y={y+height/2} fontSize={10} transform={rotation}>
-        {yLabel}
+      <text x={10} y={this.props.y+this.props.height/2} fontSize={10} transform={rotation}>
+        {this.props.yLabel}
       </text>
     )
 
-    let ySpace = height / (yTicks - 1)
-    for (var i=0; i < yTicks; i++) {
-      let tickPos = height+y-i*ySpace
+    let ySpace = this.props.height / (this.props.yTicks - 1)
+    for (var i=0; i < this.props.yTicks; i++) {
+      let tickPos = this.props.height+this.props.y-i*ySpace
 
       let yVal = 0
-      if (scale == "log") {
-        let valueRatio = (Math.log10(maxY) - Math.log10(minY)) / (yTicks - 1)
-        let pow10 = Math.log10(minY) + i * valueRatio
+      if (this.props.scale == "log") {
+        let valueRatio = (Math.log10(this.props.maxY) - Math.log10(this.props.minY)) / (this.props.yTicks - 1)
+        let pow10 = Math.log10(this.props.minY) + i * valueRatio
         yVal = Math.pow(10, pow10)
       } else {
-        yVal = minY + i*(maxY-minY)/(yTicks-1)
+        yVal = this.props.minY + i*(this.props.maxY-this.props.minY)/(this.props.yTicks-1)
       }
       yAxis.push(
-        <YTick x={x} y={tickPos} value={yVal} length={10} />
+        <YTick x={this.props.x} y={tickPos} value={yVal} length={10} />
       )
 
-      if (grid == "default") {
+      if (this.props.grid == "default") {
         if (i != 0) {
           yAxis.push(
-            <Line x1={x} y1={tickPos} x2={x+width} y2={tickPos}
+            <Line x1={this.props.x} y1={tickPos}
+              x2={this.props.x+this.props.width} y2={tickPos}
               stroke={gridColor} />
           )
         }
@@ -183,34 +155,19 @@ class YAxis extends React.Component {
 class Axis extends React.Component {
 
   render() {
-    let x = this.props.x
-    let y = this.props.y
-    let width = this.props.width
-    let height = this.props.height
-    let scale = this.props.scale
-    let grid = this.props.grid
-    let xLabel = this.props.xLabel
-    let yLabel = this.props.yLabel
-    let xTicks = this.props.xTicks
-    let yTicks = this.props.yTicks
-    let maxX = this.props.maxX
-    let minX = this.props.minX
-    let maxY = this.props.maxY
-    let minY = this.props.minY
-
     let axis = []
 
     axis.push(
-      <XAxis x={x} y={y} width={width} height={height}
-        xLabel={xLabel} xTicks={xTicks}
-        maxX={maxX} minX={minX} />
+      <XAxis x={this.props.x} y={this.props.y} width={this.props.width} height={this.props.height}
+        xLabel={this.props.xLabel} xTicks={this.props.xTicks}
+        maxX={this.props.maxX} minX={this.props.minX} />
     )
 
     axis.push(
-      <YAxis x={x} y={y} width={width} height={height}
-        yLabel={yLabel} yTicks={yTicks}
-        maxY={maxY} minY={minY}
-        scale={scale} grid={grid}/>
+      <YAxis x={this.props.x} y={this.props.y} width={this.props.width} height={this.props.height}
+        yLabel={this.props.yLabel} yTicks={this.props.yTicks}
+        maxY={this.props.maxY} minY={this.props.minY}
+        scale={this.props.scale} grid={this.props.grid}/>
     )
 
     return(
