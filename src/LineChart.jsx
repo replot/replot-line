@@ -95,10 +95,12 @@ class LineChart extends React.Component {
       )
     }
 
-    series.push(
-      <Legend x={chartX} y={buffer} width={chartWidth}
-        titles={setTitles} color={this.props.color} />
-    )
+    if (this.props.legend == "default") {
+      series.push(
+        <Legend x={chartX} y={buffer} width={chartWidth}
+          titles={setTitles} color={this.props.color} />
+      )
+    }
 
     return(
       <svg width={this.props.width} height={this.props.height}>
@@ -114,6 +116,7 @@ LineChart.defaultProps = {
   height: 600,
   scale: "default",
   grid: "default",
+  legend: "default",
   color: defPalette
 }
 

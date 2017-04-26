@@ -66,21 +66,16 @@ class XAxis extends React.Component {
 class YTickLabel extends React.Component {
 
   render() {
-    let x = this.props.x
-    let y = this.props.y
-    let value = this.props.value
-    let size = this.props.size
-
-    let printVal = value
-    if (value >= 1) {
-      printVal = Humanize.compactInteger(value,2)
+    let printVal = this.props.value
+    if (this.props.value >= 1) {
+      printVal = Humanize.compactInteger(this.props.value,2)
     } else {
-      printVal = value.toFixed(4)
+      printVal = this.props.value.toFixed(4)
     }
 
     return (
       <g>
-        <text x={x} y={y+size/2} fontSize={size}>
+        <text x={this.props.x} y={this.props.y+this.props.size/2} fontSize={this.props.size}>
           {printVal}
         </text>
       </g>
