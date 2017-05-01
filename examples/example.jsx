@@ -112,7 +112,7 @@ class ScaleSwitch extends React.Component {
       }
     }
 
-    let types = ["default", "log"]
+    let types = ["lin", "log"]
     let buttons = []
     let color = ""
     for (var i=0; i < types.length; i++) {
@@ -122,7 +122,7 @@ class ScaleSwitch extends React.Component {
         color = "#444444"
       }
       buttons.push(
-        <ScaleButton title={types[i]}
+        <ScaleButton key={i} title={types[i]}
         updateScale={this.props.updateScale.bind(this)} color={color} />
       )
     }
@@ -196,10 +196,23 @@ class ExampleApp extends React.Component {
         <h1 style={{textAlign: "center"}}> Linecharts for react </h1>
         <KeyValueTable data={this.state.data} updateData={this.updateData.bind(this)} />
         <ScaleSwitch scale={this.state.scale} updateScale={this.updateScale.bind(this)} />
-        <div style={{width:"70%", float:"right"}}>
+        <div style={{width:"70%", float:"right", marginTop:"50px", padding:"50px", backgroundColor:"#323940"}}>
           <LineChart data={this.state.data} titleKey="location"
             xKey="year" yKey="population" scale={this.state.scale}
-            grid="default" legend="default" color={this.state.color} />
+            grid="default" legend="default" legendColor={"#FFFFFF"} color={this.state.color} axisColor={"#FFFFFF"}
+            yAxisLine="on" />
+        </div>
+        <div style={{width:"70%", float:"right", marginTop:"50px", padding:"50px"}}>
+          <LineChart data={this.state.data} titleKey="location"
+            xKey="year" yKey="population" scale={this.state.scale}
+            grid="default" legend="default" color={this.state.color}
+            yAxisLine="on" />
+        </div>
+        <div style={{width:"70%", float:"right", marginTop:"50px", padding:"50px", backgroundColor:"#b8485a"}}>
+          <LineChart data={this.state.data} titleKey="location"
+            xKey="year" yKey="population" scale={this.state.scale}
+            grid="default" legend="default" legendColor={"#FFFFFF"} color={this.state.color} axisColor={"#FFFFFF"}
+            yAxisLine="on" />
         </div>
       </div>
     )
