@@ -401,93 +401,6 @@ module.exports = exports['default'];
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactMotion = __webpack_require__(32);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Line = function (_React$Component) {
-  _inherits(Line, _React$Component);
-
-  function Line() {
-    _classCallCheck(this, Line);
-
-    return _possibleConstructorReturn(this, (Line.__proto__ || Object.getPrototypeOf(Line)).apply(this, arguments));
-  }
-
-  _createClass(Line, [{
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-
-      return _react2.default.createElement(
-        _reactMotion.Motion,
-        {
-          defaultStyle: {
-            x1: 0,
-            y1: 0,
-            x2: 0,
-            y2: 0
-          },
-          style: {
-            x1: (0, _reactMotion.spring)(this.props.x1, { stiffness: 120, damping: 26 }),
-            y1: (0, _reactMotion.spring)(this.props.y1, { stiffness: 120, damping: 26 }),
-            x2: (0, _reactMotion.spring)(this.props.x2, { stiffness: 120, damping: 26 }),
-            y2: (0, _reactMotion.spring)(this.props.y2, { stiffness: 120, damping: 26 })
-          }
-        },
-        function (interpolatingStyles) {
-          return _react2.default.createElement(
-            "g",
-            null,
-            _react2.default.createElement("line", {
-              x1: interpolatingStyles.x1,
-              y1: interpolatingStyles.y1,
-              x2: interpolatingStyles.x2,
-              y2: interpolatingStyles.y2,
-              stroke: _this2.props.stroke,
-              strokeWidth: 2 })
-          );
-        }
-      );
-    }
-  }]);
-
-  return Line;
-}(_react2.default.Component);
-
-Line.defaultProps = {
-  x1: 0,
-  y1: 0,
-  x2: 0,
-  y2: 0,
-  stroke: "rgb(0,0,0)"
-};
-
-exports.default = Line;
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
 /**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
@@ -514,7 +427,7 @@ module.exports = factory(
 
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -558,7 +471,7 @@ emptyFunction.thatReturnsArgument = function (arg) {
 module.exports = emptyFunction;
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -574,7 +487,7 @@ module.exports = emptyFunction;
 
 
 
-var emptyFunction = __webpack_require__(7);
+var emptyFunction = __webpack_require__(6);
 
 /**
  * Similar to invariant but only logs a warning if the condition is not met.
@@ -631,7 +544,7 @@ module.exports = warning;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {/**
@@ -668,7 +581,7 @@ if (process.env.NODE_ENV !== 'production') {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var now = __webpack_require__(3)
@@ -747,7 +660,7 @@ module.exports.polyfill = function() {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(35)))
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -772,7 +685,7 @@ function mapToZero(obj) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -809,7 +722,7 @@ function shouldStopAnimation(currentStyle, style, currentVelocity) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -858,7 +771,7 @@ module.exports = exports["default"];
 // array reference around.
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -879,7 +792,7 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -895,89 +808,7 @@ exports["default"] = {
 module.exports = exports["default"];
 
 /***/ }),
-/* 16 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-class Color {
-
-  constructor(red, green, blue) {
-    this.red = red
-    this.green = green
-    this.blue = blue
-  }
-
-  rgb() {
-    let str = "rgb("
-    str += String(Math.round(this.red)) + ","
-    str += String(Math.round(this.green)) + ","
-    str += String(Math.round(this.blue)) + ")"
-    return str
-  }
-
-  endpoint(slopeRed, slopeGreen, slopeBlue) {
-    let tredNeg = this.red / slopeRed
-    let tredPos = (255 - this.red) / slopeRed
-    if (slopeRed == 0) {
-      tredNeg = -1
-      tredPos = -1
-    }
-
-    let tgreenNeg = this.green / slopeGreen
-    let tgreenPos = (255 - this.green) / slopeGreen
-    if (slopeGreen == 0) {
-      tgreenNeg = -1
-      tgreenPos = -1
-    }
-
-    let tblueNeg = this.blue / slopeBlue
-    let tbluePos = (255 - this.blue) / slopeBlue
-    if (slopeBlue == 0) {
-      tblueNeg = -1
-      tbluePos = -1
-    }
-
-    let t = [tredNeg, tredPos, tgreenNeg, tgreenPos, tblueNeg, tbluePos]
-
-    let keys = []
-    for (var k=0; k < 6; k++) {
-      if (t[k] >= 0) {
-        keys.push(k)
-      }
-    }
-
-    if (keys.length == 0) {
-      return this
-    }
-
-    let tmin = t[keys[0]]
-    let tind = keys[0]
-    for (var ki=0; ki < keys.length; ki++) {
-      if (t[keys[ki]] < tmin) {
-        tind = keys[ki]
-        tmin = t[tind]
-      }
-    }
-
-    let sign = 1
-    if (tind % 2 == 0) {
-      sign = -1
-    }
-    let red = this.red + tmin * sign * slopeRed
-    let green = this.green + tmin * sign * slopeGreen
-    let blue = this.blue + tmin * sign * slopeBlue
-    let end = new Color(red, green, blue)
-    return end
-  }
-
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (Color);
-
-
-/***/ }),
-/* 17 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -993,25 +824,17 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Line = __webpack_require__(5);
+var _MotionLine = __webpack_require__(19);
 
-var _Line2 = _interopRequireDefault(_Line);
+var _MotionLine2 = _interopRequireDefault(_MotionLine);
 
-var _Axis = __webpack_require__(18);
+var _Axis = __webpack_require__(16);
 
 var _Axis2 = _interopRequireDefault(_Axis);
 
-var _Legend = __webpack_require__(19);
+var _Legend = __webpack_require__(17);
 
 var _Legend2 = _interopRequireDefault(_Legend);
-
-var _Color = __webpack_require__(16);
-
-var _Color2 = _interopRequireDefault(_Color);
-
-var _ColorPalette = __webpack_require__(36);
-
-var _ColorPalette2 = _interopRequireDefault(_ColorPalette);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1021,7 +844,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var defPalette = new _ColorPalette2.default(new _Color2.default(75, 255, 255), new _Color2.default(255, 0, 150), 6);
+var defPalette = ["#4cab92", "#ca0004", "#003953", "#eccc00", "#9dbd5f", "#0097bf", "#005c7a", "#fc6000"];
 
 var LineSeries = function (_React$Component) {
   _inherits(LineSeries, _React$Component);
@@ -1037,8 +860,10 @@ var LineSeries = function (_React$Component) {
     value: function render() {
       var lines = [];
       for (var i = 0; i < this.props.numpoints - 1; i++) {
-        lines.push(_react2.default.createElement(_Line2.default, { x1: this.props.points[i][0], y1: this.props.points[i][1],
+        lines.push(_react2.default.createElement(_MotionLine2.default, { key: "line" + i,
+          x1: this.props.points[i][0], y1: this.props.points[i][1],
           x2: this.props.points[i + 1][0], y2: this.props.points[i + 1][1],
+          xStart: this.props.points[0][0], yStart: this.props.points[0][1],
           stroke: this.props.color }));
       }
 
@@ -1066,41 +891,34 @@ var LineChart = function (_React$Component2) {
     key: "render",
     value: function render() {
       var data = JSON.parse(JSON.stringify(this.props.data));
-      var titleKey = this.props.titleKey;
       var xKey = this.props.xKey;
       var yKey = this.props.yKey;
-      var scale = this.props.scale;
-      var grid = this.props.grid;
-      var legend = this.props.legend;
-
       var xvals = data.map(function (d) {
         return parseFloat(d[xKey]);
       });
       var yvals = data.map(function (d) {
         return parseFloat(d[yKey]);
       });
+
       var maxX = Math.max.apply(Math, xvals);
       var minX = Math.min.apply(Math, xvals);
       var maxY = Math.max.apply(Math, yvals);
       var minY = Math.min.apply(Math, yvals);
 
-      var width = this.props.width;
-      var height = this.props.height;
       var buffer = 75;
 
-      var chartWidth = width - 2 * buffer;
-      var chartHeight = height - 2 * buffer - 30;
+      var chartWidth = this.props.width - 2 * buffer;
+      var chartHeight = this.props.height - 2 * buffer - 30;
       var chartX = buffer;
-      var chartY = buffer + 30;
-
-      var color = this.props.color;
-      var palette = color.palette;
+      var chartY = buffer;
 
       var series = [];
 
-      series.push(_react2.default.createElement(_Axis2.default, { x: chartX, y: chartY, width: chartWidth, height: chartHeight,
-        scale: scale, grid: grid, xLabel: xKey, yLabel: yKey,
-        xTicks: 4, yTicks: Math.round(chartHeight / 50) + 1,
+      series.push(_react2.default.createElement(_Axis2.default, { key: "axis", x: chartX, y: chartY, width: chartWidth, height: chartHeight,
+        color: this.props.axisColor, scale: this.props.scale, grid: this.props.grid,
+        xLabel: this.props.xKey, yLabel: this.props.yKey,
+        xSteps: this.props.xSteps, xTicks: this.props.xTicks, xAxisLine: this.props.xAxisLine,
+        yTicks: this.props.yTicks, ySteps: Math.round(chartHeight / 50) + 1, yAxisLine: this.props.yAxisLine,
         maxX: maxX, minX: minX, maxY: maxY, minY: minY }));
 
       var sets = [];
@@ -1113,24 +931,24 @@ var LineChart = function (_React$Component2) {
         for (var _iterator = data[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var member = _step.value;
 
-          var key = setTitles.indexOf(member[titleKey]);
+          var key = setTitles.indexOf(member[this.props.titleKey]);
 
-          var widthRatio = (parseFloat(member[xKey]) - minX) / (maxX - minX);
+          var widthRatio = (parseFloat(member[this.props.xKey]) - minX) / (maxX - minX);
           var modX = widthRatio * chartWidth + chartX;
 
           var heightRatio = 0;
-          if (scale == "log") {
-            var logDiff = Math.log10(parseFloat(member[yKey])) - Math.log10(minY);
+          if (this.props.scale == "log") {
+            var logDiff = Math.log10(parseFloat(member[this.props.yKey])) - Math.log10(minY);
             heightRatio = logDiff / (Math.log10(maxY) - Math.log10(minY));
           } else {
-            heightRatio = (parseFloat(member[yKey]) - minY) / (maxY - minY);
+            heightRatio = (parseFloat(member[this.props.yKey]) - minY) / (maxY - minY);
           }
           var modY = chartHeight - heightRatio * chartHeight + chartY;
 
           if (key != -1) {
             sets[key].push([modX, modY]);
           } else {
-            setTitles.push(member[titleKey]);
+            setTitles.push(member[this.props.titleKey]);
             sets.push([[modX, modY]]);
           }
         }
@@ -1154,18 +972,18 @@ var LineChart = function (_React$Component2) {
         sets[i].sort(function (a, b) {
           return a[0] - b[0];
         });
-        series.push(_react2.default.createElement(LineSeries, { points: sets[i], numpoints: sets[i].length,
-          color: palette[i % palette.length].rgb() }));
+        series.push(_react2.default.createElement(LineSeries, { key: "series" + i, points: sets[i], numpoints: sets[i].length,
+          color: this.props.color[i % this.props.color.length] }));
       }
 
-      if (legend == "default") {
-        series.push(_react2.default.createElement(_Legend2.default, { x: chartX, y: buffer, width: chartWidth,
-          titles: setTitles, color: color }));
+      if (this.props.legend == "default") {
+        series.push(_react2.default.createElement(_Legend2.default, { key: "legend", x: chartX, y: chartY + chartHeight + buffer, width: chartWidth,
+          titles: setTitles, color: this.props.color, legendColor: this.props.legendColor }));
       }
 
       return _react2.default.createElement(
         "svg",
-        { width: width, height: height },
+        { width: this.props.width, height: this.props.height },
         series
       );
     }
@@ -1178,15 +996,23 @@ LineChart.defaultProps = {
   width: 800,
   height: 600,
   scale: "default",
+  xSteps: 4,
+  xTicks: "off",
+  xAxisLine: "on",
+  ySteps: 7,
+  yTicks: "off",
+  yAxisLine: "off",
   grid: "default",
   legend: "default",
-  color: defPalette
+  legendColor: "#000000",
+  color: defPalette,
+  axisColor: "#000000"
 };
 
 exports.default = LineChart;
 
 /***/ }),
-/* 18 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1206,7 +1032,7 @@ var _humanizePlus = __webpack_require__(23);
 
 var _humanizePlus2 = _interopRequireDefault(_humanizePlus);
 
-var _Line = __webpack_require__(5);
+var _Line = __webpack_require__(18);
 
 var _Line2 = _interopRequireDefault(_Line);
 
@@ -1217,8 +1043,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var gridColor = "rgb(225,225,225)";
 
 var XTickLabel = function (_React$Component) {
   _inherits(XTickLabel, _React$Component);
@@ -1232,19 +1056,11 @@ var XTickLabel = function (_React$Component) {
   _createClass(XTickLabel, [{
     key: "render",
     value: function render() {
-      var x = this.props.x;
-      var y = this.props.y;
-      var value = this.props.value;
-      var size = this.props.size;
-      var tilt = this.props.tilt;
+      var rotation = "rotate(" + this.props.tilt + "," + this.props.x + "," + (this.props.y + this.props.size) + ")";
 
-      var rotation = "rotate(" + String(tilt) + "," + String(x) + "," + String(y + size) + ")";
-
-      var printVal = value;
-      if (value >= 10000) {
-        printVal = _humanizePlus2.default.compactInteger(value, 2);
-      } else {
-        printVal = value.toFixed(2);
+      var printVal = String(this.props.value);
+      if (printVal.length > 4) {
+        printVal = _humanizePlus2.default.compactInteger(this.props.value, 2);
       }
 
       return _react2.default.createElement(
@@ -1252,7 +1068,7 @@ var XTickLabel = function (_React$Component) {
         null,
         _react2.default.createElement(
           "text",
-          { x: x, y: y + 2 * size, fontSize: size, transform: rotation },
+          { x: this.props.x, y: this.props.y + 2 * this.props.size, fontSize: this.props.size, transform: rotation, fill: this.props.color, textAnchor: "middle" },
           printVal
         )
       );
@@ -1262,33 +1078,40 @@ var XTickLabel = function (_React$Component) {
   return XTickLabel;
 }(_react2.default.Component);
 
-var XTick = function (_React$Component2) {
-  _inherits(XTick, _React$Component2);
+var XStep = function (_React$Component2) {
+  _inherits(XStep, _React$Component2);
 
-  function XTick() {
-    _classCallCheck(this, XTick);
+  function XStep() {
+    _classCallCheck(this, XStep);
 
-    return _possibleConstructorReturn(this, (XTick.__proto__ || Object.getPrototypeOf(XTick)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (XStep.__proto__ || Object.getPrototypeOf(XStep)).apply(this, arguments));
   }
 
-  _createClass(XTick, [{
+  _createClass(XStep, [{
     key: "render",
     value: function render() {
-      var x = this.props.x;
-      var y = this.props.y;
-      var value = this.props.value;
-      var length = this.props.length;
+      var step = [];
+
+      if (this.props.xTicks == "on") {
+        step.push(_react2.default.createElement(_Line2.default, { key: "label" + this.props.x,
+          x1: this.props.x, y1: this.props.y,
+          x2: this.props.x, y2: this.props.y + this.props.length,
+          stroke: this.props.color }));
+      }
+
+      step.push(_react2.default.createElement(XTickLabel, { key: "label" + this.props.x,
+        x: this.props.x, y: this.props.y,
+        value: this.props.value, size: 10, tilt: 0, color: this.props.color }));
 
       return _react2.default.createElement(
         "g",
         null,
-        _react2.default.createElement(_Line2.default, { x1: x, y1: y, x2: x, y2: y + length }),
-        _react2.default.createElement(XTickLabel, { x: x, y: y, value: value, size: 10, tilt: 45 })
+        step
       );
     }
   }]);
 
-  return XTick;
+  return XStep;
 }(_react2.default.Component);
 
 var XAxis = function (_React$Component3) {
@@ -1303,28 +1126,28 @@ var XAxis = function (_React$Component3) {
   _createClass(XAxis, [{
     key: "render",
     value: function render() {
-      var x = this.props.x;
-      var y = this.props.y;
-      var width = this.props.width;
-      var height = this.props.height;
-      var xLabel = this.props.xLabel;
-      var xTicks = this.props.xTicks;
-      var maxX = this.props.maxX;
-      var minX = this.props.minX;
-
       var xAxis = [];
-      xAxis.push(_react2.default.createElement(_Line2.default, { x1: x, y1: y + height, x2: x + width, y2: y + height }));
+
+      if (this.props.xAxisLine) {
+        xAxis.push(_react2.default.createElement(_Line2.default, { key: "xline", x1: this.props.x, y1: this.props.y + this.props.height,
+          x2: this.props.x + this.props.width, y2: this.props.y + this.props.height,
+          stroke: this.props.color }));
+      }
+
       xAxis.push(_react2.default.createElement(
         "text",
-        { x: x + width / 2, y: y + height + 60, fontSize: 10 },
-        xLabel
+        { key: "xlabel",
+          x: this.props.x + this.props.width / 2, y: this.props.y + this.props.height + 40,
+          fontSize: 12, fill: this.props.color },
+        this.props.xLabel
       ));
 
-      var xSpace = width / (xTicks - 1);
-      for (var i = 0; i < xTicks; i++) {
-        var valueRatio = (maxX - minX) / (xTicks - 1);
-        var xVal = minX + i * valueRatio;
-        xAxis.push(_react2.default.createElement(XTick, { x: x + i * xSpace, y: y + height, value: xVal, length: 10 }));
+      var xSpace = this.props.width / (this.props.xSteps - 1);
+      for (var i = 0; i < this.props.xSteps; i++) {
+        var valueRatio = (this.props.maxX - this.props.minX) / (this.props.xSteps - 1);
+        var xVal = this.props.minX + i * valueRatio;
+        xAxis.push(_react2.default.createElement(XStep, { key: "xstep" + i, x: this.props.x + i * xSpace, y: this.props.y + this.props.height,
+          value: xVal, length: 10, xTicks: this.props.xTicks, color: this.props.color }));
       }
 
       return _react2.default.createElement(
@@ -1350,16 +1173,11 @@ var YTickLabel = function (_React$Component4) {
   _createClass(YTickLabel, [{
     key: "render",
     value: function render() {
-      var x = this.props.x;
-      var y = this.props.y;
-      var value = this.props.value;
-      var size = this.props.size;
-
-      var printVal = value;
-      if (value >= 1) {
-        printVal = _humanizePlus2.default.compactInteger(value, 2);
+      var printVal = this.props.value;
+      if (this.props.value >= 1) {
+        printVal = _humanizePlus2.default.compactInteger(this.props.value, 2);
       } else {
-        printVal = value.toFixed(2);
+        printVal = this.props.value.toFixed(4);
       }
 
       return _react2.default.createElement(
@@ -1367,7 +1185,7 @@ var YTickLabel = function (_React$Component4) {
         null,
         _react2.default.createElement(
           "text",
-          { x: x, y: y + size / 2, fontSize: size },
+          { x: this.props.x, y: this.props.y + this.props.size / 2, fontSize: this.props.size, fill: this.props.color, textAnchor: "end" },
           printVal
         )
       );
@@ -1377,33 +1195,37 @@ var YTickLabel = function (_React$Component4) {
   return YTickLabel;
 }(_react2.default.Component);
 
-var YTick = function (_React$Component5) {
-  _inherits(YTick, _React$Component5);
+var YStep = function (_React$Component5) {
+  _inherits(YStep, _React$Component5);
 
-  function YTick() {
-    _classCallCheck(this, YTick);
+  function YStep() {
+    _classCallCheck(this, YStep);
 
-    return _possibleConstructorReturn(this, (YTick.__proto__ || Object.getPrototypeOf(YTick)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (YStep.__proto__ || Object.getPrototypeOf(YStep)).apply(this, arguments));
   }
 
-  _createClass(YTick, [{
+  _createClass(YStep, [{
     key: "render",
     value: function render() {
-      var x = this.props.x;
-      var y = this.props.y;
-      var value = this.props.value;
-      var length = this.props.length;
+      var step = [];
 
+      if (this.props.yTicks == "on") {
+        step.push(_react2.default.createElement(_Line2.default, { key: "tick" + this.props.y,
+          x1: this.props.x, y1: this.props.y,
+          x2: this.props.x - this.props.length, y2: this.props.y,
+          stroke: this.props.color }));
+      }
+
+      step.push(_react2.default.createElement(YTickLabel, { key: "label" + this.props.y, x: this.props.x - 10, y: this.props.y, value: this.props.value, size: 10, color: this.props.color }));
       return _react2.default.createElement(
         "g",
         null,
-        _react2.default.createElement(_Line2.default, { x1: x, y1: y, x2: x - length, y2: y }),
-        _react2.default.createElement(YTickLabel, { x: x - 50, y: y, value: value, size: 10 })
+        step
       );
     }
   }]);
 
-  return YTick;
+  return YStep;
 }(_react2.default.Component);
 
 var YAxis = function (_React$Component6) {
@@ -1418,44 +1240,43 @@ var YAxis = function (_React$Component6) {
   _createClass(YAxis, [{
     key: "render",
     value: function render() {
-      var x = this.props.x;
-      var y = this.props.y;
-      var width = this.props.width;
-      var height = this.props.height;
-      var yLabel = this.props.yLabel;
-      var yTicks = this.props.yTicks;
-      var maxY = this.props.maxY;
-      var minY = this.props.minY;
-      var scale = this.props.scale;
-      var grid = this.props.grid;
-
       var yAxis = [];
-      yAxis.push(_react2.default.createElement(_Line2.default, { x1: x, y1: y, x2: x, y2: y + height }));
-      var rotation = "rotate(-90,10," + String(y + height / 2) + ")";
+
+      if (this.props.yAxisLine == "on") {
+        yAxis.push(_react2.default.createElement(_Line2.default, { key: "yline", x1: this.props.x, y1: this.props.y,
+          x2: this.props.x, y2: this.props.y + this.props.height,
+          stroke: this.props.color }));
+      }
+
+      var rotation = "rotate(-90,10," + String(this.props.y + this.props.height / 2) + ")";
       yAxis.push(_react2.default.createElement(
         "text",
-        { x: 10, y: y + height / 2, fontSize: 10, transform: rotation },
-        yLabel
+        { key: "ylabel",
+          x: 10, y: this.props.y + this.props.height / 2,
+          fontSize: 12, transform: rotation, fill: this.props.color },
+        this.props.yLabel
       ));
 
-      var ySpace = height / (yTicks - 1);
-      for (var i = 0; i < yTicks; i++) {
-        var tickPos = height + y - i * ySpace;
+      var ySpace = this.props.height / (this.props.ySteps - 1);
+      for (var i = 0; i < this.props.ySteps; i++) {
+        var tickPos = this.props.height + this.props.y - i * ySpace;
 
         var yVal = 0;
-        if (scale == "log") {
-          var valueRatio = (Math.log10(maxY) - Math.log10(minY)) / (yTicks - 1);
-          var pow10 = Math.log10(minY) + i * valueRatio;
+        if (this.props.scale == "log") {
+          var valueRatio = (Math.log10(this.props.maxY) - Math.log10(this.props.minY)) / (this.props.ySteps - 1);
+          var pow10 = Math.log10(this.props.minY) + i * valueRatio;
           yVal = Math.pow(10, pow10);
         } else {
-          yVal = minY + i * (maxY - minY) / (yTicks - 1);
+          yVal = this.props.minY + i * (this.props.maxY - this.props.minY) / (this.props.ySteps - 1);
         }
-        yAxis.push(_react2.default.createElement(YTick, { x: x, y: tickPos, value: yVal, length: 10 }));
+        yAxis.push(_react2.default.createElement(YStep, { key: "ystep" + i, x: this.props.x, y: tickPos,
+          value: yVal, length: 10, color: this.props.color, yTicks: this.props.yTicks }));
 
-        if (grid == "default") {
+        if (this.props.grid == "default") {
           if (i != 0) {
-            yAxis.push(_react2.default.createElement(_Line2.default, { x1: x, y1: tickPos, x2: x + width, y2: tickPos,
-              stroke: gridColor }));
+            yAxis.push(_react2.default.createElement(_Line2.default, { key: "grid" + i, x1: this.props.x, y1: tickPos,
+              x2: this.props.x + this.props.width, y2: tickPos,
+              stroke: this.props.gridColor, strokeWidth: 1, opacity: 0.5 }));
           }
         }
       }
@@ -1483,31 +1304,20 @@ var Axis = function (_React$Component7) {
   _createClass(Axis, [{
     key: "render",
     value: function render() {
-      var x = this.props.x;
-      var y = this.props.y;
-      var width = this.props.width;
-      var height = this.props.height;
-      var scale = this.props.scale;
-      var grid = this.props.grid;
-      var xLabel = this.props.xLabel;
-      var yLabel = this.props.yLabel;
-      var xTicks = this.props.xTicks;
-      var yTicks = this.props.yTicks;
-      var maxX = this.props.maxX;
-      var minX = this.props.minX;
-      var maxY = this.props.maxY;
-      var minY = this.props.minY;
-
       var axis = [];
 
-      axis.push(_react2.default.createElement(XAxis, { x: x, y: y, width: width, height: height,
-        xLabel: xLabel, xTicks: xTicks,
-        maxX: maxX, minX: minX }));
+      axis.push(_react2.default.createElement(XAxis, { key: "xaxis", x: this.props.x, y: this.props.y,
+        width: this.props.width, height: this.props.height,
+        xLabel: this.props.xLabel, xTicks: this.props.xTicks, xSteps: this.props.xSteps,
+        maxX: this.props.maxX, minX: this.props.minX, color: this.props.color,
+        xAxisLine: this.props.xAxisLine }));
 
-      axis.push(_react2.default.createElement(YAxis, { x: x, y: y, width: width, height: height,
-        yLabel: yLabel, yTicks: yTicks,
-        maxY: maxY, minY: minY,
-        scale: scale, grid: grid }));
+      axis.push(_react2.default.createElement(YAxis, { key: "yaxis", x: this.props.x, y: this.props.y,
+        width: this.props.width, height: this.props.height,
+        yLabel: this.props.yLabel, ySteps: this.props.ySteps, yTicks: this.props.yTicks,
+        maxY: this.props.maxY, minY: this.props.minY,
+        scale: this.props.scale, grid: this.props.grid, gridColor: this.props.gridColor,
+        color: this.props.color, yAxisLine: this.props.yAxisLine }));
 
       return _react2.default.createElement(
         "g",
@@ -1525,12 +1335,18 @@ Axis.defaultProps = {
   y: 0,
   width: 800,
   height: 600,
-  scale: "default",
+  color: "#000000",
+  scale: "lin",
   grid: "default",
+  gridColor: "#DDDDDD",
   xLabel: "x-axis",
   yLabel: "y-axis",
-  xTicks: 5,
-  yTicks: 5,
+  xSteps: 5,
+  xTicks: "off",
+  xAxisLine: "on",
+  ySteps: 5,
+  yTicks: "off",
+  yAxisLine: "off",
   maxX: 100,
   minX: 0,
   maxY: 100,
@@ -1540,7 +1356,7 @@ Axis.defaultProps = {
 exports.default = Axis;
 
 /***/ }),
-/* 19 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1555,10 +1371,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
-
-var _Line = __webpack_require__(5);
-
-var _Line2 = _interopRequireDefault(_Line);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1580,23 +1392,16 @@ var Legend = function (_React$Component) {
   _createClass(Legend, [{
     key: "render",
     value: function render() {
-      var x = this.props.x;
-      var y = this.props.y;
-      var width = this.props.width;
-      var titles = this.props.titles;
-      var color = this.props.color;
-      var palette = color.palette;
-
-      var segment = width / titles.length;
+      var segment = this.props.width / this.props.titles.length;
 
       var legend = [];
-      for (var i = 0; i < titles.length; i++) {
-        legend.push(_react2.default.createElement(_Line2.default, { x1: x + i * segment, y1: y, x2: x + i * segment + 50, y2: y,
-          stroke: palette[i % palette.length].rgb() }));
+      for (var i = 0; i < this.props.titles.length; i++) {
+        legend.push(_react2.default.createElement("rect", { key: "color" + i, x: this.props.x + i * segment, y: this.props.y - 4,
+          width: 10, height: 10, fill: this.props.color[i % this.props.color.length] }));
         legend.push(_react2.default.createElement(
           "text",
-          { x: x + i * segment + 55, y: y + 5, fontSize: 10 },
-          titles[i]
+          { key: "label" + i, x: this.props.x + i * segment + 15, y: this.props.y + 5, fontSize: 10, fill: this.props.legendColor },
+          this.props.titles[i]
         ));
       }
 
@@ -1614,6 +1419,163 @@ var Legend = function (_React$Component) {
 exports.default = Legend;
 
 /***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Line = function (_React$Component) {
+  _inherits(Line, _React$Component);
+
+  function Line() {
+    _classCallCheck(this, Line);
+
+    return _possibleConstructorReturn(this, (Line.__proto__ || Object.getPrototypeOf(Line)).apply(this, arguments));
+  }
+
+  _createClass(Line, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "g",
+        null,
+        _react2.default.createElement("line", {
+          x1: this.props.x1,
+          y1: this.props.y1,
+          x2: this.props.x2,
+          y2: this.props.y2,
+          stroke: this.props.stroke,
+          strokeWidth: this.props.strokeWidth,
+          opacity: this.props.opacity })
+      );
+    }
+  }]);
+
+  return Line;
+}(_react2.default.Component);
+
+Line.defaultProps = {
+  x1: 0,
+  y1: 0,
+  x2: 0,
+  y2: 0,
+  stroke: "rgb(0,0,0)",
+  strokeWidth: 2,
+  opacity: 1
+};
+
+exports.default = Line;
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactMotion = __webpack_require__(32);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var MotionLine = function (_React$Component) {
+  _inherits(MotionLine, _React$Component);
+
+  function MotionLine() {
+    _classCallCheck(this, MotionLine);
+
+    return _possibleConstructorReturn(this, (MotionLine.__proto__ || Object.getPrototypeOf(MotionLine)).apply(this, arguments));
+  }
+
+  _createClass(MotionLine, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        _reactMotion.Motion,
+        {
+          defaultStyle: {
+            x1: this.props.xStart,
+            y1: this.props.yStart,
+            x2: this.props.xStart,
+            y2: this.props.yStart
+          },
+          style: {
+            x1: (0, _reactMotion.spring)(this.props.x1, { stiffness: 120, damping: 26 }),
+            y1: (0, _reactMotion.spring)(this.props.y1, { stiffness: 120, damping: 26 }),
+            x2: (0, _reactMotion.spring)(this.props.x2, { stiffness: 120, damping: 26 }),
+            y2: (0, _reactMotion.spring)(this.props.y2, { stiffness: 120, damping: 26 })
+          }
+        },
+        function (interpolatingStyles) {
+          return _react2.default.createElement(
+            "g",
+            null,
+            _react2.default.createElement("line", {
+              x1: interpolatingStyles.x1,
+              y1: interpolatingStyles.y1,
+              x2: interpolatingStyles.x2,
+              y2: interpolatingStyles.y2,
+              stroke: _this2.props.stroke,
+              strokeWidth: _this2.props.strokeWidth,
+              opacity: _this2.props.opacity })
+          );
+        }
+      );
+    }
+  }]);
+
+  return MotionLine;
+}(_react2.default.Component);
+
+MotionLine.defaultProps = {
+  x1: 0,
+  y1: 0,
+  x2: 0,
+  y2: 0,
+  stroke: "rgb(0,0,0)",
+  strokeWidth: 2,
+  opacity: 1
+};
+
+exports.default = MotionLine;
+
+/***/ }),
 /* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1624,7 +1586,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _LineChart = __webpack_require__(17);
+var _LineChart = __webpack_require__(15);
 
 var _LineChart2 = _interopRequireDefault(_LineChart);
 
@@ -1655,7 +1617,7 @@ var emptyObject = __webpack_require__(22);
 var _invariant = __webpack_require__(2);
 
 if (process.env.NODE_ENV !== 'production') {
-  var warning = __webpack_require__(8);
+  var warning = __webpack_require__(7);
 }
 
 var MIXINS_KEY = 'mixins';
@@ -3045,8 +3007,8 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 if (process.env.NODE_ENV !== 'production') {
   var invariant = __webpack_require__(2);
-  var warning = __webpack_require__(8);
-  var ReactPropTypesSecret = __webpack_require__(14);
+  var warning = __webpack_require__(7);
+  var ReactPropTypesSecret = __webpack_require__(13);
   var loggedTypeFailures = {};
 }
 
@@ -3112,7 +3074,7 @@ module.exports = checkPropTypes;
 
 
 
-var emptyFunction = __webpack_require__(7);
+var emptyFunction = __webpack_require__(6);
 var invariant = __webpack_require__(2);
 
 module.exports = function() {
@@ -3173,11 +3135,11 @@ module.exports = function() {
 
 
 
-var emptyFunction = __webpack_require__(7);
+var emptyFunction = __webpack_require__(6);
 var invariant = __webpack_require__(2);
-var warning = __webpack_require__(8);
+var warning = __webpack_require__(7);
 
-var ReactPropTypesSecret = __webpack_require__(14);
+var ReactPropTypesSecret = __webpack_require__(13);
 var checkPropTypes = __webpack_require__(25);
 
 module.exports = function(isValidElement, throwOnDirectAccess) {
@@ -3656,7 +3618,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var _mapToZero = __webpack_require__(11);
+var _mapToZero = __webpack_require__(10);
 
 var _mapToZero2 = _interopRequireDefault(_mapToZero);
 
@@ -3664,7 +3626,7 @@ var _stripStyle = __webpack_require__(4);
 
 var _stripStyle2 = _interopRequireDefault(_stripStyle);
 
-var _stepper3 = __webpack_require__(13);
+var _stepper3 = __webpack_require__(12);
 
 var _stepper4 = _interopRequireDefault(_stepper3);
 
@@ -3672,11 +3634,11 @@ var _performanceNow = __webpack_require__(3);
 
 var _performanceNow2 = _interopRequireDefault(_performanceNow);
 
-var _raf = __webpack_require__(10);
+var _raf = __webpack_require__(9);
 
 var _raf2 = _interopRequireDefault(_raf);
 
-var _shouldStopAnimation = __webpack_require__(12);
+var _shouldStopAnimation = __webpack_require__(11);
 
 var _shouldStopAnimation2 = _interopRequireDefault(_shouldStopAnimation);
 
@@ -3684,11 +3646,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(9);
+var _propTypes = __webpack_require__(8);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _createReactClass = __webpack_require__(6);
+var _createReactClass = __webpack_require__(5);
 
 var _createReactClass2 = _interopRequireDefault(_createReactClass);
 
@@ -3909,7 +3871,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var _mapToZero = __webpack_require__(11);
+var _mapToZero = __webpack_require__(10);
 
 var _mapToZero2 = _interopRequireDefault(_mapToZero);
 
@@ -3917,7 +3879,7 @@ var _stripStyle = __webpack_require__(4);
 
 var _stripStyle2 = _interopRequireDefault(_stripStyle);
 
-var _stepper3 = __webpack_require__(13);
+var _stepper3 = __webpack_require__(12);
 
 var _stepper4 = _interopRequireDefault(_stepper3);
 
@@ -3925,11 +3887,11 @@ var _performanceNow = __webpack_require__(3);
 
 var _performanceNow2 = _interopRequireDefault(_performanceNow);
 
-var _raf = __webpack_require__(10);
+var _raf = __webpack_require__(9);
 
 var _raf2 = _interopRequireDefault(_raf);
 
-var _shouldStopAnimation = __webpack_require__(12);
+var _shouldStopAnimation = __webpack_require__(11);
 
 var _shouldStopAnimation2 = _interopRequireDefault(_shouldStopAnimation);
 
@@ -3937,11 +3899,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(9);
+var _propTypes = __webpack_require__(8);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _createReactClass = __webpack_require__(6);
+var _createReactClass = __webpack_require__(5);
 
 var _createReactClass2 = _interopRequireDefault(_createReactClass);
 
@@ -4183,7 +4145,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var _mapToZero = __webpack_require__(11);
+var _mapToZero = __webpack_require__(10);
 
 var _mapToZero2 = _interopRequireDefault(_mapToZero);
 
@@ -4191,7 +4153,7 @@ var _stripStyle = __webpack_require__(4);
 
 var _stripStyle2 = _interopRequireDefault(_stripStyle);
 
-var _stepper3 = __webpack_require__(13);
+var _stepper3 = __webpack_require__(12);
 
 var _stepper4 = _interopRequireDefault(_stepper3);
 
@@ -4203,11 +4165,11 @@ var _performanceNow = __webpack_require__(3);
 
 var _performanceNow2 = _interopRequireDefault(_performanceNow);
 
-var _raf = __webpack_require__(10);
+var _raf = __webpack_require__(9);
 
 var _raf2 = _interopRequireDefault(_raf);
 
-var _shouldStopAnimation = __webpack_require__(12);
+var _shouldStopAnimation = __webpack_require__(11);
 
 var _shouldStopAnimation2 = _interopRequireDefault(_shouldStopAnimation);
 
@@ -4215,11 +4177,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(9);
+var _propTypes = __webpack_require__(8);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _createReactClass = __webpack_require__(6);
+var _createReactClass = __webpack_require__(5);
 
 var _createReactClass2 = _interopRequireDefault(_createReactClass);
 
@@ -4819,7 +4781,7 @@ var _spring = __webpack_require__(34);
 
 exports.spring = _interopRequire(_spring);
 
-var _presets = __webpack_require__(15);
+var _presets = __webpack_require__(14);
 
 exports.presets = _interopRequire(_presets);
 
@@ -4872,7 +4834,7 @@ exports['default'] = spring;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var _presets = __webpack_require__(15);
+var _presets = __webpack_require__(14);
 
 var _presets2 = _interopRequireDefault(_presets);
 
@@ -4911,45 +4873,6 @@ try {
 // easier to handle this case. if(!global) { ...}
 
 module.exports = g;
-
-
-/***/ }),
-/* 36 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Color_js__ = __webpack_require__(16);
-
-
-class ColorPalette {
-
-  constructor(color1, color2, numcolors) {
-    let dred = color2.red - color1.red
-    let dgreen = color2.green - color1.green
-    let dblue = color2.blue - color1.blue
-
-    let slopeRed = Math.abs(dred / 255)
-    let slopeGreen = Math.abs(dgreen / 255)
-    let slopeBlue = Math.abs(dblue / 255)
-
-    let end1 = color1.endpoint(slopeRed, slopeGreen, slopeBlue)
-    let end2 = color2.endpoint(slopeRed, slopeGreen, slopeBlue)
-
-    let palette = []
-    for (var i=0; i < numcolors; i++) {
-      let r = end1.red + i*(end2.red - end1.red)/numcolors
-      let g = end1.green + i*(end2.green - end1.green)/numcolors
-      let b = end1.blue + i*(end2.blue - end1.blue)/numcolors
-      let c = new __WEBPACK_IMPORTED_MODULE_0__Color_js__["default"](r,g,b)
-      palette.push(c)
-    }
-    this.palette = palette
-  }
-
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (ColorPalette);
 
 
 /***/ })
