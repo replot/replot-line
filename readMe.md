@@ -2,7 +2,7 @@
 Intelligent and customizable line chart components for react.
 
 ## API
-Supply data and specify keys for the titles of each dataset in JSON format. 
+Supply data and specify keys for the titles of each dataset in JSON format.
 
 ```javascript
 render() {
@@ -31,7 +31,7 @@ render() {
 	}
 
 	return(
-		<LineChart data={populations} 
+		<LineChart data={populations}
 		titleKey="location"
 		xKey="year"
 		yKey="population" />
@@ -47,50 +47,30 @@ render() {
 ### Color Customization
 - `color`: defaults to preset palette
 	- specify an array of color hex codes, e.g. `["#FF0000", "#00FF00", "#0000FF"]`
-	- specify a function 
-
-Note: legend is automatically generated
-
-## Future Implementation
-
-- `titleLabel` (string) defaults to `"title"`
-- `xLabel` (string) defaults to `"x-axis"`
-- `yLabel` (string) defaults to `"y-axis"`
+	- specify a function
 
 ### Axis Customization
-- `xSteps` (integer) defaults to number calculated by program based off of x-axis data
-	- specify number of steps on the x-axis
-- `ySteps` (integer) defaults to number calculated by program based off of y-axis data
-	- specify number of steps on the y-axis
-- `xScale` defaults to `"lin"`
-	- `"lin"`: linear scale
-	- `"log"`: logarithmic scale (base 10)
-	- `"per"`: percentage scale (0 to 100%)
-- `yScale` defaults to `"lin"`, same possible values as `xScale`
-- `xLines` defaults to `"none"`
-	- `"none"`: no vertical backing lines for x-axis values
-	- `"dash"`: dashed vertical backing lines
-	- `"solid"`: solid vertical backing lines
-- `yLines` defaults to `"none"`
-	- `"none"`: no horizontal backing lines for y-axis values
-	- `"dash"`: dashed horizontal backing lines
-	- `"solid"`: solid horizontal backing lines
-- `transpose`: defaults to `"no"`
-	- `"no"`: first value of tuple on x-axis, second value of tuple on y-axis
-	- `"yes"`: first value of tuple on y-axis, second value of tuple on x-axis
-
-### Line Customization
-- `shape`: defaults to `"none"`
-	- `"none"`: line is continuous without any shape marking the data points
-	- `"disc"`: data points are marked by a filled circle
-	- `"circle"`: data points are marked by an unfilled circle
-	- `"square"`: data points are marked by a square
-	- `"triangle"`: data points are marked by a triangle
-
-### Legend Customization
-- `legendPosition`: defaults to `"right"`
-	- `"none"`: no legend display
-	- `"right"`: legend displayed to the right of the chart
-	- `"left"`: legend displayed to the left of the chart
-	- `"top"`: legend displayed on top of the chart (under the title)
-	- `"bottom"`: legend displayed below the chart
+- `axisColor`: specify color of axis, defaults to #000000
+- `scale`: specify scale of y-axis
+	- `"lin"`: linear scale (default)
+	- `"log"`: log scale
+- `grid`: specify whether to have gridlines on or not
+	- `"default"`: gridlines on (default)
+	- `"none"`: gridlines off
+- `gridColor`: specify color of gridlines, defaults to #DDDDDD
+- `xLabel`: defaults to `xKey`
+- `yLabel`: defaults to `yKey`
+- `xSteps`: number of steps on the x-axis
+- `ySteps`: number of steps on the y-axis
+- `xTicks` specify whether to have ticks on x-axis
+	- `"off"`: no ticks (default)
+	- `"on"`: ticks displayed
+- `yTicks` specify whether to have ticks on y-axis
+	- `"off"`: no ticks (default)
+	- `"on"`: ticks displayed
+- `xAxisLine` specify whether to have the x-axis line
+	- `"off"`: no line
+	- `"on"`: line displayed (default)
+- `yAxisLine` specify whether to have the x-axis line
+	- `"off"`: no line
+	- `"on"`: line displayed (default)
