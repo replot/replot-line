@@ -40,19 +40,27 @@ class LineChart extends React.Component {
     let maxY = Math.max.apply(Math, yvals)
     let minY = Math.min.apply(Math, yvals)
 
-    let buffer = 75
+    let buffer = 80
 
     let chartWidth = this.props.width - 2*buffer
     let chartHeight = this.props.height - 2*buffer - 30
-    let chartX = buffer
+    let chartX = buffer + 10
     let chartY = buffer
 
     let series = []
 
+    let xl = this.props.xLabel
+    if (xl != "off") {
+      xl = this.props.xKey
+    }
+    let yl = this.props.yLabel
+    if (yl != "off") {
+      yl = this.props.yKey
+    }
     series.push(
       <Axis key={"axis"} x={chartX} y={chartY} width={chartWidth} height={chartHeight}
         color={this.props.axisColor} scale={this.props.scale} grid={this.props.grid}
-        xLabel={this.props.xKey} yLabel={this.props.yKey}
+        xLabel={xl} yLabel={yl}
         xSteps={this.props.xSteps} xTicks={this.props.xTicks} xAxisLine={this.props.xAxisLine}
         yTicks={this.props.yTicks} ySteps={Math.round((chartHeight)/50)+1} yAxisLine={this.props.yAxisLine}
         maxX={maxX} minX={minX} maxY={maxY} minY={minY} />
@@ -117,9 +125,11 @@ LineChart.defaultProps = {
   xSteps: 4,
   xTicks: "off",
   xAxisLine: "on",
+  xLabel: "off",
   ySteps: 7,
   yTicks: "off",
   yAxisLine: "off",
+  yLabel: "off",
   grid: "default",
   legend: "default",
   legendColor: "#000000",
