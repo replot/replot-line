@@ -1,6 +1,6 @@
 {
   "name": "replot-line",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Replot line chart React component",
   "main": "index.js",
   "directories": {
@@ -22,7 +22,7 @@
     "visualization",
     "chart"
   ],
-  "author": "Sanjay Guruprasad (http://sanjaypojo.com/)",
+  "author": "Ariel Skye Levy",
   "license": "MIT",
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0"
