@@ -8,11 +8,12 @@ class Legend extends React.Component {
     let legend = []
     for (var i=0; i < this.props.titles.length; i++) {
       legend.push(
-        <rect key={"color"+i} x={this.props.x+i*segment} y={this.props.y-4}
-          width={10} height={10} fill={this.props.color[i%this.props.color.length]}/>
+        <rect key={"color"+i} x={this.props.x+i*segment} y={this.props.y-8}
+          width={15} height={15} fill={this.props.color[i%this.props.color.length]}/>
       )
       legend.push(
-        <text key={"label"+i} x={this.props.x+i*segment+15} y={this.props.y+5} fontSize={10} fill={this.props.legendColor}>{this.props.titles[i]}</text>
+        <text key={"label"+i} x={this.props.x+i*segment+25} y={this.props.y+5}
+           fontSize={15} fill={this.props.legendColor}>{this.props.titles[i]}</text>
       )
     }
 

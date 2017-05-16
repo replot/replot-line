@@ -905,18 +905,26 @@ var LineChart = function (_React$Component2) {
       var maxY = Math.max.apply(Math, yvals);
       var minY = Math.min.apply(Math, yvals);
 
-      var buffer = 75;
+      var buffer = 80;
 
       var chartWidth = this.props.width - 2 * buffer;
       var chartHeight = this.props.height - 2 * buffer - 30;
-      var chartX = buffer;
+      var chartX = buffer + 10;
       var chartY = buffer;
 
       var series = [];
 
+      var xl = this.props.xLabel;
+      if (xl != "off") {
+        xl = this.props.xKey;
+      }
+      var yl = this.props.yLabel;
+      if (yl != "off") {
+        yl = this.props.yKey;
+      }
       series.push(_react2.default.createElement(_Axis2.default, { key: "axis", x: chartX, y: chartY, width: chartWidth, height: chartHeight,
         color: this.props.axisColor, scale: this.props.scale, grid: this.props.grid,
-        xLabel: this.props.xKey, yLabel: this.props.yKey,
+        xLabel: xl, yLabel: yl,
         xSteps: this.props.xSteps, xTicks: this.props.xTicks, xAxisLine: this.props.xAxisLine,
         yTicks: this.props.yTicks, ySteps: Math.round(chartHeight / 50) + 1, yAxisLine: this.props.yAxisLine,
         maxX: maxX, minX: minX, maxY: maxY, minY: minY }));
@@ -999,9 +1007,11 @@ LineChart.defaultProps = {
   xSteps: 4,
   xTicks: "off",
   xAxisLine: "on",
+  xLabel: "off",
   ySteps: 7,
   yTicks: "off",
   yAxisLine: "off",
+  yLabel: "off",
   grid: "default",
   legend: "default",
   legendColor: "#000000",
@@ -1101,7 +1111,7 @@ var XStep = function (_React$Component2) {
 
       step.push(_react2.default.createElement(XTickLabel, { key: "label" + this.props.x,
         x: this.props.x, y: this.props.y,
-        value: this.props.value, size: 10, tilt: 0, color: this.props.color }));
+        value: this.props.value, size: 15, tilt: 0, color: this.props.color }));
 
       return _react2.default.createElement(
         "g",
@@ -1134,13 +1144,15 @@ var XAxis = function (_React$Component3) {
           stroke: this.props.color }));
       }
 
-      xAxis.push(_react2.default.createElement(
-        "text",
-        { key: "xlabel",
-          x: this.props.x + this.props.width / 2, y: this.props.y + this.props.height + 40,
-          fontSize: 12, fill: this.props.color },
-        this.props.xLabel
-      ));
+      if (this.props.xLabel != "off") {
+        xAxis.push(_react2.default.createElement(
+          "text",
+          { key: "xlabel",
+            x: this.props.x + this.props.width / 2, y: this.props.y + this.props.height + 50,
+            fontSize: 18, fill: this.props.color },
+          this.props.xLabel
+        ));
+      }
 
       var xSpace = this.props.width / (this.props.xSteps - 1);
       for (var i = 0; i < this.props.xSteps; i++) {
@@ -1216,7 +1228,7 @@ var YStep = function (_React$Component5) {
           stroke: this.props.color }));
       }
 
-      step.push(_react2.default.createElement(YTickLabel, { key: "label" + this.props.y, x: this.props.x - 10, y: this.props.y, value: this.props.value, size: 10, color: this.props.color }));
+      step.push(_react2.default.createElement(YTickLabel, { key: "label" + this.props.y, x: this.props.x - 10, y: this.props.y, value: this.props.value, size: 15, color: this.props.color }));
       return _react2.default.createElement(
         "g",
         null,
@@ -1248,14 +1260,16 @@ var YAxis = function (_React$Component6) {
           stroke: this.props.color }));
       }
 
-      var rotation = "rotate(-90,10," + String(this.props.y + this.props.height / 2) + ")";
-      yAxis.push(_react2.default.createElement(
-        "text",
-        { key: "ylabel",
-          x: 10, y: this.props.y + this.props.height / 2,
-          fontSize: 12, transform: rotation, fill: this.props.color },
-        this.props.yLabel
-      ));
+      if (this.props.yLabel != "off") {
+        var rotation = "rotate(-90,10," + String(this.props.y + this.props.height / 2) + ")";
+        yAxis.push(_react2.default.createElement(
+          "text",
+          { key: "ylabel",
+            x: 0, y: this.props.y + this.props.height / 2 + 10,
+            fontSize: 18, transform: rotation, fill: this.props.color },
+          this.props.yLabel
+        ));
+      }
 
       var ySpace = this.props.height / (this.props.ySteps - 1);
       for (var i = 0; i < this.props.ySteps; i++) {
@@ -1339,8 +1353,8 @@ Axis.defaultProps = {
   scale: "lin",
   grid: "default",
   gridColor: "#DDDDDD",
-  xLabel: "x-axis",
-  yLabel: "y-axis",
+  xLabel: "off",
+  yLabel: "off",
   xSteps: 5,
   xTicks: "off",
   xAxisLine: "on",
@@ -1396,11 +1410,12 @@ var Legend = function (_React$Component) {
 
       var legend = [];
       for (var i = 0; i < this.props.titles.length; i++) {
-        legend.push(_react2.default.createElement("rect", { key: "color" + i, x: this.props.x + i * segment, y: this.props.y - 4,
-          width: 10, height: 10, fill: this.props.color[i % this.props.color.length] }));
+        legend.push(_react2.default.createElement("rect", { key: "color" + i, x: this.props.x + i * segment, y: this.props.y - 8,
+          width: 15, height: 15, fill: this.props.color[i % this.props.color.length] }));
         legend.push(_react2.default.createElement(
           "text",
-          { key: "label" + i, x: this.props.x + i * segment + 15, y: this.props.y + 5, fontSize: 10, fill: this.props.legendColor },
+          { key: "label" + i, x: this.props.x + i * segment + 25, y: this.props.y + 5,
+            fontSize: 15, fill: this.props.legendColor },
           this.props.titles[i]
         ));
       }

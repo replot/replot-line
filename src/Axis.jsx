@@ -40,7 +40,7 @@ class XStep extends React.Component {
     step.push(
       <XTickLabel key={"label"+this.props.x}
         x={this.props.x} y={this.props.y}
-        value={this.props.value} size={10} tilt={0} color={this.props.color} />
+        value={this.props.value} size={15} tilt={0} color={this.props.color} />
     )
 
     return(
@@ -62,13 +62,15 @@ class XAxis extends React.Component {
       )
     }
 
-    xAxis.push(
-      <text key={"xlabel"}
-        x={this.props.x+this.props.width/2} y={this.props.y+this.props.height+40}
-        fontSize={12} fill={this.props.color}>
-        {this.props.xLabel}
-      </text>
-    )
+    if (this.props.xLabel != "off") {
+      xAxis.push(
+        <text key={"xlabel"}
+          x={this.props.x+this.props.width/2} y={this.props.y+this.props.height+50}
+          fontSize={18} fill={this.props.color}>
+          {this.props.xLabel}
+        </text>
+      )
+    }
 
     let xSpace = this.props.width / (this.props.xSteps - 1)
     for (var i=0; i < this.props.xSteps; i++) {
@@ -123,7 +125,7 @@ class YStep extends React.Component {
     }
 
     step.push(
-      <YTickLabel key={"label"+this.props.y} x={this.props.x-10} y={this.props.y} value={this.props.value} size={10} color={this.props.color} />
+      <YTickLabel key={"label"+this.props.y} x={this.props.x-10} y={this.props.y} value={this.props.value} size={15} color={this.props.color} />
     )
     return(
       <g>{step}</g>
@@ -145,14 +147,16 @@ class YAxis extends React.Component {
       )
     }
 
-    let rotation = "rotate(-90,10,"+String(this.props.y+this.props.height/2)+")"
-    yAxis.push(
-      <text key={"ylabel"}
-        x={10} y={this.props.y+this.props.height/2}
-        fontSize={12} transform={rotation} fill={this.props.color}>
-        {this.props.yLabel}
-      </text>
-    )
+    if (this.props.yLabel != "off") {
+      let rotation = "rotate(-90,10,"+String(this.props.y+this.props.height/2)+")"
+      yAxis.push(
+        <text key={"ylabel"}
+          x={0} y={this.props.y+this.props.height/2+10}
+          fontSize={18} transform={rotation} fill={this.props.color}>
+          {this.props.yLabel}
+        </text>
+      )
+    }
 
     let ySpace = this.props.height / (this.props.ySteps - 1)
     for (var i=0; i < this.props.ySteps; i++) {
@@ -227,8 +231,8 @@ Axis.defaultProps = {
   scale: "lin",
   grid: "default",
   gridColor: "#DDDDDD",
-  xLabel: "x-axis",
-  yLabel: "y-axis",
+  xLabel: "off",
+  yLabel: "off",
   xSteps: 5,
   xTicks: "off",
   xAxisLine: "on",

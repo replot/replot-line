@@ -199,20 +199,17 @@ class ExampleApp extends React.Component {
         <div style={{width:"70%", float:"right", marginTop:"50px", padding:"50px", backgroundColor:"#323940"}}>
           <LineChart data={this.state.data} titleKey="location"
             xKey="year" yKey="population" scale={this.state.scale}
-            grid="default" legend="default" legendColor={"#FFFFFF"} color={this.state.color} axisColor={"#FFFFFF"}
-            yAxisLine="on" />
+            grid="default" legend="default" color={this.state.color} />
         </div>
         <div style={{width:"70%", float:"right", marginTop:"50px", padding:"50px"}}>
           <LineChart data={this.state.data} titleKey="location"
             xKey="year" yKey="population" scale={this.state.scale}
-            grid="default" legend="default" color={this.state.color}
-            yAxisLine="on" />
+            grid="default" legend="default" color={this.state.color} />
         </div>
         <div style={{width:"70%", float:"right", marginTop:"50px", padding:"50px", backgroundColor:"#b8485a"}}>
           <LineChart data={this.state.data} titleKey="location"
             xKey="year" yKey="population" scale={this.state.scale}
-            grid="default" legend="default" legendColor={"#FFFFFF"} color={this.state.color} axisColor={"#FFFFFF"}
-            yAxisLine="on" />
+            grid="default" legend="default" legendColor={"#FFFFFF"} color={this.state.color} axisColor={"#FFFFFF"} />
         </div>
       </div>
     )
