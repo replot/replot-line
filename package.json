@@ -9,11 +9,11 @@
   },
   "scripts": {
     "start": "cd examples && webpack index.js bundle.js",
-    "build-umd": "webpack src/index.js umd/react-line.js"
+    "build-umd": "webpack src/index.js umd/replot-line.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MacroConnections/react-line.git"
+    "url": "git+https://github.com/MacroConnections/replot-line.git"
   },
   "keywords": [
     "react",
@@ -28,9 +28,9 @@
     "react": "^0.14.0 || ^15.0.0"
   },
   "bugs": {
-    "url": "https://github.com/MacroConnections/react-line/issues"
+    "url": "https://github.com/MacroConnections/replot-line/issues"
   },
-  "homepage": "https://github.com/MacroConnections/react-line#readme",
+  "homepage": "https://github.com/MacroConnections/replot-line#readme",
   "devDependencies": {
     "babel-core": "^6.23.1",
     "babel-loader": "^6.3.2",
