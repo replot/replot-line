@@ -3,7 +3,7 @@ import MotionLine from "./MotionLine.jsx"
 import Axis from "./Axis.jsx"
 import Legend from "./Legend.jsx"
 
-const defPalette = ["#4cab92", "#ca0004", "#003953", "#eccc00", "#9dbd5f", "#0097bf", "#005c7a", "#fc6000"]
+const defPalette = ["#4cab92", "#ca0004", "#8e44ad", "#eccc00", "#9dbd5f", "#0097bf", "#005c7a", "#fc6000"]
 
 class LineSeries extends React.Component {
 
