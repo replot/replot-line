@@ -43,7 +43,8 @@
     "webpack": "^2.2.1"
   },
   "dependencies": {
-    "react-motion": "^0.4.7",
-    "humanize-plus": "^1.8.2"
+    "humanize-plus": "^1.8.2",
+    "prop-types": "^15.5.10",
+    "react-motion": "^0.4.7"
   }
 }

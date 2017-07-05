@@ -1,7 +1,9 @@
 import React from "react"
+import PropTypes from "prop-types"
 import MotionLine from "./MotionLine.jsx"
 import Axis from "./Axis.jsx"
 import Legend from "./Legend.jsx"
+
 
 const defPalette = ["#4cab92", "#ca0004", "#8e44ad", "#eccc00", "#9dbd5f", "#0097bf", "#005c7a", "#fc6000"]
 
@@ -135,6 +137,26 @@ LineChart.defaultProps = {
   legendColor: "#000000",
   color: defPalette,
   axisColor: "#000000"
+}
+
+LineChart.propTypes = {
+  data: PropTypes.array.isRequired,
+  width: PropTypes.number,
+  height: PropTypes.number,
+  scale: PropTypes.string,
+  xSteps: PropTypes.number,
+  xTicks: PropTypes.string,
+  xAxisLine: PropTypes.string,
+  xLabel: PropTypes.string,
+  ySteps: PropTypes.number,
+  yTicks: PropTypes.string,
+  yAxisLine: PropTypes.string,
+  yLabel: PropTypes.string,
+  grid: PropTypes.string,
+  legend: PropTypes.string,
+  legendColor: PropTypes.string,
+  color: PropTypes.array,
+  axisColor: PropTypes.string
 }
 
 export default LineChart
