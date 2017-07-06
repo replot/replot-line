@@ -159,6 +159,7 @@ class YAxis extends React.Component {
     }
 
     let ySpace = this.props.height / (this.props.ySteps - 1)
+
     for (var i=0; i < this.props.ySteps; i++) {
       let tickPos = this.props.height+this.props.y-i*ySpace
 

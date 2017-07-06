@@ -8,7 +8,7 @@ class KeyValueRow extends React.Component {
     this.props.updateData({
       location: this.props.location,
       year: this.props.year,
-      population: e.target.value
+      population: e.target.value || "0"
     })
   }
 
@@ -24,7 +24,7 @@ class KeyValueRow extends React.Component {
         <td style={style.cell}>{this.props.location} </td>
         <td style={style.cell}>{this.props.year}</td>
         <td style={style.cell}>
-          <input type="text" value={parseFloat(this.props.population)}
+          <input type="text" value={parseFloat(this.props.population) || ""}
             onChange={this.changeHandler.bind(this)} />
         </td>
       </tr>

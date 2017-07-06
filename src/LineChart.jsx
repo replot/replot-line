@@ -4,8 +4,7 @@ import MotionLine from "./MotionLine.jsx"
 import Axis from "./Axis.jsx"
 import Legend from "./Legend.jsx"
 
-
-const defPalette = ["#4cab92", "#ca0004", "#8e44ad", "#eccc00", "#9dbd5f", "#0097bf", "#005c7a", "#fc6000"]
+const defPalette = ["#4cab92", "#ca0004", "#A59CD9", "#eccc00", "#9dbd5f", "#0097bf", "#005c7a", "#fc6000"]
 
 class LineSeries extends React.Component {
 
@@ -40,7 +39,12 @@ class LineChart extends React.Component {
     let maxX = Math.max.apply(Math, xvals)
     let minX = Math.min.apply(Math, xvals)
     let maxY = Math.max.apply(Math, yvals)
-    let minY = Math.min.apply(Math, yvals)
+    let minY
+    if (this.props.scale == "log") {
+      minY = Math.min.apply(null, yvals.filter(Boolean))
+    } else {
+      minY = Math.min.apply(Math, yvals)
+    }
 
     let buffer = 80
 
@@ -77,19 +81,25 @@ class LineChart extends React.Component {
       let modX = widthRatio*chartWidth + chartX
 
       let heightRatio = 0
+
       if (this.props.scale == "log") {
         let logDiff = (Math.log10(parseFloat(member[this.props.yKey]))-Math.log10(minY))
         heightRatio = logDiff / (Math.log10(maxY)-Math.log10(minY))
       } else {
         heightRatio = (parseFloat(member[this.props.yKey])-minY) / (maxY-minY)
       }
+
       let modY = chartHeight - heightRatio*chartHeight + chartY
 
-      if (key != -1) {
-        sets[key].push([modX, modY])
+      if (member[this.props.yKey] == 0 && this.props.scale == "log") {
+        modY = 0
       } else {
-        setTitles.push(member[this.props.titleKey])
-        sets.push([[modX, modY]])
+        if (key != -1) {
+          sets[key].push([modX, modY])
+        } else {
+          setTitles.push(member[this.props.titleKey])
+          sets.push([[modX, modY]])
+        }
       }
     }
 
