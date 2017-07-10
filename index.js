@@ -852,7 +852,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var defPalette = ["#4cab92", "#ca0004", "#8e44ad", "#eccc00", "#9dbd5f", "#0097bf", "#005c7a", "#fc6000"];
+var defPalette = ["#4cab92", "#ca0004", "#A59CD9", "#eccc00", "#9dbd5f", "#0097bf", "#005c7a", "#fc6000"];
 
 var LineSeries = function (_React$Component) {
   _inherits(LineSeries, _React$Component);
@@ -911,7 +911,12 @@ var LineChart = function (_React$Component2) {
       var maxX = Math.max.apply(Math, xvals);
       var minX = Math.min.apply(Math, xvals);
       var maxY = Math.max.apply(Math, yvals);
-      var minY = Math.min.apply(Math, yvals);
+      var minY = void 0;
+      if (this.props.scale == "log") {
+        minY = Math.min.apply(null, yvals.filter(Boolean));
+      } else {
+        minY = Math.min.apply(Math, yvals);
+      }
 
       var buffer = 80;
 
@@ -953,19 +958,25 @@ var LineChart = function (_React$Component2) {
           var modX = widthRatio * chartWidth + chartX;
 
           var heightRatio = 0;
+
           if (this.props.scale == "log") {
             var logDiff = Math.log10(parseFloat(member[this.props.yKey])) - Math.log10(minY);
             heightRatio = logDiff / (Math.log10(maxY) - Math.log10(minY));
           } else {
             heightRatio = (parseFloat(member[this.props.yKey]) - minY) / (maxY - minY);
           }
+
           var modY = chartHeight - heightRatio * chartHeight + chartY;
 
-          if (key != -1) {
-            sets[key].push([modX, modY]);
+          if (member[this.props.yKey] == 0 && this.props.scale == "log") {
+            modY = 0;
           } else {
-            setTitles.push(member[this.props.titleKey]);
-            sets.push([[modX, modY]]);
+            if (key != -1) {
+              sets[key].push([modX, modY]);
+            } else {
+              setTitles.push(member[this.props.titleKey]);
+              sets.push([[modX, modY]]);
+            }
           }
         }
       } catch (err) {
@@ -1300,6 +1311,7 @@ var YAxis = function (_React$Component6) {
       }
 
       var ySpace = this.props.height / (this.props.ySteps - 1);
+
       for (var i = 0; i < this.props.ySteps; i++) {
         var tickPos = this.props.height + this.props.y - i * ySpace;
 
