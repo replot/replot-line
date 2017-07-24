@@ -937,6 +937,7 @@ var LineChart = function (_React$Component2) {
       }
       series.push(_react2.default.createElement(_Axis2.default, { key: "axis", x: chartX, y: chartY, width: chartWidth, height: chartHeight,
         color: this.props.axisColor, scale: this.props.scale, grid: this.props.grid,
+        gridColor: this.props.gridColor,
         xLabel: xl, yLabel: yl,
         xSteps: this.props.xSteps, xTicks: this.props.xTicks, xAxisLine: this.props.xAxisLine,
         yTicks: this.props.yTicks, ySteps: Math.round(chartHeight / 50) + 1, yAxisLine: this.props.yAxisLine,
@@ -1032,6 +1033,7 @@ LineChart.defaultProps = {
   yAxisLine: "off",
   yLabel: "off",
   grid: "default",
+  gridColor: "#DDDDDD",
   legend: "default",
   legendColor: "#000000",
   color: defPalette,
@@ -1052,6 +1054,7 @@ LineChart.propTypes = {
   yAxisLine: _propTypes2.default.string,
   yLabel: _propTypes2.default.string,
   grid: _propTypes2.default.string,
+  gridColor: _propTypes2.default.string,
   legend: _propTypes2.default.string,
   legendColor: _propTypes2.default.string,
   color: _propTypes2.default.array,
@@ -1109,7 +1112,7 @@ var XTickLabel = function (_React$Component) {
 
       var printVal = String(this.props.value);
       if (printVal.length > 4) {
-        printVal = _humanizePlus2.default.compactInteger(this.props.value, 2);
+        printVal = _humanizePlus2.default.compactInteger(this.props.value, 3);
       }
 
       return _react2.default.createElement(
@@ -1624,7 +1627,7 @@ MotionLine.defaultProps = {
   x2: 0,
   y2: 0,
   stroke: "rgb(0,0,0)",
-  strokeWidth: 2,
+  strokeWidth: 2.25,
   opacity: 1
 };
 
