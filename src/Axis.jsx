@@ -9,7 +9,7 @@ class XTickLabel extends React.Component {
 
     let printVal = String(this.props.value)
     if (printVal.length > 4) {
-      printVal = Humanize.compactInteger(this.props.value,2)
+      printVal = Humanize.compactInteger(this.props.value,3)
     }
 
     return(

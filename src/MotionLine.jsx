@@ -44,7 +44,7 @@ MotionLine.defaultProps = {
   x2: 0,
   y2: 0,
   stroke: "rgb(0,0,0)",
-  strokeWidth: 2,
+  strokeWidth: 2.25,
   opacity: 1
 }
 
