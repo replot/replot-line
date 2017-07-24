@@ -66,6 +66,7 @@ class LineChart extends React.Component {
     series.push(
       <Axis key={"axis"} x={chartX} y={chartY} width={chartWidth} height={chartHeight}
         color={this.props.axisColor} scale={this.props.scale} grid={this.props.grid}
+        gridColor={this.props.gridColor}
         xLabel={xl} yLabel={yl}
         xSteps={this.props.xSteps} xTicks={this.props.xTicks} xAxisLine={this.props.xAxisLine}
         yTicks={this.props.yTicks} ySteps={Math.round((chartHeight)/50)+1} yAxisLine={this.props.yAxisLine}
@@ -143,6 +144,7 @@ LineChart.defaultProps = {
   yAxisLine: "off",
   yLabel: "off",
   grid: "default",
+  gridColor: "#DDDDDD",
   legend: "default",
   legendColor: "#000000",
   color: defPalette,
@@ -163,6 +165,7 @@ LineChart.propTypes = {
   yAxisLine: PropTypes.string,
   yLabel: PropTypes.string,
   grid: PropTypes.string,
+  gridColor: PropTypes.string,
   legend: PropTypes.string,
   legendColor: PropTypes.string,
   color: PropTypes.array,
