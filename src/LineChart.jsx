@@ -1,8 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import MotionLine from "./MotionLine.jsx"
-import Axis from "../../replot-core/src/Axis.jsx"
-import Resize from "../../replot-core/src/Resize.jsx"
+import {Axis, Resize} from "replot-core"
 
 
 class LineSeries extends React.Component {
