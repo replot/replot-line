@@ -69,7 +69,7 @@ class ScaleButton extends React.Component {
 
   clickHandler() {
     this.props.updateScale({
-      scale: this.props.title
+      yScale: this.props.title
     })
   }
 
@@ -100,7 +100,7 @@ class ScaleSwitch extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      scale: "log"
+      yScale: "log"
     }
   }
 
@@ -116,7 +116,7 @@ class ScaleSwitch extends React.Component {
     let buttons = []
     let color = ""
     for (var i=0; i < types.length; i++) {
-      if (types[i] == this.props.scale) {
+      if (types[i] == this.props.yScale) {
         color = "#00AA00"
       } else {
         color = "#444444"
@@ -148,7 +148,7 @@ class ExampleApp extends React.Component {
         {location: "Global", year: 2016, population: 10000},
         {location: "US", year: 2013, population: 0.1},
         {location: "US", year: 2014, population: 1},
-        {location: "US", year: 2015, population: 1},
+        {location: "US", year: 2015, population: 0},
         {location: "US", year: 2016, population: 0.1},
         {location: "India", year: 2013, population: 0.0001},
         {location: "India", year: 2014, population: 10},
@@ -167,7 +167,7 @@ class ExampleApp extends React.Component {
         {location: "Antarctica", year: 2015, population: 0.001},
         {location: "Antarctica", year: 2016, population: 0.0001},
       ],
-      scale: "log"
+      yScale: "log"
     }
   }
 
@@ -187,7 +187,7 @@ class ExampleApp extends React.Component {
   }
 
   updateScale(mutatedObject) {
-    this.setState({scale: mutatedObject.scale})
+    this.setState({yScale: mutatedObject.yScale})
   }
 
   render() {
@@ -195,20 +195,20 @@ class ExampleApp extends React.Component {
       <div className="container">
         <h1 style={{textAlign: "center"}}> Linecharts for react </h1>
         <KeyValueTable data={this.state.data} updateData={this.updateData.bind(this)} />
-        <ScaleSwitch scale={this.state.scale} updateScale={this.updateScale.bind(this)} />
+        <ScaleSwitch yScale={this.state.yScale} updateScale={this.updateScale.bind(this)} />
         <div style={{width:"70%", float:"right", marginTop:"50px", padding:"50px", backgroundColor:"#323940"}}>
-          <LineChart data={this.state.data} titleKey="location"
-            xKey="year" yKey="population" scale={this.state.scale}
-            grid="default" legend="default" color={this.state.color} />
+          <LineChart width="60%" data={this.state.data} groupKey="location"
+            xKey="year" yKey="population" yScale={this.state.yScale}
+            color={this.state.color}/>
         </div>
         <div style={{width:"70%", float:"right", marginTop:"50px", padding:"50px"}}>
-          <LineChart data={this.state.data} titleKey="location"
-            xKey="year" yKey="population" scale={this.state.scale}
+          <LineChart data={this.state.data} groupKey="location"
+            xKey="year" yKey="population" yScale={this.state.yScale}
             grid="default" legend="default" color={this.state.color} />
         </div>
         <div style={{width:"70%", float:"right", marginTop:"50px", padding:"50px", backgroundColor:"#b8485a"}}>
-          <LineChart data={this.state.data} titleKey="location"
-            xKey="year" yKey="population" scale={this.state.scale}
+          <LineChart data={this.state.data} groupKey="location"
+            xKey="year" yKey="population" yScale={this.state.yScale}
             grid="default" legend="default" legendColor={"#FFFFFF"} color={this.state.color} axisColor={"#FFFFFF"} />
         </div>
       </div>
