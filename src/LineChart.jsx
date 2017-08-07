@@ -40,7 +40,10 @@ class SeriesContainer extends React.Component {
 
   render() {
     let series = []
-    let groups = [...new Set(this.props.data.map(item => item[this.props.groupKey]))]
+    let groups
+    if (this.props.groupKey) {
+      groups = [...new Set(this.props.data.map(item => item[this.props.groupKey]))]
+    }
     let unit
     if (this.props.yScale === "log") {
       unit = (this.props.height) / (Math.log10(this.props.max) - Math.log10(this.props.min))
@@ -55,36 +58,64 @@ class SeriesContainer extends React.Component {
       x += this.props.width/(this.props.xVals.length-1)
     }
 
+    let set = []
+    let y
+    let coord = []
 
-    for (let i = 0; i < groups.length; i++){
-      let set = []
-      let y
+    if (this.props.groupKey) {
+      for (let i = 0; i < groups.length; i++){
+        set = []
 
-      for (let dataPoint of this.props.data){
-        let coord = []
-        if (dataPoint[this.props.groupKey] == groups[i]){
-          if (this.props.yScale === "log"){
-            if (dataPoint[this.props.yKey] === 0) {
-              y = (Math.log10(this.props.max) - 0) * unit
+        for (let dataPoint of this.props.data){
+          coord = []
+          if (dataPoint[this.props.groupKey] == groups[i]){
+            if (this.props.yScale === "log"){
+              if (dataPoint[this.props.yKey] === 0) {
+                y = (Math.log10(this.props.max) - 0) * unit
+              }
+              else {
+                y = (Math.log10(this.props.max)-Math.log10(dataPoint[this.props.yKey])) * unit
+              }
+            } else {
+              y = (this.props.max-dataPoint[this.props.yKey]) * unit
             }
-            else {
-              y = (Math.log10(this.props.max)-Math.log10(dataPoint[this.props.yKey])) * unit
-            }
-          } else {
-            y = (this.props.max-dataPoint[this.props.yKey]) * unit
+            coord.push(xCoords[dataPoint[this.props.xKey]])
+            coord.push(y)
+            set.push(coord)
           }
-          coord.push(xCoords[dataPoint[this.props.xKey]])
-          coord.push(y)
-          set.push(coord)
         }
-      }
 
+        series.push(
+          <LineSeries key={"series"+groups[i]} points={set}
+            numpoints={set.length} color={this.props.color(i, groups[i])}
+            lineWidth={this.props.style.lineWidth} initialAnimation={this.props.initialAnimation}/>
+        )
+      }
+    } else {
+      for (let dataPoint of this.props.data) {
+        coord = []
+
+        if (this.props.yScale === "log"){
+          if (dataPoint[this.props.yKey] === 0) {
+            y = (Math.log10(this.props.max) - 0) * unit
+          }
+          else {
+            y = (Math.log10(this.props.max)-Math.log10(dataPoint[this.props.yKey])) * unit
+          }
+        } else {
+          y = (this.props.max-dataPoint[this.props.yKey]) * unit
+        }
+        coord.push(xCoords[dataPoint[this.props.xKey]])
+        coord.push(y)
+        set.push(coord)
+      }
       series.push(
-        <LineSeries key={"series"+groups[i]} points={set}
-          numpoints={set.length} color={this.props.color(i, groups[i])}
+        <LineSeries key={"seriesAll"} points={set}
+          numpoints={set.length} color={this.props.color(0)}
           lineWidth={this.props.style.lineWidth} initialAnimation={this.props.initialAnimation}/>
       )
     }
+
 
     return (
       <g>
@@ -103,26 +134,6 @@ class LineChart extends React.Component {
       legendValues[groups[i]] = this.colorLine(i, groups[i])
     }
     return legendValues
-  }
-
-  draw(xVals, min, max) {
-    return (
-      <Axis key="axis" width={this.props.width} height={this.props.height}
-        graphTitle={this.props.graphTitle} xTitle={this.props.xTitle}
-        yTitle={this.props.yTitle} showXAxisLine={this.props.showXAxisLine}
-        showXLabels={this.props.showXLabels} showYAxisLine={this.props.showYAxisLine}
-        showYLabels={this.props.showYLabels} showGrid={this.props.showGrid}
-        axisStyle={this.props.axisStyle} minY={min} maxY={max}
-        ySteps={this.props.ySteps} yScale={this.props.yScale}
-        legendValues={this.getLegend()} legendStyle={this.props.legendStyle}
-        legendMode={this.props.legendMode} showLegend={this.props.showLegend}
-        labels={xVals} xAxisMode="discrete" xStart="origin">
-        <SeriesContainer data={this.props.data} max={max} min={min} xVals={xVals}
-          xKey={this.props.xKey} yKey={this.props.yKey} groupKey={this.props.groupKey}
-          yScale={this.props.yScale} initialAnimation={this.props.initialAnimation}
-          color={this.colorLine.bind(this)} style={this.props.graphStyle}/>
-      </Axis>
-    )
   }
 
   colorLine(i, group) {
@@ -146,11 +157,29 @@ class LineChart extends React.Component {
       minY = Math.min(...yVals)
     }
 
-    let series = this.draw(xVals, minY, maxY)
+    let graph
+
+    graph = (
+      <Axis key="axis" width={this.props.width} height={this.props.height}
+        graphTitle={this.props.graphTitle} xTitle={this.props.xTitle}
+        yTitle={this.props.yTitle} showXAxisLine={this.props.showXAxisLine}
+        showXLabels={this.props.showXLabels} showYAxisLine={this.props.showYAxisLine}
+        showYLabels={this.props.showYLabels} showGrid={this.props.showGrid}
+        axisStyle={this.props.axisStyle} minY={minY} maxY={maxY}
+        ySteps={this.props.ySteps} yScale={this.props.yScale}
+        legendValues={this.props.groupKey ? this.getLegend() : null} legendStyle={this.props.legendStyle}
+        legendMode={this.props.legendMode} showLegend={this.props.showLegend}
+        labels={xVals} xAxisMode="discrete" xStart="origin">
+        <SeriesContainer data={this.props.data} max={maxY} min={minY} xVals={xVals}
+          xKey={this.props.xKey} yKey={this.props.yKey} groupKey={this.props.groupKey}
+          yScale={this.props.yScale} initialAnimation={this.props.initialAnimation}
+          color={this.colorLine.bind(this)} style={this.props.graphStyle}/>
+      </Axis>
+    )
 
     return(
       <svg width={this.props.width} height={this.props.height}>
-        {series}
+        {graph}
       </svg>
     )
   }
@@ -171,7 +200,6 @@ class LineChartResponsive extends React.Component {
 LineChart.defaultProps = {
   xKey: "x",
   yKey: "y",
-  groupKey: "group",
   width: 800,
   height: 600,
   color: [

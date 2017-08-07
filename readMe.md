@@ -62,6 +62,9 @@ render() {
 - `xKey` defaults to `"x"`
 - `yKey` defaults to `"y"`
 
+Including a `groupKey` will draw multiple lines on your LineChart, one for each
+group, however this prop is optional.
+
 ### Dimensions
 Dimensions may be specified by passing in `width` and `height` props. The
 unit is pixels, and the LineChart defaults to 800 by 600 pixels.
@@ -87,9 +90,9 @@ If none of the mechanisms are specified, LineChart defaults to a built in
 color palette.
 
 #### User-provided Color Palette
-The user can specify their own desired colored palette for the boxplots to use.
+The user can specify their own desired colored palette for the lines to use.
 This is done by passing in an array of color strings to the component with the
-`color` prop. The displayed boxplots will cycle through the provided colors.
+`color` prop. The displayed lines will cycle through the provided colors.
 
 #### User-provided Color function
 The user can specify the color for various lines by providing a function
@@ -197,7 +200,7 @@ render() {
   ...
 
   return(
-    <LineChart data={boxData} axisStyle={style}/>
+    <LineChart data={populations} axisStyle={style}/>
   )
 }
 ```
@@ -226,6 +229,6 @@ Explanations and defaults follow:
 	* Accepts any color string
 
 ### Initial Animation
-Initial animation is enabled by default, resulting in the boxplot growing out
-from the median of a distribution. This can be disabled using the
+Initial animation is enabled by default, resulting in the lines growing out
+from the y-axis line. This can be disabled using the
 `initialAnimation` prop, passing in a value of false.
