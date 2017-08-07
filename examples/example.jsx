@@ -190,27 +190,37 @@ class ExampleApp extends React.Component {
     this.setState({yScale: mutatedObject.yScale})
   }
 
+  colorMe(i, group){
+    if (group === "Antarctica") {
+      return "red"
+    } else if (group === "China") {
+      return "orange"
+    } else if (group === "Global") {
+      return "yellow"
+    } else if (group === "India") {
+      return "green"
+    } else if (group === "Russia") {
+      return "blue"
+    } else if (group === "US") {
+      return "purple"
+    }
+  }
+
   render() {
     return(
       <div className="container">
         <h1 style={{textAlign: "center"}}> Linecharts for react </h1>
-        <KeyValueTable data={this.state.data} updateData={this.updateData.bind(this)} />
-        <ScaleSwitch yScale={this.state.yScale} updateScale={this.updateScale.bind(this)} />
-        <div style={{width:"70%", float:"right", marginTop:"50px", padding:"50px", backgroundColor:"#323940"}}>
+        <div style={{width:"70%", float:"left", padding:"50px"}}>
+          <h2>Standard LineChart Usage</h2>
           <LineChart width="60%" data={this.state.data} groupKey="location"
-            xKey="year" yKey="population" yScale={this.state.yScale}
-            color={this.state.color}/>
-        </div>
-        <div style={{width:"70%", float:"right", marginTop:"50px", padding:"50px"}}>
+            xKey="year" yKey="population" yScale={this.state.yScale} />
+          <h2>LineChart with Customization</h2>
           <LineChart data={this.state.data} groupKey="location"
             xKey="year" yKey="population" yScale={this.state.yScale}
-            grid="default" legend="default" color={this.state.color} />
+            xTitle="Year" yTitle="Population" color={this.colorMe}/>
         </div>
-        <div style={{width:"70%", float:"right", marginTop:"50px", padding:"50px", backgroundColor:"#b8485a"}}>
-          <LineChart data={this.state.data} groupKey="location"
-            xKey="year" yKey="population" yScale={this.state.yScale}
-            grid="default" legend="default" legendColor={"#FFFFFF"} color={this.state.color} axisColor={"#FFFFFF"} />
-        </div>
+        <ScaleSwitch yScale={this.state.yScale} updateScale={this.updateScale.bind(this)} />
+        <KeyValueTable data={this.state.data} updateData={this.updateData.bind(this)} />
       </div>
     )
   }
