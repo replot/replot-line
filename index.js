@@ -443,7 +443,7 @@ module.exports = factory(
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- *
+ * 
  */
 
 function makeEmptyFunction(arg) {
@@ -904,9 +904,12 @@ var SeriesContainer = function (_React$Component2) {
       var _this3 = this;
 
       var series = [];
-      var groups = [].concat(_toConsumableArray(new Set(this.props.data.map(function (item) {
-        return item[_this3.props.groupKey];
-      }))));
+      var groups = void 0;
+      if (this.props.groupKey) {
+        groups = [].concat(_toConsumableArray(new Set(this.props.data.map(function (item) {
+          return item[_this3.props.groupKey];
+        }))));
+      }
       var unit = void 0;
       if (this.props.yScale === "log") {
         unit = this.props.height / (Math.log10(this.props.max) - Math.log10(this.props.min));
@@ -942,51 +945,98 @@ var SeriesContainer = function (_React$Component2) {
         }
       }
 
-      for (var i = 0; i < groups.length; i++) {
-        var set = [];
-        var y = void 0;
+      var set = [];
+      var y = void 0;
+      var coord = [];
 
-        var _iteratorNormalCompletion2 = true;
-        var _didIteratorError2 = false;
-        var _iteratorError2 = undefined;
+      if (this.props.groupKey) {
+        for (var i = 0; i < groups.length; i++) {
+          set = [];
 
-        try {
-          for (var _iterator2 = this.props.data[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-            var dataPoint = _step2.value;
+          var _iteratorNormalCompletion2 = true;
+          var _didIteratorError2 = false;
+          var _iteratorError2 = undefined;
 
-            var coord = [];
-            if (dataPoint[this.props.groupKey] == groups[i]) {
-              if (this.props.yScale === "log") {
-                if (dataPoint[this.props.yKey] === 0) {
-                  y = (Math.log10(this.props.max) - 0) * unit;
+          try {
+            for (var _iterator2 = this.props.data[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+              var dataPoint = _step2.value;
+
+              coord = [];
+              if (dataPoint[this.props.groupKey] == groups[i]) {
+                if (this.props.yScale === "log") {
+                  if (dataPoint[this.props.yKey] === 0) {
+                    y = (Math.log10(this.props.max) - 0) * unit;
+                  } else {
+                    y = (Math.log10(this.props.max) - Math.log10(dataPoint[this.props.yKey])) * unit;
+                  }
                 } else {
-                  y = (Math.log10(this.props.max) - Math.log10(dataPoint[this.props.yKey])) * unit;
+                  y = (this.props.max - dataPoint[this.props.yKey]) * unit;
                 }
-              } else {
-                y = (this.props.max - dataPoint[this.props.yKey]) * unit;
+                coord.push(xCoords[dataPoint[this.props.xKey]]);
+                coord.push(y);
+                set.push(coord);
               }
-              coord.push(xCoords[dataPoint[this.props.xKey]]);
-              coord.push(y);
-              set.push(coord);
+            }
+          } catch (err) {
+            _didIteratorError2 = true;
+            _iteratorError2 = err;
+          } finally {
+            try {
+              if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                _iterator2.return();
+              }
+            } finally {
+              if (_didIteratorError2) {
+                throw _iteratorError2;
+              }
             }
           }
+
+          series.push(_react2.default.createElement(LineSeries, { key: "series" + groups[i], points: set,
+            numpoints: set.length, color: this.props.color(i, groups[i]),
+            lineWidth: this.props.style.lineWidth, initialAnimation: this.props.initialAnimation }));
+        }
+      } else {
+        var _iteratorNormalCompletion3 = true;
+        var _didIteratorError3 = false;
+        var _iteratorError3 = undefined;
+
+        try {
+          for (var _iterator3 = this.props.data[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+            var _dataPoint = _step3.value;
+
+            coord = [];
+
+            if (this.props.yScale === "log") {
+              if (_dataPoint[this.props.yKey] === 0) {
+                y = (Math.log10(this.props.max) - 0) * unit;
+              } else {
+                y = (Math.log10(this.props.max) - Math.log10(_dataPoint[this.props.yKey])) * unit;
+              }
+            } else {
+              y = (this.props.max - _dataPoint[this.props.yKey]) * unit;
+            }
+            coord.push(xCoords[_dataPoint[this.props.xKey]]);
+            coord.push(y);
+            set.push(coord);
+          }
         } catch (err) {
-          _didIteratorError2 = true;
-          _iteratorError2 = err;
+          _didIteratorError3 = true;
+          _iteratorError3 = err;
         } finally {
           try {
-            if (!_iteratorNormalCompletion2 && _iterator2.return) {
-              _iterator2.return();
+            if (!_iteratorNormalCompletion3 && _iterator3.return) {
+              _iterator3.return();
             }
           } finally {
-            if (_didIteratorError2) {
-              throw _iteratorError2;
+            if (_didIteratorError3) {
+              throw _iteratorError3;
             }
           }
         }
 
-        series.push(_react2.default.createElement(LineSeries, { key: "series" + groups[i], points: set,
-          numpoints: set.length, color: this.props.color(i, groups[i]),
+        series.push(_react2.default.createElement(LineSeries, { key: "seriesAll", points: set,
+          numpoints: set.length, color: this.props.color(0),
           lineWidth: this.props.style.lineWidth, initialAnimation: this.props.initialAnimation }));
       }
 
@@ -1025,27 +1075,6 @@ var LineChart = function (_React$Component3) {
       return legendValues;
     }
   }, {
-    key: "draw",
-    value: function draw(xVals, min, max) {
-      return _react2.default.createElement(
-        _replotCore.Axis,
-        { key: "axis", width: this.props.width, height: this.props.height,
-          graphTitle: this.props.graphTitle, xTitle: this.props.xTitle,
-          yTitle: this.props.yTitle, showXAxisLine: this.props.showXAxisLine,
-          showXLabels: this.props.showXLabels, showYAxisLine: this.props.showYAxisLine,
-          showYLabels: this.props.showYLabels, showGrid: this.props.showGrid,
-          axisStyle: this.props.axisStyle, minY: min, maxY: max,
-          ySteps: this.props.ySteps, yScale: this.props.yScale,
-          legendValues: this.getLegend(), legendStyle: this.props.legendStyle,
-          legendMode: this.props.legendMode, showLegend: this.props.showLegend,
-          labels: xVals, xAxisMode: "discrete", xStart: "origin" },
-        _react2.default.createElement(SeriesContainer, { data: this.props.data, max: max, min: min, xVals: xVals,
-          xKey: this.props.xKey, yKey: this.props.yKey, groupKey: this.props.groupKey,
-          yScale: this.props.yScale, initialAnimation: this.props.initialAnimation,
-          color: this.colorLine.bind(this), style: this.props.graphStyle })
-      );
-    }
-  }, {
     key: "colorLine",
     value: function colorLine(i, group) {
       if (this.props.color instanceof Array) {
@@ -1077,12 +1106,30 @@ var LineChart = function (_React$Component3) {
         minY = Math.min.apply(Math, _toConsumableArray(yVals));
       }
 
-      var series = this.draw(xVals, minY, maxY);
+      var graph = void 0;
+
+      graph = _react2.default.createElement(
+        _replotCore.Axis,
+        { key: "axis", width: this.props.width, height: this.props.height,
+          graphTitle: this.props.graphTitle, xTitle: this.props.xTitle,
+          yTitle: this.props.yTitle, showXAxisLine: this.props.showXAxisLine,
+          showXLabels: this.props.showXLabels, showYAxisLine: this.props.showYAxisLine,
+          showYLabels: this.props.showYLabels, showGrid: this.props.showGrid,
+          axisStyle: this.props.axisStyle, minY: minY, maxY: maxY,
+          ySteps: this.props.ySteps, yScale: this.props.yScale,
+          legendValues: this.props.groupKey ? this.getLegend() : null, legendStyle: this.props.legendStyle,
+          legendMode: this.props.legendMode, showLegend: this.props.showLegend,
+          labels: xVals, xAxisMode: "discrete", xStart: "origin" },
+        _react2.default.createElement(SeriesContainer, { data: this.props.data, max: maxY, min: minY, xVals: xVals,
+          xKey: this.props.xKey, yKey: this.props.yKey, groupKey: this.props.groupKey,
+          yScale: this.props.yScale, initialAnimation: this.props.initialAnimation,
+          color: this.colorLine.bind(this), style: this.props.graphStyle })
+      );
 
       return _react2.default.createElement(
         "svg",
         { width: this.props.width, height: this.props.height },
-        series
+        graph
       );
     }
   }]);
@@ -1116,7 +1163,6 @@ var LineChartResponsive = function (_React$Component4) {
 LineChart.defaultProps = {
   xKey: "x",
   yKey: "y",
-  groupKey: "group",
   width: 800,
   height: 600,
   color: ["#fea9ac", "#fc858f", "#f46b72", "#de836e", "#caa56f", "#adcc6f", "#8ebc57", "#799b3f"],
@@ -1266,7 +1312,7 @@ MotionLine.defaultProps = {
   x2: 0,
   y2: 0,
   stroke: "rgb(0,0,0)",
-  strokeWidth: 2,
+  strokeWidth: 2.25,
   opacity: 1
 };
 
@@ -1283,230 +1329,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-<<<<<<< HEAD
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Legend = function (_React$Component) {
-  _inherits(Legend, _React$Component);
-
-  function Legend() {
-    _classCallCheck(this, Legend);
-
-    return _possibleConstructorReturn(this, (Legend.__proto__ || Object.getPrototypeOf(Legend)).apply(this, arguments));
-  }
-
-  _createClass(Legend, [{
-    key: "render",
-    value: function render() {
-      var segment = this.props.width / this.props.titles.length;
-
-      var legend = [];
-      for (var i = 0; i < this.props.titles.length; i++) {
-        legend.push(_react2.default.createElement("rect", { key: "color" + i, x: this.props.x + i * segment, y: this.props.y - 8,
-          width: 15, height: 15, fill: this.props.color[i % this.props.color.length] }));
-        legend.push(_react2.default.createElement(
-          "text",
-          { key: "label" + i, x: this.props.x + i * segment + 25, y: this.props.y + 5,
-            fontSize: 15, fill: this.props.legendColor },
-          this.props.titles[i]
-        ));
-      }
-
-      return _react2.default.createElement(
-        "g",
-        null,
-        legend
-      );
-    }
-  }]);
-
-  return Legend;
-}(_react2.default.Component);
-
-exports.default = Legend;
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Line = function (_React$Component) {
-  _inherits(Line, _React$Component);
-
-  function Line() {
-    _classCallCheck(this, Line);
-
-    return _possibleConstructorReturn(this, (Line.__proto__ || Object.getPrototypeOf(Line)).apply(this, arguments));
-  }
-
-  _createClass(Line, [{
-    key: "render",
-    value: function render() {
-      return _react2.default.createElement(
-        "g",
-        null,
-        _react2.default.createElement("line", {
-          x1: this.props.x1,
-          y1: this.props.y1,
-          x2: this.props.x2,
-          y2: this.props.y2,
-          stroke: this.props.stroke,
-          strokeWidth: this.props.strokeWidth,
-          opacity: this.props.opacity })
-      );
-    }
-  }]);
-
-  return Line;
-}(_react2.default.Component);
-
-Line.defaultProps = {
-  x1: 0,
-  y1: 0,
-  x2: 0,
-  y2: 0,
-  stroke: "rgb(0,0,0)",
-  strokeWidth: 2,
-  opacity: 1
-};
-
-exports.default = Line;
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactMotion = __webpack_require__(33);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var MotionLine = function (_React$Component) {
-  _inherits(MotionLine, _React$Component);
-
-  function MotionLine() {
-    _classCallCheck(this, MotionLine);
-
-    return _possibleConstructorReturn(this, (MotionLine.__proto__ || Object.getPrototypeOf(MotionLine)).apply(this, arguments));
-  }
-
-  _createClass(MotionLine, [{
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-
-      return _react2.default.createElement(
-        _reactMotion.Motion,
-        {
-          defaultStyle: {
-            x1: this.props.xStart,
-            y1: this.props.yStart,
-            x2: this.props.xStart,
-            y2: this.props.yStart
-          },
-          style: {
-            x1: (0, _reactMotion.spring)(this.props.x1, { stiffness: 120, damping: 26 }),
-            y1: (0, _reactMotion.spring)(this.props.y1, { stiffness: 120, damping: 26 }),
-            x2: (0, _reactMotion.spring)(this.props.x2, { stiffness: 120, damping: 26 }),
-            y2: (0, _reactMotion.spring)(this.props.y2, { stiffness: 120, damping: 26 })
-          }
-        },
-        function (interpolatingStyles) {
-          return _react2.default.createElement(
-            "g",
-            null,
-            _react2.default.createElement("line", {
-              x1: interpolatingStyles.x1,
-              y1: interpolatingStyles.y1,
-              x2: interpolatingStyles.x2,
-              y2: interpolatingStyles.y2,
-              stroke: _this2.props.stroke,
-              strokeWidth: _this2.props.strokeWidth,
-              opacity: _this2.props.opacity })
-          );
-        }
-      );
-    }
-  }]);
-
-  return MotionLine;
-}(_react2.default.Component);
-
-MotionLine.defaultProps = {
-  x1: 0,
-  y1: 0,
-  x2: 0,
-  y2: 0,
-  stroke: "rgb(0,0,0)",
-  strokeWidth: 2.25,
-  opacity: 1
-};
-
-exports.default = MotionLine;
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-=======
->>>>>>> 9ac7162... import from proper locations, compile
 var _LineChart = __webpack_require__(15);
 
 var _LineChart2 = _interopRequireDefault(_LineChart);
@@ -4767,7 +4589,7 @@ module.exports = factory(
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- *
+ * 
  */
 
 function makeEmptyFunction(arg) {
@@ -5177,7 +4999,7 @@ var Legend = function (_React$Component) {
           for (var i = 0; i < titles.length; i++) {
             var title = titles[i];
             if (title) {
-              var x = buffer.x + i % numColumns * ((this.props.width - buffer.x - (size * 2 + longest.length * size / 2)) / (numColumns - 1));
+              var x = buffer.x + i % numColumns * ((this.props.width - buffer.x - (size * 2 + longest.length * size / 2)) / (numColumns - 1 <= 0 ? 1 : numColumns - 1));
               var y = buffer.y + Math.floor(i / numColumns) * 1.5 * size;
               items.push(_react2.default.createElement(
                 "g",
@@ -5476,7 +5298,7 @@ var YTickLabel = function (_React$Component2) {
         null,
         _react2.default.createElement(
           "text",
-          { x: this.props.x, y: this.props.y + 7.5,
+          { x: this.props.x, y: this.props.y + 5,
             fontSize: 15, fill: this.props.color, textAnchor: "end" },
           printVal
         )
@@ -5557,9 +5379,15 @@ var YAxis = function (_React$Component4) {
 
         var yVal = 0;
         if (this.props.yScale == "log") {
-          var valueRatio = (Math.log10(this.props.maxY) - Math.log10(this.props.minY)) / (this.props.ySteps - 1);
-          var pow10 = Math.log10(this.props.minY) + i * valueRatio;
-          yVal = Math.pow(10, pow10);
+          if (this.props.minY === 0) {
+            var valueRatio = Math.log10(this.props.maxY) / (this.props.ySteps - 1);
+            var pow10 = i * valueRatio;
+            yVal = Math.pow(10, pow10);
+          } else {
+            var _valueRatio = (Math.log10(this.props.maxY) - Math.log10(this.props.minY)) / (this.props.ySteps - 1);
+            var _pow = Math.log10(this.props.minY) + i * _valueRatio;
+            yVal = Math.pow(10, _pow);
+          }
         } else {
           yVal = this.props.minY + i * (this.props.maxY - this.props.minY) / (this.props.ySteps - 1);
         }
@@ -5719,9 +5547,15 @@ var XAxisContinuous = function (_React$Component7) {
 
           var xVal = 0;
           if (this.props.xScale == "log") {
-            var valueRatio = (Math.log10(this.props.maxX) - Math.log10(this.props.minX)) / (this.props.xSteps - 1);
-            var pow10 = Math.log10(this.props.minX) + i * valueRatio;
-            xVal = Math.pow(10, pow10);
+            if (this.props.minX === 0) {
+              var valueRatio = Math.log10(this.props.maxX) / (this.props.xSteps - 1);
+              var pow10 = i * valueRatio;
+              xVal = Math.pow(10, pow10);
+            } else {
+              var _valueRatio2 = (Math.log10(this.props.maxX) - Math.log10(this.props.minX)) / (this.props.xSteps - 1);
+              var _pow2 = Math.log10(this.props.minX) + i * _valueRatio2;
+              xVal = Math.pow(10, _pow2);
+            }
           } else {
             xVal = this.props.minX + i * (this.props.maxX - this.props.minX) / (this.props.xSteps - 1);
           }
@@ -5876,7 +5710,7 @@ var Axis = function (_React$Component9) {
       this.axes = [];
       this.buffer = { top: 0, left: 0, bot: 0, right: 0 };
       if (this.props.showYAxis) {
-        this.buffer.top += 5;
+        this.buffer.top += 10;
         this.buffer.left += 60;
         if (this.props.yTitle) {
           this.buffer.left += 25;
