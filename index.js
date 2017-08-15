@@ -861,20 +861,28 @@ var LineSeries = function (_React$Component) {
     key: "render",
     value: function render() {
       var lines = [];
+      var data = this.props.points.map(function (point) {
+        return point.raw;
+      });
       if (this.props.initialAnimation) {
         for (var i = 0; i < this.props.numpoints - 1; i++) {
           lines.push(_react2.default.createElement(_MotionLine2.default, { key: "line" + i,
-            x1: this.props.points[i][0], y1: this.props.points[i][1],
-            x2: this.props.points[i + 1][0], y2: this.props.points[i + 1][1],
-            xStart: this.props.points[0][0], yStart: this.props.points[0][1],
-            stroke: this.props.color, strokeWidth: this.props.lineWidth }));
+            x1: this.props.points[i].x, y1: this.props.points[i].y,
+            x2: this.props.points[i + 1].x, y2: this.props.points[i + 1].y,
+            xStart: this.props.points[0].x, yStart: this.props.points[0].y,
+            stroke: this.props.color, strokeWidth: this.props.lineWidth,
+            data: data,
+            activateTooltip: this.props.activateTooltip,
+            deactivateTooltip: this.props.deactivateTooltip }));
         }
       } else {
         for (var _i = 0; _i < this.props.numpoints - 1; _i++) {
           lines.push(_react2.default.createElement("line", { key: "line" + _i,
-            x1: this.props.points[_i][0], y1: this.props.points[_i][1],
-            x2: this.props.points[_i + 1][0], y2: this.props.points[_i + 1][1],
-            stroke: this.props.color, strokeWidth: this.props.lineWidth }));
+            x1: this.props.points[_i].x, y1: this.props.points[_i].y,
+            x2: this.props.points[_i + 1].x, y2: this.props.points[_i + 1].y,
+            stroke: this.props.color, strokeWidth: this.props.lineWidth,
+            onMouseOver: this.props.activateTooltip.bind(this, data),
+            onMouseOut: this.props.deactivateTooltip }));
         }
       }
 
@@ -947,7 +955,7 @@ var SeriesContainer = function (_React$Component2) {
 
       var set = [];
       var y = void 0;
-      var coord = [];
+      var coord = {};
 
       if (this.props.groupKey) {
         for (var i = 0; i < groups.length; i++) {
@@ -961,7 +969,7 @@ var SeriesContainer = function (_React$Component2) {
             for (var _iterator2 = this.props.data[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
               var dataPoint = _step2.value;
 
-              coord = [];
+              coord = {};
               if (dataPoint[this.props.groupKey] == groups[i]) {
                 if (this.props.yScale === "log") {
                   if (dataPoint[this.props.yKey] === 0) {
@@ -972,8 +980,9 @@ var SeriesContainer = function (_React$Component2) {
                 } else {
                   y = (this.props.max - dataPoint[this.props.yKey]) * unit;
                 }
-                coord.push(xCoords[dataPoint[this.props.xKey]]);
-                coord.push(y);
+                coord.x = xCoords[dataPoint[this.props.xKey]];
+                coord.y = y;
+                coord.raw = dataPoint;
                 set.push(coord);
               }
             }
@@ -994,7 +1003,10 @@ var SeriesContainer = function (_React$Component2) {
 
           series.push(_react2.default.createElement(LineSeries, { key: "series" + groups[i], points: set,
             numpoints: set.length, color: this.props.color(i, groups[i]),
-            lineWidth: this.props.style.lineWidth, initialAnimation: this.props.initialAnimation }));
+            lineWidth: this.props.style.lineWidth,
+            initialAnimation: this.props.initialAnimation,
+            activateTooltip: this.props.activateTooltip,
+            deactivateTooltip: this.props.deactivateTooltip }));
         }
       } else {
         var _iteratorNormalCompletion3 = true;
@@ -1005,7 +1017,7 @@ var SeriesContainer = function (_React$Component2) {
           for (var _iterator3 = this.props.data[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
             var _dataPoint = _step3.value;
 
-            coord = [];
+            coord = {};
 
             if (this.props.yScale === "log") {
               if (_dataPoint[this.props.yKey] === 0) {
@@ -1016,8 +1028,9 @@ var SeriesContainer = function (_React$Component2) {
             } else {
               y = (this.props.max - _dataPoint[this.props.yKey]) * unit;
             }
-            coord.push(xCoords[_dataPoint[this.props.xKey]]);
-            coord.push(y);
+            coord.x = xCoords[_dataPoint[this.props.xKey]];
+            coord.y = y;
+            coord.raw = _dataPoint;
             set.push(coord);
           }
         } catch (err) {
@@ -1037,7 +1050,10 @@ var SeriesContainer = function (_React$Component2) {
 
         series.push(_react2.default.createElement(LineSeries, { key: "seriesAll", points: set,
           numpoints: set.length, color: this.props.color(0),
-          lineWidth: this.props.style.lineWidth, initialAnimation: this.props.initialAnimation }));
+          lineWidth: this.props.style.lineWidth,
+          initialAnimation: this.props.initialAnimation,
+          activateTooltip: this.props.activateTooltip,
+          deactivateTooltip: this.props.deactivateTooltip }));
       }
 
       return _react2.default.createElement(
@@ -1057,10 +1073,78 @@ var LineChart = function (_React$Component3) {
   function LineChart() {
     _classCallCheck(this, LineChart);
 
-    return _possibleConstructorReturn(this, (LineChart.__proto__ || Object.getPrototypeOf(LineChart)).apply(this, arguments));
+    var _this4 = _possibleConstructorReturn(this, (LineChart.__proto__ || Object.getPrototypeOf(LineChart)).call(this));
+
+    _this4.state = {
+      tooltipContents: null,
+      mouseOver: false,
+      mouseX: null,
+      mouseY: null
+    };
+    return _this4;
   }
 
   _createClass(LineChart, [{
+    key: "activateTooltip",
+    value: function activateTooltip(data) {
+      var newContents = void 0;
+      if (this.props.tooltipContents) {
+        newContents = this.props.tooltipContents(data);
+      } else {
+        var text = [];
+        var group = void 0;
+        if (this.props.groupKey) {
+          group = data[0][this.props.groupKey];
+          text.push(_react2.default.createElement(
+            "span",
+            { key: group },
+            this.props.groupKey,
+            ": ",
+            group,
+            _react2.default.createElement("br", null)
+          ));
+        }
+        for (var i = 0; i < data.length; i++) {
+          text.push(_react2.default.createElement(
+            "span",
+            { key: group ? String(group) + i : "point" + i },
+            this.props.xKey,
+            ": ",
+            data[i][this.props.xKey],
+            _react2.default.createElement("br", null),
+            this.props.yKey,
+            ": ",
+            data[i][this.props.yKey],
+            _react2.default.createElement("br", null)
+          ));
+        }
+        newContents = _react2.default.createElement(
+          "div",
+          null,
+          text
+        );
+      }
+      this.setState({
+        tooltipContents: newContents,
+        mouseOver: true
+      });
+    }
+  }, {
+    key: "deactivateTooltip",
+    value: function deactivateTooltip() {
+      this.setState({
+        mouseOver: false
+      });
+    }
+  }, {
+    key: "updateMousePos",
+    value: function updateMousePos(e) {
+      this.setState({
+        mouseX: e.pageX,
+        mouseY: e.pageY - 10
+      });
+    }
+  }, {
     key: "getLegend",
     value: function getLegend() {
       var _this5 = this;
@@ -1123,13 +1207,25 @@ var LineChart = function (_React$Component3) {
         _react2.default.createElement(SeriesContainer, { data: this.props.data, max: maxY, min: minY, xVals: xVals,
           xKey: this.props.xKey, yKey: this.props.yKey, groupKey: this.props.groupKey,
           yScale: this.props.yScale, initialAnimation: this.props.initialAnimation,
-          color: this.colorLine.bind(this), style: this.props.graphStyle })
+          color: this.colorLine.bind(this), style: this.props.graphStyle,
+          activateTooltip: this.activateTooltip.bind(this),
+          deactivateTooltip: this.deactivateTooltip.bind(this) })
       );
 
       return _react2.default.createElement(
-        "svg",
-        { width: this.props.width, height: this.props.height },
-        graph
+        "div",
+        { onMouseMove: this.props.tooltip ? this.updateMousePos.bind(this) : null },
+        this.props.tooltip && _react2.default.createElement(_replotCore.Tooltip, {
+          x: this.state.mouseX, y: this.state.mouseY,
+          active: this.state.mouseOver,
+          contents: this.state.tooltipContents,
+          colorScheme: this.props.tooltipColor
+        }),
+        _react2.default.createElement(
+          "svg",
+          { width: this.props.width, height: this.props.height },
+          graph
+        )
       );
     }
   }]);
@@ -1190,7 +1286,8 @@ LineChart.defaultProps = {
     showBorder: false,
     borderColor: "#000000"
   },
-  initialAnimation: true
+  initialAnimation: false,
+  tooltip: true
 };
 
 LineChart.propTypes = {
@@ -1296,7 +1393,9 @@ var MotionLine = function (_React$Component) {
               y2: interpolatingStyles.y2,
               stroke: _this2.props.stroke,
               strokeWidth: _this2.props.strokeWidth,
-              opacity: _this2.props.opacity })
+              opacity: _this2.props.opacity,
+              onMouseOver: _this2.props.activateTooltip.bind(_this2, _this2.props.data),
+              onMouseOut: _this2.props.deactivateTooltip })
           );
         }
       );
