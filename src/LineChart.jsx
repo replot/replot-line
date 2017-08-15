@@ -1,30 +1,36 @@
 import React from "react"
 import PropTypes from "prop-types"
 import MotionLine from "./MotionLine.jsx"
-import {Axis, Resize} from "replot-core"
+import {Axis, Resize, Tooltip} from "replot-core"
 
 
 class LineSeries extends React.Component {
 
   render() {
     let lines = []
+    let data = this.props.points.map(point => point.raw)
     if (this.props.initialAnimation){
       for (let i=0; i < this.props.numpoints-1; i++) {
         lines.push(
           <MotionLine key={"line"+i}
-            x1={this.props.points[i][0]} y1={this.props.points[i][1]}
-            x2={this.props.points[i+1][0]} y2={this.props.points[i+1][1]}
-            xStart={this.props.points[0][0]} yStart={this.props.points[0][1]}
-            stroke={this.props.color} strokeWidth={this.props.lineWidth}/>
+            x1={this.props.points[i].x} y1={this.props.points[i].y}
+            x2={this.props.points[i+1].x} y2={this.props.points[i+1].y}
+            xStart={this.props.points[0].x} yStart={this.props.points[0].y}
+            stroke={this.props.color} strokeWidth={this.props.lineWidth}
+            data={data}
+            activateTooltip={this.props.activateTooltip}
+            deactivateTooltip={this.props.deactivateTooltip}/>
         )
       }
     } else {
       for (let i=0; i < this.props.numpoints-1; i++) {
         lines.push(
           <line key={"line"+i}
-            x1={this.props.points[i][0]} y1={this.props.points[i][1]}
-            x2={this.props.points[i+1][0]} y2={this.props.points[i+1][1]}
-            stroke={this.props.color} strokeWidth={this.props.lineWidth}/>
+            x1={this.props.points[i].x} y1={this.props.points[i].y}
+            x2={this.props.points[i+1].x} y2={this.props.points[i+1].y}
+            stroke={this.props.color} strokeWidth={this.props.lineWidth}
+            onMouseOver={this.props.activateTooltip.bind(this, data)}
+            onMouseOut={this.props.deactivateTooltip}/>
         )
       }
     }
@@ -60,14 +66,14 @@ class SeriesContainer extends React.Component {
 
     let set = []
     let y
-    let coord = []
+    let coord = {}
 
     if (this.props.groupKey) {
       for (let i = 0; i < groups.length; i++){
         set = []
 
         for (let dataPoint of this.props.data){
-          coord = []
+          coord = {}
           if (dataPoint[this.props.groupKey] == groups[i]){
             if (this.props.yScale === "log"){
               if (dataPoint[this.props.yKey] === 0) {
@@ -79,8 +85,9 @@ class SeriesContainer extends React.Component {
             } else {
               y = (this.props.max-dataPoint[this.props.yKey]) * unit
             }
-            coord.push(xCoords[dataPoint[this.props.xKey]])
-            coord.push(y)
+            coord.x = xCoords[dataPoint[this.props.xKey]]
+            coord.y = y
+            coord.raw = dataPoint
             set.push(coord)
           }
         }
@@ -88,12 +95,15 @@ class SeriesContainer extends React.Component {
         series.push(
           <LineSeries key={"series"+groups[i]} points={set}
             numpoints={set.length} color={this.props.color(i, groups[i])}
-            lineWidth={this.props.style.lineWidth} initialAnimation={this.props.initialAnimation}/>
+            lineWidth={this.props.style.lineWidth}
+            initialAnimation={this.props.initialAnimation}
+            activateTooltip={this.props.activateTooltip}
+            deactivateTooltip={this.props.deactivateTooltip}/>
         )
       }
     } else {
       for (let dataPoint of this.props.data) {
-        coord = []
+        coord = {}
 
         if (this.props.yScale === "log"){
           if (dataPoint[this.props.yKey] === 0) {
@@ -105,14 +115,18 @@ class SeriesContainer extends React.Component {
         } else {
           y = (this.props.max-dataPoint[this.props.yKey]) * unit
         }
-        coord.push(xCoords[dataPoint[this.props.xKey]])
-        coord.push(y)
+        coord.x = xCoords[dataPoint[this.props.xKey]]
+        coord.y = y
+        coord.raw = dataPoint
         set.push(coord)
       }
       series.push(
         <LineSeries key={"seriesAll"} points={set}
           numpoints={set.length} color={this.props.color(0)}
-          lineWidth={this.props.style.lineWidth} initialAnimation={this.props.initialAnimation}/>
+          lineWidth={this.props.style.lineWidth}
+          initialAnimation={this.props.initialAnimation}
+          activateTooltip={this.props.activateTooltip}
+          deactivateTooltip={this.props.deactivateTooltip}/>
       )
     }
 
@@ -126,6 +140,68 @@ class SeriesContainer extends React.Component {
 }
 
 class LineChart extends React.Component {
+
+  constructor(){
+    super()
+    this.state = {
+      tooltipContents: null,
+      mouseOver: false,
+      mouseX: null,
+      mouseY: null
+    }
+  }
+
+  activateTooltip(data) {
+    let newContents
+    if (this.props.tooltipContents){
+      newContents = this.props.tooltipContents(data)
+    }
+    else {
+      let text = []
+      let group
+      if (this.props.groupKey){
+        group = data[0][this.props.groupKey]
+        text.push(
+          <span key={group} >
+            {this.props.groupKey}: {group}
+            <br/>
+          </span>
+        )
+      }
+      for (let i = 0; i < data.length; i++){
+        text.push(
+          <span key={(group ? String(group) + i : "point" + i)}>
+            {this.props.xKey}: {data[i][this.props.xKey]}
+            <br/>
+            {this.props.yKey}: {data[i][this.props.yKey]}
+            <br/>
+          </span>
+        )
+      }
+      newContents = (
+        <div>
+          {text}
+        </div>
+      )
+    }
+    this.setState({
+      tooltipContents: newContents,
+      mouseOver: true,
+    })
+  }
+
+  deactivateTooltip() {
+    this.setState({
+      mouseOver: false
+    })
+  }
+
+  updateMousePos(e) {
+    this.setState({
+      mouseX: e.pageX,
+      mouseY: e.pageY - 10
+    })
+  }
 
   getLegend(){
     let groups = [...new Set(this.props.data.map(item => item[this.props.groupKey]))]
@@ -173,14 +249,26 @@ class LineChart extends React.Component {
         <SeriesContainer data={this.props.data} max={maxY} min={minY} xVals={xVals}
           xKey={this.props.xKey} yKey={this.props.yKey} groupKey={this.props.groupKey}
           yScale={this.props.yScale} initialAnimation={this.props.initialAnimation}
-          color={this.colorLine.bind(this)} style={this.props.graphStyle}/>
+          color={this.colorLine.bind(this)} style={this.props.graphStyle}
+          activateTooltip={this.activateTooltip.bind(this)}
+          deactivateTooltip={this.deactivateTooltip.bind(this)}/>
       </Axis>
     )
 
     return(
-      <svg width={this.props.width} height={this.props.height}>
-        {graph}
-      </svg>
+      <div onMouseMove={this.props.tooltip ? this.updateMousePos.bind(this) : null}>
+        {this.props.tooltip &&
+          <Tooltip
+            x={this.state.mouseX} y={this.state.mouseY}
+            active={this.state.mouseOver}
+            contents={this.state.tooltipContents}
+            colorScheme={this.props.tooltipColor}
+          />
+        }
+        <svg width={this.props.width} height={this.props.height}>
+          {graph}
+        </svg>
+      </div>
     )
   }
 
@@ -230,7 +318,8 @@ LineChart.defaultProps = {
     showBorder: false,
     borderColor: "#000000"
   },
-  initialAnimation: true
+  initialAnimation: false,
+  tooltip: true
 }
 
 LineChart.propTypes = {
