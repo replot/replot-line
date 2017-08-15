@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import MotionLine from "./MotionLine.jsx"
+import {MotionPoint, MotionLine} from "./MotionComp.jsx"
 import {Axis, Resize, Tooltip} from "replot-core"
 
 
@@ -16,23 +16,52 @@ class LineSeries extends React.Component {
             x1={this.props.points[i].x} y1={this.props.points[i].y}
             x2={this.props.points[i+1].x} y2={this.props.points[i+1].y}
             xStart={this.props.points[0].x} yStart={this.props.points[0].y}
-            stroke={this.props.color} strokeWidth={this.props.lineWidth}
-            data={data}
+            stroke={this.props.color} strokeWidth={this.props.lineWidth}/>
+        )
+        lines.push(
+          <MotionPoint key={"point"+i}
+            xStart={this.props.points[0].x} yStart={this.props.points[0].y}
+            x={this.props.points[i].x} y={this.props.points[i].y}
+            radius={this.props.pointWidth} fill={this.props.color}
+            pointData={this.props.points[i].raw} lineData={data}
             activateTooltip={this.props.activateTooltip}
             deactivateTooltip={this.props.deactivateTooltip}/>
         )
       }
+      lines.push(
+        <MotionPoint key={"point" + (this.props.numpoints-1)}
+          xStart={this.props.points[0].x} yStart={this.props.points[0].y}
+          x={this.props.points[this.props.numpoints-1].x}
+          y={this.props.points[this.props.numpoints-1].y}
+          radius={this.props.pointWidth} fill={this.props.color}
+          pointData={this.props.points[this.props.numpoints-1].raw} lineData={data}
+          activateTooltip={this.props.activateTooltip}
+          deactivateTooltip={this.props.deactivateTooltip}/>
+      )
     } else {
       for (let i=0; i < this.props.numpoints-1; i++) {
         lines.push(
           <line key={"line"+i}
             x1={this.props.points[i].x} y1={this.props.points[i].y}
             x2={this.props.points[i+1].x} y2={this.props.points[i+1].y}
-            stroke={this.props.color} strokeWidth={this.props.lineWidth}
-            onMouseOver={this.props.activateTooltip.bind(this, data)}
+            stroke={this.props.color} strokeWidth={this.props.lineWidth}/>
+        )
+        lines.push(
+          <circle key={"point"+i}
+            cx={this.props.points[i].x} cy={this.props.points[i].y}
+            r={this.props.pointWidth} fill={this.props.color}
+            onMouseOver={this.props.activateTooltip.bind(this, this.props.points[i].raw, data)}
             onMouseOut={this.props.deactivateTooltip}/>
         )
       }
+      lines.push(
+        <circle key={"point" + (this.props.numpoints-1)}
+          cx={this.props.points[this.props.numpoints-1].x}
+          cy={this.props.points[this.props.numpoints-1].y}
+          r={this.props.pointWidth} fill={this.props.color}
+          onMouseOver={this.props.activateTooltip.bind(this, this.props.points[this.props.numpoints-1].raw, data)}
+          onMouseOut={this.props.deactivateTooltip}/>
+      )
     }
 
     return(
@@ -96,6 +125,7 @@ class SeriesContainer extends React.Component {
           <LineSeries key={"series"+groups[i]} points={set}
             numpoints={set.length} color={this.props.color(i, groups[i])}
             lineWidth={this.props.style.lineWidth}
+            pointWidth={this.props.style.pointWidth}
             initialAnimation={this.props.initialAnimation}
             activateTooltip={this.props.activateTooltip}
             deactivateTooltip={this.props.deactivateTooltip}/>
@@ -124,6 +154,7 @@ class SeriesContainer extends React.Component {
         <LineSeries key={"seriesAll"} points={set}
           numpoints={set.length} color={this.props.color(0)}
           lineWidth={this.props.style.lineWidth}
+          pointWidth={this.props.style.pointWidth}
           initialAnimation={this.props.initialAnimation}
           activateTooltip={this.props.activateTooltip}
           deactivateTooltip={this.props.deactivateTooltip}/>
@@ -151,36 +182,19 @@ class LineChart extends React.Component {
     }
   }
 
-  activateTooltip(data) {
+  activateTooltip(pointData, lineData) {
     let newContents
     if (this.props.tooltipContents){
-      newContents = this.props.tooltipContents(data)
+      newContents = this.props.tooltipContents(pointData, lineData)
     }
     else {
-      let text = []
-      let group
-      if (this.props.groupKey){
-        group = data[0][this.props.groupKey]
-        text.push(
-          <span key={group} >
-            {this.props.groupKey}: {group}
-            <br/>
-          </span>
-        )
-      }
-      for (let i = 0; i < data.length; i++){
-        text.push(
-          <span key={(group ? String(group) + i : "point" + i)}>
-            {this.props.xKey}: {data[i][this.props.xKey]}
-            <br/>
-            {this.props.yKey}: {data[i][this.props.yKey]}
-            <br/>
-          </span>
-        )
-      }
       newContents = (
         <div>
-          {text}
+          <span>{this.props.xKey}: {pointData[this.props.xKey]}<br/></span>
+          <span>{this.props.yKey}: {pointData[this.props.yKey]}<br/></span>
+          {this.props.groupKey &&
+          <span>{this.props.groupKey}: {pointData[this.props.groupKey]}<br/></span>
+          }
         </div>
       )
     }
@@ -302,7 +316,8 @@ LineChart.defaultProps = {
   showLegend: true,
   yScale: "lin",
   graphStyle: {
-    lineWidth: 2.5
+    lineWidth: 2.5,
+    pointWidth: 5
   },
   axisStyle: {
     axisColor: "#000000",
@@ -318,7 +333,7 @@ LineChart.defaultProps = {
     showBorder: false,
     borderColor: "#000000"
   },
-  initialAnimation: false,
+  initialAnimation: true,
   tooltip: true
 }
 

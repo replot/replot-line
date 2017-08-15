@@ -140,30 +140,18 @@ render() {
 By default, the tooltip will display the data about points in a line as well as
 the group (if a line has a group). The user can customize exactly what is
 displayed inside the tooltip by passing in a `tooltipContents` prop in the form
-of a Javascript function. The user can expect to receive an array of data objects
-corresponding to the line you are hovering over. The function should return JSX,
-which can utilize some or all of the provided values.
+of a Javascript function. The user can expect to receive the data for the
+specific point they are hovering over, as well as an array of data for the line
+they are hovering over. The function should return JSX, which can utilize some
+or all of the provided values.
 
 ```javascript
-fillTooltip(data){
-	let filling = []
-	filling.push(
-		<span key="label">
-			The data that makes up this line is:
-			<br/>
-		</span>
-	)
-	for (let i = 0; i < data.length; i++){
-		filling.push(
-			<span key={"point" + i}>
-				{data[i]}
-				<br/>
-			</span>
-		)
-	}
+fillTooltip(pointData, lineData){
 
   return (
-    <div>{filling}</div>
+    <div>
+			<span>The data for this point looks like {pointData.toString()}</span>
+		</div>
   )
 }
 
