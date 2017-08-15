@@ -29,7 +29,9 @@ class MotionLine extends React.Component {
                 y2={interpolatingStyles.y2}
                 stroke={this.props.stroke}
                 strokeWidth={this.props.strokeWidth}
-                opacity={this.props.opacity} />
+                opacity={this.props.opacity}
+                onMouseOver={this.props.activateTooltip.bind(this, this.props.data)}
+                onMouseOut={this.props.deactivateTooltip}/>
             </g>
         }
       </Motion>
