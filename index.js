@@ -1312,7 +1312,10 @@ LineChart.propTypes = {
   graphStyle: _propTypes2.default.object,
   axisStyle: _propTypes2.default.object,
   legendStyle: _propTypes2.default.object,
-  initialAnimation: _propTypes2.default.bool
+  initialAnimation: _propTypes2.default.bool,
+  tooltip: _propTypes2.default.bool,
+  tooltipColor: _propTypes2.default.string,
+  tooltipContents: _propTypes2.default.func
 };
 
 LineChartResponsive.defaultProps = {

@@ -344,7 +344,10 @@ LineChart.propTypes = {
   graphStyle: PropTypes.object,
   axisStyle: PropTypes.object,
   legendStyle: PropTypes.object,
-  initialAnimation: PropTypes.bool
+  initialAnimation: PropTypes.bool,
+  tooltip: PropTypes.bool,
+  tooltipColor: PropTypes.string,
+  tooltipContents: PropTypes.func
 }
 
 LineChartResponsive.defaultProps = {
