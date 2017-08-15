@@ -29,8 +29,39 @@ class MotionLine extends React.Component {
                 y2={interpolatingStyles.y2}
                 stroke={this.props.stroke}
                 strokeWidth={this.props.strokeWidth}
+                opacity={this.props.opacity} />
+            </g>
+        }
+      </Motion>
+    )
+  }
+
+}
+
+class MotionPoint extends React.Component {
+
+  render() {
+    return(
+      <Motion
+        defaultStyle={{
+          x: this.props.xStart,
+          y: this.props.yStart
+        }}
+        style={{
+          x: spring(this.props.x, {stiffness: 120, damping: 26}),
+          y: spring(this.props.y, {stiffness: 120, damping: 26})
+        }}
+      >
+        {
+          interpolatingStyles =>
+            <g>
+              <circle
+                cx={interpolatingStyles.x}
+                cy={interpolatingStyles.y}
+                r={this.props.radius}
+                fill={this.props.fill}
                 opacity={this.props.opacity}
-                onMouseOver={this.props.activateTooltip.bind(this, this.props.data)}
+                onMouseOver={this.props.activateTooltip.bind(this, this.props.pointData, this.props.lineData)}
                 onMouseOut={this.props.deactivateTooltip}/>
             </g>
         }
@@ -50,4 +81,12 @@ MotionLine.defaultProps = {
   opacity: 1
 }
 
-export default MotionLine
+MotionPoint.defaultProps = {
+  x: 0,
+  y: 0,
+  r: 1,
+  fill: "rgb(0,0,0)",
+  opacity: 1
+}
+
+export {MotionPoint, MotionLine}
