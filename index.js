@@ -832,9 +832,7 @@ var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _MotionLine = __webpack_require__(16);
-
-var _MotionLine2 = _interopRequireDefault(_MotionLine);
+var _MotionComp = __webpack_require__(16);
 
 var _replotCore = __webpack_require__(32);
 
@@ -866,24 +864,45 @@ var LineSeries = function (_React$Component) {
       });
       if (this.props.initialAnimation) {
         for (var i = 0; i < this.props.numpoints - 1; i++) {
-          lines.push(_react2.default.createElement(_MotionLine2.default, { key: "line" + i,
+          lines.push(_react2.default.createElement(_MotionComp.MotionLine, { key: "line" + i,
             x1: this.props.points[i].x, y1: this.props.points[i].y,
             x2: this.props.points[i + 1].x, y2: this.props.points[i + 1].y,
             xStart: this.props.points[0].x, yStart: this.props.points[0].y,
-            stroke: this.props.color, strokeWidth: this.props.lineWidth,
-            data: data,
+            stroke: this.props.color, strokeWidth: this.props.lineWidth }));
+          lines.push(_react2.default.createElement(_MotionComp.MotionPoint, { key: "point" + i,
+            xStart: this.props.points[0].x, yStart: this.props.points[0].y,
+            x: this.props.points[i].x, y: this.props.points[i].y,
+            radius: this.props.pointWidth, fill: this.props.color,
+            pointData: this.props.points[i].raw, lineData: data,
             activateTooltip: this.props.activateTooltip,
             deactivateTooltip: this.props.deactivateTooltip }));
         }
+        lines.push(_react2.default.createElement(_MotionComp.MotionPoint, { key: "point" + (this.props.numpoints - 1),
+          xStart: this.props.points[0].x, yStart: this.props.points[0].y,
+          x: this.props.points[this.props.numpoints - 1].x,
+          y: this.props.points[this.props.numpoints - 1].y,
+          radius: this.props.pointWidth, fill: this.props.color,
+          pointData: this.props.points[this.props.numpoints - 1].raw, lineData: data,
+          activateTooltip: this.props.activateTooltip,
+          deactivateTooltip: this.props.deactivateTooltip }));
       } else {
         for (var _i = 0; _i < this.props.numpoints - 1; _i++) {
           lines.push(_react2.default.createElement("line", { key: "line" + _i,
             x1: this.props.points[_i].x, y1: this.props.points[_i].y,
             x2: this.props.points[_i + 1].x, y2: this.props.points[_i + 1].y,
-            stroke: this.props.color, strokeWidth: this.props.lineWidth,
-            onMouseOver: this.props.activateTooltip.bind(this, data),
+            stroke: this.props.color, strokeWidth: this.props.lineWidth }));
+          lines.push(_react2.default.createElement("circle", { key: "point" + _i,
+            cx: this.props.points[_i].x, cy: this.props.points[_i].y,
+            r: this.props.pointWidth, fill: this.props.color,
+            onMouseOver: this.props.activateTooltip.bind(this, this.props.points[_i].raw, data),
             onMouseOut: this.props.deactivateTooltip }));
         }
+        lines.push(_react2.default.createElement("circle", { key: "point" + (this.props.numpoints - 1),
+          cx: this.props.points[this.props.numpoints - 1].x,
+          cy: this.props.points[this.props.numpoints - 1].y,
+          r: this.props.pointWidth, fill: this.props.color,
+          onMouseOver: this.props.activateTooltip.bind(this, this.props.points[this.props.numpoints - 1].raw, data),
+          onMouseOut: this.props.deactivateTooltip }));
       }
 
       return _react2.default.createElement(
@@ -1004,6 +1023,7 @@ var SeriesContainer = function (_React$Component2) {
           series.push(_react2.default.createElement(LineSeries, { key: "series" + groups[i], points: set,
             numpoints: set.length, color: this.props.color(i, groups[i]),
             lineWidth: this.props.style.lineWidth,
+            pointWidth: this.props.style.pointWidth,
             initialAnimation: this.props.initialAnimation,
             activateTooltip: this.props.activateTooltip,
             deactivateTooltip: this.props.deactivateTooltip }));
@@ -1051,6 +1071,7 @@ var SeriesContainer = function (_React$Component2) {
         series.push(_react2.default.createElement(LineSeries, { key: "seriesAll", points: set,
           numpoints: set.length, color: this.props.color(0),
           lineWidth: this.props.style.lineWidth,
+          pointWidth: this.props.style.pointWidth,
           initialAnimation: this.props.initialAnimation,
           activateTooltip: this.props.activateTooltip,
           deactivateTooltip: this.props.deactivateTooltip }));
@@ -1086,42 +1107,38 @@ var LineChart = function (_React$Component3) {
 
   _createClass(LineChart, [{
     key: "activateTooltip",
-    value: function activateTooltip(data) {
+    value: function activateTooltip(pointData, lineData) {
       var newContents = void 0;
       if (this.props.tooltipContents) {
-        newContents = this.props.tooltipContents(data);
+        newContents = this.props.tooltipContents(pointData, lineData);
       } else {
-        var text = [];
-        var group = void 0;
-        if (this.props.groupKey) {
-          group = data[0][this.props.groupKey];
-          text.push(_react2.default.createElement(
-            "span",
-            { key: group },
-            this.props.groupKey,
-            ": ",
-            group,
-            _react2.default.createElement("br", null)
-          ));
-        }
-        for (var i = 0; i < data.length; i++) {
-          text.push(_react2.default.createElement(
-            "span",
-            { key: group ? String(group) + i : "point" + i },
-            this.props.xKey,
-            ": ",
-            data[i][this.props.xKey],
-            _react2.default.createElement("br", null),
-            this.props.yKey,
-            ": ",
-            data[i][this.props.yKey],
-            _react2.default.createElement("br", null)
-          ));
-        }
         newContents = _react2.default.createElement(
           "div",
           null,
-          text
+          _react2.default.createElement(
+            "span",
+            null,
+            this.props.xKey,
+            ": ",
+            pointData[this.props.xKey],
+            _react2.default.createElement("br", null)
+          ),
+          _react2.default.createElement(
+            "span",
+            null,
+            this.props.yKey,
+            ": ",
+            pointData[this.props.yKey],
+            _react2.default.createElement("br", null)
+          ),
+          this.props.groupKey && _react2.default.createElement(
+            "span",
+            null,
+            this.props.groupKey,
+            ": ",
+            pointData[this.props.groupKey],
+            _react2.default.createElement("br", null)
+          )
         );
       }
       this.setState({
@@ -1270,7 +1287,8 @@ LineChart.defaultProps = {
   showLegend: true,
   yScale: "lin",
   graphStyle: {
-    lineWidth: 2.5
+    lineWidth: 2.5,
+    pointWidth: 5
   },
   axisStyle: {
     axisColor: "#000000",
@@ -1286,7 +1304,7 @@ LineChart.defaultProps = {
     showBorder: false,
     borderColor: "#000000"
   },
-  initialAnimation: false,
+  initialAnimation: true,
   tooltip: true
 };
 
@@ -1338,6 +1356,7 @@ exports.default = LineChartResponsive;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.MotionLine = exports.MotionPoint = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -1396,9 +1415,7 @@ var MotionLine = function (_React$Component) {
               y2: interpolatingStyles.y2,
               stroke: _this2.props.stroke,
               strokeWidth: _this2.props.strokeWidth,
-              opacity: _this2.props.opacity,
-              onMouseOver: _this2.props.activateTooltip.bind(_this2, _this2.props.data),
-              onMouseOut: _this2.props.deactivateTooltip })
+              opacity: _this2.props.opacity })
           );
         }
       );
@@ -1406,6 +1423,53 @@ var MotionLine = function (_React$Component) {
   }]);
 
   return MotionLine;
+}(_react2.default.Component);
+
+var MotionPoint = function (_React$Component2) {
+  _inherits(MotionPoint, _React$Component2);
+
+  function MotionPoint() {
+    _classCallCheck(this, MotionPoint);
+
+    return _possibleConstructorReturn(this, (MotionPoint.__proto__ || Object.getPrototypeOf(MotionPoint)).apply(this, arguments));
+  }
+
+  _createClass(MotionPoint, [{
+    key: "render",
+    value: function render() {
+      var _this4 = this;
+
+      return _react2.default.createElement(
+        _reactMotion.Motion,
+        {
+          defaultStyle: {
+            x: this.props.xStart,
+            y: this.props.yStart
+          },
+          style: {
+            x: (0, _reactMotion.spring)(this.props.x, { stiffness: 120, damping: 26 }),
+            y: (0, _reactMotion.spring)(this.props.y, { stiffness: 120, damping: 26 })
+          }
+        },
+        function (interpolatingStyles) {
+          return _react2.default.createElement(
+            "g",
+            null,
+            _react2.default.createElement("circle", {
+              cx: interpolatingStyles.x,
+              cy: interpolatingStyles.y,
+              r: _this4.props.radius,
+              fill: _this4.props.fill,
+              opacity: _this4.props.opacity,
+              onMouseOver: _this4.props.activateTooltip.bind(_this4, _this4.props.pointData, _this4.props.lineData),
+              onMouseOut: _this4.props.deactivateTooltip })
+          );
+        }
+      );
+    }
+  }]);
+
+  return MotionPoint;
 }(_react2.default.Component);
 
 MotionLine.defaultProps = {
@@ -1418,7 +1482,16 @@ MotionLine.defaultProps = {
   opacity: 1
 };
 
-exports.default = MotionLine;
+MotionPoint.defaultProps = {
+  x: 0,
+  y: 0,
+  r: 1,
+  fill: "rgb(0,0,0)",
+  opacity: 1
+};
+
+exports.MotionPoint = MotionPoint;
+exports.MotionLine = MotionLine;
 
 /***/ }),
 /* 17 */
