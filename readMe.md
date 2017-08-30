@@ -24,7 +24,7 @@ keys associated with the values -:
 
 ```javascript
 render() {
-	let populations = {
+	let populations = [
 		{location: "Global", year: 2010, population: 6916183482},
 		{location: "Global", year: 2011, population: 6997998760},
 		{location: "Global", year: 2012, population: 7080072417},
@@ -46,7 +46,7 @@ render() {
 		{location: "India", year: 2014, population: 1267000000},
 		{location: "India", year: 2015, population: 1283000000},
 		{location: "India", year: 2016, population: 1299000000},
-	}
+	]
 
 	return(
 		<LineChart data={populations}
