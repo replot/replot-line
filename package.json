@@ -9,7 +9,8 @@
   },
   "scripts": {
     "start": "cd examples && webpack index.js bundle.js",
-    "build-umd": "webpack src/index.js umd/replot-line.js"
+    "build-umd": "webpack src/index.js umd/replot-line.js",
+    "watch": "cd examples && webpack --watch"
   },
   "repository": {
     "type": "git",

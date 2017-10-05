@@ -64,6 +64,29 @@ class LineSeries extends React.Component {
       )
     }
 
+    if (this.props.shadeArea) {
+      let pointsString = "0," + String(this.props.height) + " "
+      for (let i=0; i < this.props.numpoints; i++) {
+        pointsString = pointsString.concat(
+          String(this.props.points[i].x), ",",
+          String(this.props.points[i].y), " ")
+      }
+      pointsString = pointsString.concat(
+        String(this.props.width), ",",
+        String(this.props.height))
+      lines.push(
+        <polygon
+          points={pointsString}
+          style={{
+            fill: this.props.color,
+            opacity: 0.2,
+            stroke: this.props.color,
+            zIndex: -1
+          }}
+        />
+      )
+    }
+
     return(
       <g>{lines}</g>
     )
@@ -123,6 +146,9 @@ class SeriesContainer extends React.Component {
 
         series.push(
           <LineSeries key={"series"+groups[i]} points={set}
+            shadeArea={this.props.shadeArea}
+            width={this.props.width}
+            height={this.props.height}
             numpoints={set.length} color={this.props.color(i, groups[i])}
             lineWidth={this.props.style.lineWidth}
             pointWidth={this.props.style.pointWidth}
@@ -152,6 +178,7 @@ class SeriesContainer extends React.Component {
       }
       series.push(
         <LineSeries key={"seriesAll"} points={set}
+          shadeArea={this.props.shadeArea}
           numpoints={set.length} color={this.props.color(0)}
           lineWidth={this.props.style.lineWidth}
           pointWidth={this.props.style.pointWidth}
@@ -264,6 +291,7 @@ class LineChart extends React.Component {
           xKey={this.props.xKey} yKey={this.props.yKey} groupKey={this.props.groupKey}
           yScale={this.props.yScale} initialAnimation={this.props.initialAnimation}
           color={this.colorLine.bind(this)} style={this.props.graphStyle}
+          shadeArea={this.props.shadeArea}
           activateTooltip={this.activateTooltip.bind(this)}
           deactivateTooltip={this.deactivateTooltip.bind(this)}/>
       </Axis>
@@ -312,6 +340,7 @@ LineChart.defaultProps = {
   showXLabels: true,
   showYAxisLine: true,
   showYLabels: true,
+  shadeArea: false,
   showGrid: true,
   showLegend: true,
   yScale: "lin",
@@ -354,6 +383,7 @@ LineChart.propTypes = {
   showXLabels: PropTypes.bool,
   showYAxisLine: PropTypes.bool,
   showYLabels: PropTypes.bool,
+  shadeArea: PropTypes.bool,
   showGrid: PropTypes.bool,
   showLegend: PropTypes.bool,
   graphStyle: PropTypes.object,
