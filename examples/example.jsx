@@ -218,6 +218,10 @@ class ExampleApp extends React.Component {
           <LineChart data={this.state.data} groupKey="location"
             xKey="year" yKey="population" yScale={this.state.yScale}
             xTitle="Year" yTitle="Population" color={this.colorMe}/>
+          <h2>LineChart with Areas</h2>
+          <LineChart data={this.state.data} groupKey="location" shadeArea={true}
+            xKey="year" yKey="population" yScale={this.state.yScale}
+            xTitle="Year" yTitle="Population" color={this.colorMe}/>
         </div>
         <ScaleSwitch yScale={this.state.yScale} updateScale={this.updateScale.bind(this)} />
         <KeyValueTable data={this.state.data} updateData={this.updateData.bind(this)} />
