@@ -1,4 +1,4 @@
-# Line charts for react
+# replot-line: Line charts for react
 Intelligent and customizable line chart components for react.
 
 ## Installation
@@ -15,12 +15,12 @@ import LineChart from 'replot-line'
 ```
 
 ## API
-replot-line is designed to easily create LineCharts.
-The only *required* input is proper JSON formatted data.
+replot-line is designed to create beautiful line charts right out of the box.
+The only *required* input is properly formatted data.
 
 ### Basic Usage
 In the simplest case, just supply data (as a Javascript array) and specify the
-keys associated with the values -:
+keys for the titles and values:
 
 ```javascript
 render() {
@@ -73,13 +73,13 @@ The LineChart will not function with a width that is less than 60 pixels, or wit
 a height that is less than 100 pixels.
 
 Width dimensions may also be specified with a string, as a percentage. The width
-will then be calculated as a proportion of the parent container
+will then be calculated as a proportion of the parent container.
 
 ```javascript
 render() {
 
 	return(
-		<LineChart data={populations} width="50%" />
+		<LineChart data={populations} width="50%" height="200px" />
 	)
 }
 ```
@@ -90,19 +90,25 @@ If none of the mechanisms are specified, LineChart defaults to a built in
 color palette.
 
 #### User-provided Color Palette
-The user can specify their own desired colored palette for the lines to use.
-This is done by passing in an array of color strings to the component with the
-`color` prop. The displayed lines will cycle through the provided colors.
-
-#### User-provided Color function
-The user can specify the color for various lines by providing a function
-as well. One can expect to receive the index of the line (first group in the
-inputted data will have index 0, next group will have index 1, and so on),
-as well as the group associated with the line, if there is one. In the
-example below, color is decided based on the group:
+Users can specify a list of colors to use as a palette, passed to the `color` prop.
 
 ```javascript
+render() {
+  let colors = [
+    "#fea9ac", "#fc858f", "#f46b72", "#de836e",
+    "#caa56f", "#adcc6f", "#8ebc57", "#799b3f"
+  ]
 
+  return(
+    <LineChart data={populations} color={colors} />
+  )
+}
+```
+
+#### User-provided Color Function
+Users can also specify a function to assign colors to different data series. Expected arguments to the function are the index of the data series (from 0) and the title of the data series (if it exists).
+
+```javascript
 colorMe(i, group) {
   if (group === "USA"){
     return "blue"
@@ -112,6 +118,7 @@ colorMe(i, group) {
 		return "green"
 	}
 }
+
 render() {
 	return(
 		<LineChart data={populations} color={this.colorMe} />
@@ -120,30 +127,23 @@ render() {
 ```
 
 ### Tooltip
-LineCharts are capable of utilizing a tooltip to display more specific information
-about the lines. By default, the tooltip is on, but can be deactivated by
-passing in a `tooltip` prop with a value of `false`. The tooltip features two different
-color schemes, dark and light, which can be specified by a
-`tooltipColor` prop, with a value of "dark" or "light".
+Tooltips can display more specific information about a data series.
 
 ```javascript
 render() {
   ...
 
   return(
-    <LineChart data={populations} tooltipColor="light" />
+    <LineChart data={populations} tooltip="true" tooltipColor="light" />
   )
 }
 ```
 
-#### Customizing Tooltip contents
-By default, the tooltip will display the data about points in a line as well as
-the group (if a line has a group). The user can customize exactly what is
-displayed inside the tooltip by passing in a `tooltipContents` prop in the form
-of a Javascript function. The user can expect to receive the data for the
-specific point they are hovering over, as well as an array of data for the line
-they are hovering over. The function should return JSX, which can utilize some
-or all of the provided values.
+- `tooltip` defaults to `true`, `false` turns the tooltip off
+- `tooltipColor` defaults to `light`, it can be set to `light` or `dark`
+
+#### User-provided Tooltip Function
+Users can customize what is displayed inside the tooltip with a function. Expected arguments to the function are the data for the specific point hovered over and an array of data for the line hovered over. The function should return JSX.
 
 ```javascript
 fillTooltip(pointData, lineData){
@@ -159,51 +159,78 @@ render() {
   ...
 
   return(
-    <LineChart data={populations}
-      tooltipContents={this.fillTooltip}/>
+    <LineChart data={populations} tooltipContents={this.fillTooltip} />
   )
 }
 ```
 
+- `tooltipContents` defaults to data about points in the line and the group (if applicable)
+
 ### Graph Style
-The LineChart offers some customization with regards to the actual graph elements.
-These can be controlled with a `graphStyle` prop that is passed in as a javascript
-object. Keys to include can be the following:
+Users can customize graph elements by passing a javascript object to the `graphStyle` argument. Keys can include:
 
 * lineWidth
 	* Determines the thickness of the lines drawn on the LineChart
 	* Defaults to `2.5`
 	* Accepts any number value
+* pointWidth
+	* Determines the width of points on the line
+	* Defaults to `5`
+	* Accepts any number value
+
+```javascript
+let style = {
+	lineWidth: 5,
+	pointWidth: 2
+}
+
+render() {
+  ...
+
+  return(
+    <LineChart data={populations} graphStyle={style} />
+  )
+}
+```
 
 ### Axis Customization
-Replot LineCharts allow for incredible customization of the graph axis. A complete
-explanation of axis customization can be found below -:
+Users can customize graph axes in several different ways.
 
 #### Titles
-By default, the LineChart does not display any axis titles. If the user wishes to
-include titles, they can pass in some or all of the `xTitle`, `yTitle`, and
-`graphTitle` props. These props accept a string value, displayed at the appropriate
-location on the graph. To compensate for the inclusion of a title, the graph content
-will be pushed further in, but overall the size of the component will remain what
-was specified by the user.
+Title props accept strings to display in the appropriate location on the graph. To compensate for the inclusion of a title, graph content will be condensed, but the overall size of the component will stay constant.
 
-#### Showing/Hiding Axis Elements
-By default, the LineChart shows the entirety of the axes, including lines, labels,
-and gridlines. These can each individually be disabled by passing in boolean
-values of false to the following props:
-- showXAxisLine
-- showYAxisLine
-- showXLabels
-- showYLabels
-- showGrid
-- showLegend
+- `graphTitle`: string displayed above the graph
+- `xTitle`: string displayed left of the x-axis
+- `yTitle`: string displayed under the y-axis
 
-#### Styling the axis
-In addition to enabling/disabling titles and axis components, the actual style of
-the components can be altered as well, with the use of one `axisStyle` prop that
-takes the form of a JavaScript object.
+```javascript
+render() {
+  ...
 
-Explanations and defaults follow:
+  return(
+    <LineChart data={populations} graphTitle="Global Populations"
+			xTitle="Population" yTitle="Year" />
+  )
+}
+```
+
+#### Displaying Axis Elements
+Users can customize the display of the lines, labels, and gridlines of the axes.
+
+- `showXAxisLine`: defaults to `true`, controls display of the x-axis line
+- `showYAxisLine`: defaults to `true`, controls display of the y-axis line
+- `showXLabels`: defaults to `true`, controls display of labels on the x-axis
+- `showYLabels`: defaults to `true`, controls display of labels on the y-axis
+- `showGrid`: defaults to `true`, controls display of gridlines
+
+#### Axis Scale
+Users can control the scale of the graph, linear or logarithmic. Users can also control the number of increments on the y-axis.
+
+- `yScale`: defaults to "lin" for linear scale, can be "log" for logarithmic scale
+- `ySteps`: defaults to a calculated number, accepts a number given by the user
+
+#### Axis Style
+Users can customize axis style by passing a javascript object to the `axisStyle` argument. Keys can include:
 
 * axisColor
   * modifies the color of the axis line
@@ -230,8 +257,6 @@ Explanations and defaults follow:
   * defaults to `1`
   * accepts any number
 
-Example of using the axisStyle prop:
-
 ```javascript
 let style = {
     axisColor: "#f17e33",
@@ -246,17 +271,19 @@ render() {
   ...
 
   return(
-    <LineChart data={populations} axisStyle={style}/>
+    <LineChart data={populations} axisStyle={style} />
   )
 }
 ```
 
-#### Styling the legend
-The LineChart will include a legend by default. If not disabled, the legend can
-be customized through a single legendStyle prop that takes the form of a
-JavaScript object.
+### Legend Customization
+Users can customize the graph legend in several ways.
 
-Explanations and defaults follow:
+- `showLegend`: defaults to `true`, controls display of the legend
+
+#### Legend Style
+Users can customize legend style by passing a javascript object to the `legendStyle` argument. Keys can include:
+
 * fontColor
 	* Modifies the color of the font used in the legend
 	* Defaults to `"#000000"`
@@ -274,7 +301,12 @@ Explanations and defaults follow:
 	* Defaults to `"#000000"`
 	* Accepts any color string
 
-### Initial Animation
-Initial animation is enabled by default, resulting in the lines growing out
-from the y-axis line. This can be disabled using the
-`initialAnimation` prop, passing in a value of false.
+### Animation Customization
+Users can control the initial animation of the graph, lines growing out from the y-axis line.
+
+- `initialAnimation`: defaults to `true`, controls the animation
+
+### Area Customization
+Users can control the display of shaded areas under the lines of the graph.
+
+- `shadeArea`: defaults to `false`, controls display of the shaded areas
