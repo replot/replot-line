@@ -131,8 +131,6 @@ Tooltips can display more specific information about a data series.
 
 ```javascript
 render() {
-  ...
-
   return(
     <LineChart data={populations} tooltip="true" tooltipColor="light" />
   )
@@ -149,15 +147,13 @@ Users can customize what is displayed inside the tooltip with a function. Expect
 fillTooltip(pointData, lineData){
 
   return (
-    <div>
-			<span>The data for this point looks like {pointData.toString()}</span>
-		</div>
+			<div>
+				<span>The data for this point looks like {pointData.toString()}</span>
+			</div>
   )
 }
 
 render() {
-  ...
-
   return(
     <LineChart data={populations} tooltipContents={this.fillTooltip} />
   )
@@ -185,8 +181,6 @@ let style = {
 }
 
 render() {
-  ...
-
   return(
     <LineChart data={populations} graphStyle={style} />
   )
@@ -205,8 +199,6 @@ Title props accept strings to display in the appropriate location on the graph. 
 
 ```javascript
 render() {
-  ...
-
   return(
     <LineChart data={populations} graphTitle="Global Populations"
 			xTitle="Population" yTitle="Year" />
@@ -268,8 +260,6 @@ let style = {
   }
 
 render() {
-  ...
-
   return(
     <LineChart data={populations} axisStyle={style} />
   )
