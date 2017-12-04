@@ -69,17 +69,14 @@ group, however this prop is optional.
 Dimensions may be specified by passing in `width` and `height` props. The
 unit is pixels, and the LineChart defaults to 800 by 600 pixels.
 
-The LineChart will not function with a width that is less than 60 pixels, or with
-a height that is less than 100 pixels.
-
 Width dimensions may also be specified with a string, as a percentage. The width
 will then be calculated as a proportion of the parent container.
 
 ```javascript
 render() {
 
-	return(
-		<LineChart data={populations} width="50%" height="200px" />
+  return(
+	  <LineChart data={populations} width="50%" height="200px" />
 	)
 }
 ```
@@ -113,16 +110,16 @@ colorMe(i, group) {
   if (group === "USA"){
     return "blue"
   } else if (group === "Canada") {
-    return "red"
+		return "red"
   } else {
-		return "green"
-	}
+	  return "green"
+  }
 }
 
 render() {
-	return(
-		<LineChart data={populations} color={this.colorMe} />
-	)
+  return(
+    <LineChart data={populations} color={this.colorMe} />
+  )
 }
 ```
 
@@ -139,6 +136,7 @@ render() {
 
 - `tooltip` defaults to `true`, `false` turns the tooltip off
 - `tooltipColor` defaults to `light`, it can be set to `light` or `dark`
+- `tooltipContents` defaults to data about points in the line and the group (if applicable)
 
 #### User-provided Tooltip Function
 Users can customize what is displayed inside the tooltip with a function. Expected arguments to the function are the data for the specific point hovered over and an array of data for the line hovered over. The function should return JSX.
@@ -147,9 +145,9 @@ Users can customize what is displayed inside the tooltip with a function. Expect
 fillTooltip(pointData, lineData){
 
   return (
-			<div>
-				<span>The data for this point looks like {pointData.toString()}</span>
-			</div>
+		<div>
+		  <span>The data for this point looks like {pointData.toString()}</span>
+    </div>
   )
 }
 
@@ -159,8 +157,6 @@ render() {
   )
 }
 ```
-
-- `tooltipContents` defaults to data about points in the line and the group (if applicable)
 
 ### Graph Style
 Users can customize graph elements by passing a javascript object to the `graphStyle` argument. Keys can include:
@@ -176,8 +172,8 @@ Users can customize graph elements by passing a javascript object to the `graphS
 
 ```javascript
 let style = {
-	lineWidth: 5,
-	pointWidth: 2
+  lineWidth: 5,
+  pointWidth: 2
 }
 
 render() {
