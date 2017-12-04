@@ -196,7 +196,7 @@ render() {
   return(
     <LineChart data={populations}
       graphTitle="Global Populations"
-	  xTitle="Population"
+      xTitle="Population"
       yTitle="Year" />
   )
 }
