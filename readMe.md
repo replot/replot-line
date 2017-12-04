@@ -48,12 +48,12 @@ render() {
     {location: "India", year: 2016, population: 1299000000},
   ]
 
-	return(
+  return(
     <LineChart data={populations}
-    groupKey="location"
-    xKey="year"
-    yKey="population" />
-	)
+      groupKey="location"
+      xKey="year"
+      yKey="population" />
+  )
 }
 ```
 
@@ -111,7 +111,7 @@ colorMe(i, group) {
   } else if (group === "Canada") {
     return "red"
   } else {
-	return "green"
+    return "green"
   }
 }
 
@@ -195,9 +195,9 @@ Title props accept strings to display in the appropriate location on the graph. 
 render() {
   return(
     <LineChart data={populations}
-    graphTitle="Global Populations"
-	xTitle="Population"
-    yTitle="Year" />
+      graphTitle="Global Populations"
+	  xTitle="Population"
+      yTitle="Year" />
   )
 }
 ```
