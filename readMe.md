@@ -24,35 +24,35 @@ keys for the titles and values:
 
 ```javascript
 render() {
-	let populations = [
-		{location: "Global", year: 2010, population: 6916183482},
-		{location: "Global", year: 2011, population: 6997998760},
-		{location: "Global", year: 2012, population: 7080072417},
-		{location: "Global", year: 2013, population: 7162119434},
-		{location: "Global", year: 2014, population: 7243784121},
-		{location: "Global", year: 2015, population: 7324782225},
-		{location: "Global", year: 2016, population: 7404976783},
-		{location: "US", year: 2010, population: 310559000},
-		{location: "US", year: 2011, population: 312917100},
-		{location: "US", year: 2012, population: 315219700},
-		{location: "US", year: 2013, population: 317474000},
-		{location: "US", year: 2014, population: 319849000},
-		{location: "US", year: 2015, population: 322060100},
-		{location: "US", year: 2016, population: 324304400},
-		{location: "India", year: 2010, population: 1186000000},
-		{location: "India", year: 2011, population: 1210570000},
-		{location: "India", year: 2012, population: 1213370000},
-		{location: "India", year: 2013, population: 1223000000},
-		{location: "India", year: 2014, population: 1267000000},
-		{location: "India", year: 2015, population: 1283000000},
-		{location: "India", year: 2016, population: 1299000000},
-	]
+  let populations = [
+    {location: "Global", year: 2010, population: 6916183482},
+    {location: "Global", year: 2011, population: 6997998760},
+    {location: "Global", year: 2012, population: 7080072417},
+    {location: "Global", year: 2013, population: 7162119434},
+    {location: "Global", year: 2014, population: 7243784121},
+    {location: "Global", year: 2015, population: 7324782225},
+    {location: "Global", year: 2016, population: 7404976783},
+    {location: "US", year: 2010, population: 310559000},
+    {location: "US", year: 2011, population: 312917100},
+    {location: "US", year: 2012, population: 315219700},
+    {location: "US", year: 2013, population: 317474000},
+    {location: "US", year: 2014, population: 319849000},
+    {location: "US", year: 2015, population: 322060100},
+    {location: "US", year: 2016, population: 324304400},
+    {location: "India", year: 2010, population: 1186000000},
+    {location: "India", year: 2011, population: 1210570000},
+    {location: "India", year: 2012, population: 1213370000},
+    {location: "India", year: 2013, population: 1223000000},
+    {location: "India", year: 2014, population: 1267000000},
+    {location: "India", year: 2015, population: 1283000000},
+    {location: "India", year: 2016, population: 1299000000},
+  ]
 
 	return(
-		<LineChart data={populations}
-		groupKey="location"
-		xKey="year"
-		yKey="population" />
+    <LineChart data={populations}
+    groupKey="location"
+    xKey="year"
+    yKey="population" />
 	)
 }
 ```
@@ -74,10 +74,9 @@ will then be calculated as a proportion of the parent container.
 
 ```javascript
 render() {
-
   return(
-	  <LineChart data={populations} width="50%" height="200px" />
-	)
+    <LineChart data={populations} width="50%" height="200px" />
+  )
 }
 ```
 
@@ -110,9 +109,9 @@ colorMe(i, group) {
   if (group === "USA"){
     return "blue"
   } else if (group === "Canada") {
-		return "red"
+    return "red"
   } else {
-	  return "green"
+	return "green"
   }
 }
 
@@ -143,10 +142,9 @@ Users can customize what is displayed inside the tooltip with a function. Expect
 
 ```javascript
 fillTooltip(pointData, lineData){
-
-  return (
-		<div>
-		  <span>The data for this point looks like {pointData.toString()}</span>
+  return(
+    <div>
+      <span>The data for this point looks like {pointData.toString()}</span>
     </div>
   )
 }
@@ -196,8 +194,10 @@ Title props accept strings to display in the appropriate location on the graph. 
 ```javascript
 render() {
   return(
-    <LineChart data={populations} graphTitle="Global Populations"
-			xTitle="Population" yTitle="Year" />
+    <LineChart data={populations}
+    graphTitle="Global Populations"
+	xTitle="Population"
+    yTitle="Year" />
   )
 }
 ```
