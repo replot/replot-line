@@ -88,10 +88,9 @@ will then be calculated as a proportion of the parent container.
 
 ```javascript
 render() {
-
-	return(
-		<LineChart data={markets} width="50%" />
-	)
+  return(
+    <LineChart data={markets} width="50%" height="200px" />
+  )
 }
 ```
 
@@ -111,7 +110,7 @@ render() {
   ]
 
   return(
-    <LineChart data={populations} color={colors} />
+    <LineChart data={markets} color={colors} />
   )
 }
 ```
@@ -192,7 +191,7 @@ let style = {
 
 render() {
   return(
-    <LineChart data={populations} graphStyle={style} />
+    <LineChart data={markets} graphStyle={style} />
   )
 }
 ```
@@ -211,9 +210,9 @@ Title props accept strings to display in the appropriate location on the graph. 
 ```javascript
 render() {
   return(
-    <LineChart data={populations}
-      graphTitle="Global Populations"
-      xTitle="Population"
+    <LineChart data={markets}
+      graphTitle="Annual Trends in Market Indices"
+      xTitle="Index Value"
       yTitle="Year" />
   )
 }
