@@ -38,6 +38,7 @@
     "babel-preset-react": "^6.23.0",
     "eslint": "^3.16.1",
     "eslint-plugin-react": "^6.10.0",
+    "radium": "^0.18.2",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "webpack": "^2.2.1"
@@ -46,6 +47,7 @@
     "humanize-plus": "^1.8.2",
     "prop-types": "^15.5.10",
     "react-motion": "^0.4.7",
-    "replot-core": "git+ssh://git@github.com/MacroConnections/replot-core.git"
+    "replot-core": "git+ssh://git@github.com/MacroConnections/replot-core.git",
+    "replot": "git+ssh://git@github.com/MacroConnections/replot-core.git"
   }
 }
