@@ -57,7 +57,6 @@ class LineExample extends React.Component {
   }
 
   render() {
-    debugger
     let axisColorOptions = [
       {optionName: "axisColor", name: "Axis Color", optionType: "field", input: "string", initialValue: colors[this.props.palette].axisColor},
       {optionName: "labelColor", name: "Label Color", optionType: "field", input: "string", initialValue: colors[this.props.palette].axisColor},
