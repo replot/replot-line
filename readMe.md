@@ -20,40 +20,54 @@ The only *required* input is properly formatted data.
 
 ### Basic Usage
 In the simplest case, just supply data (as a Javascript array) and specify the
-keys for the titles and values:
+keys associated with the values:
+
+![example](docs/img/line-chart-photo.png)
 
 ```javascript
 render() {
-  let populations = [
-    {location: "Global", year: 2010, population: 6916183482},
-    {location: "Global", year: 2011, population: 6997998760},
-    {location: "Global", year: 2012, population: 7080072417},
-    {location: "Global", year: 2013, population: 7162119434},
-    {location: "Global", year: 2014, population: 7243784121},
-    {location: "Global", year: 2015, population: 7324782225},
-    {location: "Global", year: 2016, population: 7404976783},
-    {location: "US", year: 2010, population: 310559000},
-    {location: "US", year: 2011, population: 312917100},
-    {location: "US", year: 2012, population: 315219700},
-    {location: "US", year: 2013, population: 317474000},
-    {location: "US", year: 2014, population: 319849000},
-    {location: "US", year: 2015, population: 322060100},
-    {location: "US", year: 2016, population: 324304400},
-    {location: "India", year: 2010, population: 1186000000},
-    {location: "India", year: 2011, population: 1210570000},
-    {location: "India", year: 2012, population: 1213370000},
-    {location: "India", year: 2013, population: 1223000000},
-    {location: "India", year: 2014, population: 1267000000},
-    {location: "India", year: 2015, population: 1283000000},
-    {location: "India", year: 2016, population: 1299000000},
-  ]
+	let markets = [
+		{index: "Dow Jones", year: 2006, value: 12463.15},
+		{index: "Dow Jones", year: 2007, value: 13264.82},
+		{index: "Dow Jones", year: 2008, value: 8776.39},
+		{index: "Dow Jones", year: 2009, value: 10428.05},
+		{index: "Dow Jones", year: 2010, value: 11577.51},
+		{index: "Dow Jones", year: 2011, value: 12217.56},
+		{index: "Dow Jones", year: 2012, value: 13104.14},
+		{index: "Dow Jones", year: 2013, value: 16576.66},
+		{index: "Dow Jones", year: 2014, value: 17823.07},
+		{index: "Dow Jones", year: 2015, value: 17425.03},
+		{index: "Dow Jones", year: 2016, value: 19762.6},
+		{index: "S&P 500", year: 2006, value: 1418.3},
+		{index: "S&P 500", year: 2007, value: 1468.36},
+		{index: "S&P 500", year: 2008, value: 903.25},
+		{index: "S&P 500", year: 2009, value: 1115.1},
+		{index: "S&P 500", year: 2010, value: 1257.64},
+		{index: "S&P 500", year: 2011, value: 1257.6},
+		{index: "S&P 500", year: 2012, value: 1426.19},
+		{index: "S&P 500", year: 2013, value: 1848.36},
+		{index: "S&P 500", year: 2014, value: 2058.9},
+		{index: "S&P 500", year: 2015, value: 2043.94},
+		{index: "S&P 500", year: 2016, value: 2238.83},
+		{index: "NASDAQ 100", year: 2006, value: 1756.9},
+		{index: "NASDAQ 100", year: 2007, value: 2084.93},
+		{index: "NASDAQ 100", year: 2008, value: 1211.65},
+		{index: "NASDAQ 100", year: 2009, value: 1860.31},
+		{index: "NASDAQ 100", year: 2010, value: 2217.86},
+		{index: "NASDAQ 100", year: 2011, value: 2277.83},
+		{index: "NASDAQ 100", year: 2012, value: 2660.93},
+		{index: "NASDAQ 100", year: 2013, value: 3592},
+		{index: "NASDAQ 100", year: 2014, value: 4236.28},
+		{index: "NASDAQ 100", year: 2015, value: 4593.27},
+		{index: "NASDAQ 100", year: 2016, value: 4863.62},
+	]
 
-  return(
-    <LineChart data={populations}
-      groupKey="location"
-      xKey="year"
-      yKey="population" />
-  )
+	return(
+		<LineChart data={markets}
+		groupKey="index"
+		xKey="year"
+		yKey="value" />
+	)
 }
 ```
 
@@ -74,9 +88,10 @@ will then be calculated as a proportion of the parent container.
 
 ```javascript
 render() {
-  return(
-    <LineChart data={populations} width="50%" height="200px" />
-  )
+
+	return(
+		<LineChart data={markets} width="50%" />
+	)
 }
 ```
 
@@ -116,9 +131,9 @@ colorMe(i, group) {
 }
 
 render() {
-  return(
-    <LineChart data={populations} color={this.colorMe} />
-  )
+	return(
+		<LineChart data={markets} color={this.colorMe} />
+	)
 }
 ```
 
@@ -128,7 +143,7 @@ Tooltips can display more specific information about a data series.
 ```javascript
 render() {
   return(
-    <LineChart data={populations} tooltip="true" tooltipColor="light" />
+    <LineChart data={markets} tooltipColor="light" />
   )
 }
 ```
@@ -151,7 +166,8 @@ fillTooltip(pointData, lineData){
 
 render() {
   return(
-    <LineChart data={populations} tooltipContents={this.fillTooltip} />
+    <LineChart data={markets}
+      tooltipContents={this.fillTooltip}/>
   )
 }
 ```
@@ -182,7 +198,8 @@ render() {
 ```
 
 ### Axis Customization
-Users can customize graph axes in several different ways.
+Replot LineCharts allow for incredible customization of the graph axis. A complete
+explanation of axis customization can be found below:
 
 #### Titles
 Title props accept strings to display in the appropriate location on the graph. To compensate for the inclusion of a title, graph content will be condensed, but the overall size of the component will stay constant.
@@ -257,7 +274,7 @@ let style = {
 
 render() {
   return(
-    <LineChart data={populations} axisStyle={style} />
+    <LineChart data={markets} axisStyle={style}/>
   )
 }
 ```
