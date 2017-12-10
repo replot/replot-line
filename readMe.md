@@ -212,8 +212,8 @@ render() {
   return(
     <LineChart data={markets}
       graphTitle="Annual Trends in Market Indices"
-      xTitle="Index Value"
-      yTitle="Year" />
+      xTitle="Year"
+      yTitle="Index Value" />
   )
 }
 ```
