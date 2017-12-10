@@ -230,8 +230,8 @@ Users can customize the display of the lines, labels, and gridlines of the axes.
 #### Axis Scale
 Users can control the scale of the graph, linear or logarithmic. Users can also control the number of increments on the y-axis.
 
-- `yScale`: defaults to "lin" for linear scale, can be "log" for logarithmic scale
-- `ySteps`: defaults to a calculated number, accepts a number given by the user
+- `yScale`: defaults to `"lin"` for linear scale, can be `"log"` for logarithmic scale
+- `ySteps`: defaults to 1 division per 100 pixels, accepts a number given by the user
 
 #### Axis Style
 Users can customize axis style by passing a javascript object to the `axisStyle` argument. Keys can include:
