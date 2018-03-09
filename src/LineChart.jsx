@@ -275,6 +275,33 @@ class LineChart extends React.Component {
     }
 
     let graph
+    let graphStyle = {
+      lineWidth: this.props.lineWidth,
+      pointWidth: this.props.pointWidth
+    }
+    let axisStyle = {
+      titleColor: this.props.graphTitleColor,
+      titleFontSize: this.props.titleFontSize,
+      titleFontFamily: this.props.titleFontFamily,
+      labelColor: this.props.labelColor,
+      labelFontSize: this.props.labelFontSize,
+      labelFontFamily: this.props.labelFontFamily,
+      axisColor: this.props.axisColor,
+      lineWidth: this.props.axisWidth,
+      lineOpacity: this.props.axisOpacity,
+      gridColor: this.props.gridColor,
+      gridWidth: this.props.gridWidth,
+      gridOpacity: this.props.gridOpacity,
+      tickColor: this.props.tickColor,
+      tickWidth: this.props.tickWidth,
+      tickOpacity: this.props.tickOpacity,
+    }
+    let legendStyle = {
+      fontColor: this.props.legendFontColor,
+      backgroundColor: this.props.legendBackground,
+      showBorder: this.props.legendShowBorder,
+      borderColor: this.props.legendBorderColor,
+    }
 
     graph = (
       <Axis key="axis" width={this.props.width} height={this.props.height}
@@ -282,15 +309,15 @@ class LineChart extends React.Component {
         yTitle={this.props.yTitle} showXAxisLine={this.props.showXAxisLine}
         showXLabels={this.props.showXLabels} showYAxisLine={this.props.showYAxisLine}
         showYLabels={this.props.showYLabels} showGrid={this.props.showGrid}
-        axisStyle={this.props.axisStyle} minY={minY} maxY={maxY}
+        axisStyle={axisStyle} minY={minY} maxY={maxY}
         ySteps={this.props.ySteps} yScale={this.props.yScale}
-        legendValues={this.props.groupKey ? this.getLegend() : null} legendStyle={this.props.legendStyle}
+        legendValues={this.props.groupKey ? this.getLegend() : null} legendStyle={legendStyle}
         legendMode={this.props.legendMode} showLegend={this.props.showLegend}
         labels={xVals} xAxisMode="discrete" xStart="origin">
         <SeriesContainer data={this.props.data} max={maxY} min={minY} xVals={xVals}
           xKey={this.props.xKey} yKey={this.props.yKey} groupKey={this.props.groupKey}
           yScale={this.props.yScale} initialAnimation={this.props.initialAnimation}
-          color={this.colorLine.bind(this)} style={this.props.graphStyle}
+          color={this.colorLine.bind(this)} style={graphStyle}
           shadeArea={this.props.shadeArea}
           activateTooltip={this.activateTooltip.bind(this)}
           deactivateTooltip={this.deactivateTooltip.bind(this)}/>
@@ -344,24 +371,10 @@ LineChart.defaultProps = {
   showGrid: true,
   showLegend: true,
   yScale: "lin",
-  graphStyle: {
-    lineWidth: 2.5,
-    pointWidth: 5
-  },
-  axisStyle: {
-    axisColor: "#000000",
-    labelColor: "#000000",
-    titleColor: "#000000",
-    gridColor: "#DDDDDD",
-    lineWidth: 2,
-    lineOpacity: 1
-  },
-  legendStyle: {
-    fontColor: "#000000",
-    backgroundColor: "none",
-    showBorder: false,
-    borderColor: "#000000"
-  },
+  lineWidth: 2.5,
+  pointWidth: 5,
+  legendBackground: "none",
+  legendShowBorder: false,
   initialAnimation: true,
   tooltip: true
 }
@@ -377,7 +390,6 @@ LineChart.propTypes = {
   tooltip: PropTypes.bool,
   tooltipColor: PropTypes.string,
   tooltipContents: PropTypes.func,
-  graphStyle: PropTypes.object,
   xTitle: PropTypes.string,
   yTitle: PropTypes.string,
   graphTitle: PropTypes.string,
@@ -388,11 +400,42 @@ LineChart.propTypes = {
   showGrid: PropTypes.bool,
   yScale: PropTypes.string,
   ySteps: PropTypes.number,
-  axisStyle: PropTypes.object,
+
+  pointWidth: PropTypes.number,
+  lineWidth: PropTypes.number,
+  lineOpacity: PropTypes.number,
+
+  shadeArea: PropTypes.bool,
+  shadeAreaColor: PropTypes.string,
+  shadeAreaOpacity: PropTypes.number,
+
+  axisColor: PropTypes.string,
+  axisWidth: PropTypes.number,
+  axisOpacity: PropTypes.number,
+
+  gridColor: PropTypes.string,
+  gridWidth: PropTypes.number,
+  gridOpacity: PropTypes.number,
+
+  tickColor: PropTypes.string,
+  tickWidth: PropTypes.number,
+  tickOpacity: PropTypes.number,
+
+  labelColor: PropTypes.string,
+  labelFontSize: PropTypes.number,
+  labelFontType: PropTypes.number,
+
+  graphTitleColor: PropTypes.string,
+  graphTitleFontSize: PropTypes.number,
+  graphTitleFontType: PropTypes.number,
+
   showLegend: PropTypes.bool,
-  legendStyle: PropTypes.object,
-  initialAnimation: PropTypes.bool,
-  shadeArea: PropTypes.bool
+  legendFontColor: PropTypes.string,
+  legendBackground: PropTypes.string,
+  legendShowBorder: PropTypes.bool,
+  legendBorderColor: PropTypes.string,
+
+  initialAnimation: PropTypes.bool
 }
 
 LineChartResponsive.defaultProps = {
