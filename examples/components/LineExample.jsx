@@ -51,23 +51,20 @@ class LineExample extends React.Component {
         {optionName: "groupKey", name: "Group By", optionType: "hidden", initialValue: "index"},
         {optionName: "xKey", name: "X Axis", optionType: "hidden", initialValue: "year"},
         {optionName: "yKey", name: "Y Axis", optionType: "hidden", initialValue: "value"},
+        {optionName: "legendFontColor", name: "Legend Color", optionType: "field", input: "string", initialValue: colors[this.props.palette].axisColor},
+        {optionName: "legendShowBorder", name: "Show Legend Border", optionType: "bool", initialValue: false},
+        {optionName: "legendBorderColor", name: "Legend Border Color", optionType: "field", input: "string", initialValue: colors[this.props.palette].axisColor},
+        {optionName: "axisColor", name: "Axis Color", optionType: "field", input: "string", initialValue: colors[this.props.palette].axisColor},
+        {optionName: "labelColor", name: "Label Color", optionType: "field", input: "string", initialValue: colors[this.props.palette].axisColor},
+        {optionName: "gridColor", name: "Grid Color", optionType: "field", input: "string", initialValue: colors[this.props.palette].axisColor},
+        {optionName: "tickColor", name: "Tick Color", optionType: "field", input: "string", initialValue: colors[this.props.palette].axisColor},
+        {optionName: "axisWidth", name: "Axis Line Width", optionType: "field", input: "number", initialValue: 1.5},
       ],
       lineScale: "log",
     }
   }
 
   render() {
-    let axisColorOptions = [
-      {optionName: "axisColor", name: "Axis Color", optionType: "field", input: "string", initialValue: colors[this.props.palette].axisColor},
-      {optionName: "labelColor", name: "Label Color", optionType: "field", input: "string", initialValue: colors[this.props.palette].axisColor},
-      {optionName: "gridColor", name: "Grid Color", optionType: "field", input: "string", initialValue: colors[this.props.palette].axisColor},
-      {optionName: "lineWidth", name: "Axis Line Width", optionType: "field", input: "number", initialValue: 1.5},
-    ]
-    let legendColorOptions = [
-      {optionName: "fontColor", name: "Legend Color", optionType: "field", input: "string", initialValue: colors[this.props.palette].axisColor},
-      {optionName: "showBorder", name: "Show Legend Border", optionType: "bool", initialValue: false},
-      {optionName: "borderColor", name: "Legend Border Color", optionType: "field", input: "string", initialValue: colors[this.props.palette].axisColor},
-    ]
     let style = {
       title: {
         fontSize: "45px",
@@ -83,9 +80,7 @@ class LineExample extends React.Component {
         <h1 style={style.title}> Line Chart </h1>
         <ComponentContainer optionList={this.state.optionList}
           optionsData={style.optionsData}
-          palette={this.props.palette}
-          axisColorOptions={axisColorOptions}
-          legendColorOptions={legendColorOptions}>
+          palette={this.props.palette}>
           <LineChart data={this.state.optionList[0].initialValue}
             color={colors[this.props.palette].linePalette}/>
         </ComponentContainer>
