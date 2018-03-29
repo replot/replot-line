@@ -22,7 +22,7 @@ The only *required* input is properly formatted data.
 In the simplest case, just supply data (as a Javascript array) and specify the
 keys associated with the values:
 
-![example](docs/img/line-chart-photo.png)
+![example](https://github.com/replot/replot-line/blob/master/docs/img/line-chart-photo.png)
 
 ```javascript
 render() {
