@@ -359,10 +359,7 @@ LineChart.defaultProps = {
   yKey: "y",
   width: 800,
   height: 600,
-  color: [
-    "#fea9ac", "#fc858f", "#f46b72", "#de836e",
-    "#caa56f", "#adcc6f", "#8ebc57", "#799b3f"
-  ],
+  color: ["#fea30d", "#fd7c54", "#d1638c", "#4a4cda", "#0071bb", "#1f02fa"],
   showXAxisLine: true,
   showXLabels: true,
   showYAxisLine: true,
