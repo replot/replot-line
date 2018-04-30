@@ -76,6 +76,7 @@ class LineSeries extends React.Component {
         String(this.props.height))
       lines.push(
         <polygon
+          key={pointsString}
           points={pointsString}
           style={{
             fill: this.props.color,
@@ -281,8 +282,8 @@ class LineChart extends React.Component {
     }
     let axisStyle = {
       titleColor: this.props.graphTitleColor,
-      titleFontSize: this.props.titleFontSize,
-      titleFontFamily: this.props.titleFontFamily,
+      titleFontSize: this.props.graphTitleFontSize,
+      titleFontFamily: this.props.graphTitleFontFamily,
       labelColor: this.props.labelColor,
       labelFontSize: this.props.labelFontSize,
       labelFontFamily: this.props.labelFontFamily,
@@ -420,11 +421,11 @@ LineChart.propTypes = {
 
   labelColor: PropTypes.string,
   labelFontSize: PropTypes.number,
-  labelFontType: PropTypes.number,
+  labelFontFamily: PropTypes.string,
 
   graphTitleColor: PropTypes.string,
   graphTitleFontSize: PropTypes.number,
-  graphTitleFontType: PropTypes.number,
+  graphTitleFontFamily: PropTypes.string,
 
   showLegend: PropTypes.bool,
   legendFontColor: PropTypes.string,
