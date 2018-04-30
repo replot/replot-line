@@ -148,7 +148,7 @@ render() {
 ```
 
 - `tooltip` defaults to `true`, `false` turns the tooltip off
-- `tooltipColor` defaults to `light`, it can be set to `light` or `dark`
+- `tooltipColor` defaults to `dark`, it can be set to `light` or `dark`
 - `tooltipContents` defaults to data about points in the line and the group (if applicable)
 
 #### User-provided Tooltip Function
@@ -172,7 +172,7 @@ render() {
 ```
 
 ### Graph Style
-Users can customize graph elements by passing a javascript object to the `graphStyle` argument. Keys can include:
+Users can customize the style of graph elements by passing in the prop(s) below:
 
 * lineWidth
 	* Determines the thickness of the lines drawn on the LineChart
@@ -234,32 +234,68 @@ Users can control the scale of the graph, linear or logarithmic. Users can also 
 - `ySteps`: defaults to 1 division per 100 pixels, accepts a number given by the user
 
 #### Axis Style
-Users can customize axis style by passing a javascript object to the `axisStyle` argument. Keys can include:
+Users can customize the axis style by passing in the prop(s) below:
 
 * axisColor
-  * modifies the color of the axis line
-  * defaults to `#000000`
+  * modifies the color of axis lines
+  * defaults to `"#AAA"`
+  * accepts any color string
+* tickColor
+  * modifies the color of axis ticks
+  * defaults to `"#AAA"`
+  * accepts any color string
+* gridColor
+  * modifies the color of axis gridlines
+  * defaults to `"#AAA"`
   * accepts any color string
 * labelColor
   * modifies the color of both axis labels
-  * defaults to `#000000`
+  * defaults to `"#AAA"`
   * accepts any color string
-* titleColor
+* graphTitleColor
   * modifies the color of all graph titles
-  * defaults to `#000000`
+  * defaults to `"#AAA"`
   * accepts any color string
-* labelColor
-  * modifies the color of axis gridlines
-  * defaults to `#DDDDDD`
-  * accepts any color string
-* lineWidth
+* axisWidth
   * modifies the thickness of axis lines
-  * defaults to `2`
+  * defaults to `1.5`
   * accepts any number
-* lineOpacity
+* tickWidth
+  * modifies the thickness of axis ticks
+  * defaults to `1.5`
+  * accepts any number
+* gridWidth
+  * modifies the thickness of axis gridlines
+  * defaults to `1`
+  * accepts any number
+* axisOpacity
   * modifies the opacity of axis lines
   * defaults to `1`
   * accepts any number
+* tickOpacity
+  * modifies the opacity of axis ticks
+  * defaults to `1`
+  * accepts any number
+* gridOpacity
+  * modifies the opacity of axis gridlines
+  * defaults to `0.5`
+  * accepts any number
+* labelFontSize
+  * sets the font size of both axis labels
+  * automatically calculated when unspecified
+  * accepts any number
+* graphTitleFontSize
+  * sets the font size of all graph titles
+  * automatically calculated when unspecified
+  * accepts any number
+* labelFontType
+  * sets the font family of both axis labels
+  * inherits when unspecified
+  * accepts any font family name string
+* graphTitleFontType
+  * sets the font family of all graph titles
+  * inherits when unspecified
+  * accepts any font family name string
 
 ```javascript
 let style = {
@@ -284,23 +320,23 @@ Users can customize the graph legend in several ways.
 - `showLegend`: defaults to `true`, controls display of the legend
 
 #### Legend Style
-Users can customize legend style by passing a javascript object to the `legendStyle` argument. Keys can include:
+Users can customize the legend style by passing in the prop(s) below:
 
-* fontColor
+* legendFontColor
 	* Modifies the color of the font used in the legend
-	* Defaults to `"#000000"`
+	* Defaults to `"#AAA"`
 	* Accepts any color string
-* backgroundColor
+* legendBackground
 	* Modifies the background color of the legend
 	* Defaults to `"none"`
 	* Accepts any color string
-* showBorder
+* legendShowBorder
  	* Determines whether a border will be drawn around the legend
 	* Defaults to `true`
 	* Accepts `true` or `false`
-* borderColor
+* legendBorderColor
 	* Modifies the color of the border of the legend
-	* Defaults to `"#000000"`
+	* Defaults to `"#AAA"`
 	* Accepts any color string
 
 ### Animation Customization
