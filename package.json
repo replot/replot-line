@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MacroConnections/replot-line.git"
+    "url": "git+https://github.com/replot/replot-line.git"
   },
   "keywords": [
     "react",
@@ -28,9 +28,9 @@
     "react": "^0.14.0 || ^15.0.0"
   },
   "bugs": {
-    "url": "https://github.com/MacroConnections/replot-line/issues"
+    "url": "https://github.com/replot/replot-line/issues"
   },
-  "homepage": "https://github.com/MacroConnections/replot-line#readme",
+  "homepage": "https://github.com/replot/replot-line#readme",
   "devDependencies": {
     "babel-core": "^6.23.1",
     "babel-loader": "^6.3.2",
@@ -47,7 +47,7 @@
     "humanize-plus": "^1.8.2",
     "prop-types": "^15.5.10",
     "react-motion": "^0.4.7",
-    "replot-core": "git+ssh://git@github.com/MacroConnections/replot-core.git",
-    "replot": "git+ssh://git@github.com/MacroConnections/replot-core.git"
+    "replot": "git+ssh://git@github.com/replot/replot-core.git",
+    "replot-core": "git+ssh://git@github.com/replot/replot-core.git"
   }
 }
