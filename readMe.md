@@ -164,11 +164,11 @@ color={colors} | color={colorMe}
 ### Graph Style
 Users can customize the style of graph elements by passing in the prop(s) below:
 
-* lineWidth
+* `lineWidth`
 	* Determines the thickness of the lines drawn on the LineChart
 	* Defaults to `2.5`
 	* Accepts any number value
-* pointWidth
+* `pointWidth`
 	* Determines the width of points on the line
 	* Defaults to `5`
 	* Accepts any number value
@@ -276,23 +276,23 @@ yScale="log" | yStep={20}
 #### Axis Style
 Users can customize the axis style by passing in the prop(s) below:
 
-* axisColor
+* `axisColor`
   * modifies the color of axis lines
   * defaults to `"#AAA"`
   * accepts any color string
-* tickColor
+* `tickColor`
   * modifies the color of axis ticks
   * defaults to `"#AAA"`
   * accepts any color string
-* gridColor
+* `gridColor`
   * modifies the color of axis gridlines
   * defaults to `"#AAA"`
   * accepts any color string
-* labelColor
+* `labelColor`
   * modifies the color of both axis labels
   * defaults to `"#AAA"`
   * accepts any color string
-* graphTitleColor
+* `graphTitleColor`
   * modifies the color of all graph titles
   * defaults to `"#AAA"`
   * accepts any color string
@@ -311,15 +311,15 @@ render() {
 }
 ```
 
-* axisWidth
+* `axisWidth`
   * modifies the thickness of axis lines
   * defaults to `1.5`
   * accepts any number
-* tickWidth
+* `tickWidth`
   * modifies the thickness of axis ticks
   * defaults to `1.5`
   * accepts any number
-* gridWidth
+* `gridWidth`
   * modifies the thickness of axis gridlines
   * defaults to `1`
   * accepts any number
@@ -336,15 +336,15 @@ render() {
 }
 ```
   
-* axisOpacity
+* `axisOpacity`
   * modifies the opacity of axis lines
   * defaults to `1`
   * accepts any number
-* tickOpacity
+* `tickOpacity`
   * modifies the opacity of axis ticks
   * defaults to `1`
   * accepts any number
-* gridOpacity
+* `gridOpacity`
   * modifies the opacity of axis gridlines
   * defaults to `0.5`
   * accepts any number
@@ -365,11 +365,11 @@ render() {
 :-------------------------:|:-------------------------:|:-------------------------:
 ![ScreenshotAxisColors](https://github.com/replot/replot-line/raw/master/img/axis_colors.png) | ![ScreenshotAxisWidths](https://github.com/replot/replot-line/raw/master/img/axis_widths.png) | ![ScreenshotAxisOpacities](https://github.com/replot/replot-line/raw/master/img/axis_opacities.png)
 
-* labelFontSize
+* `labelFontSize`
   * sets the font size of both axis labels
   * automatically calculated when unspecified
   * accepts any number
-* graphTitleFontSize
+* `graphTitleFontSize`
   * sets the font size of all graph titles
   * automatically calculated when unspecified
   * accepts any number
@@ -385,11 +385,11 @@ render() {
 }
 ```
 
-* labelFontFamily
+* `labelFontFamily`
   * sets the font family of both axis labels
   * inherits when unspecified
   * accepts any font family name string
-* graphTitleFontFamily
+* `graphTitleFontFamily`
   * sets the font family of all graph titles
   * inherits when unspecified
   * accepts any font family name string
@@ -431,19 +431,19 @@ render() {
 #### Legend Style
 Users can customize the legend style by passing in the prop(s) below:
 
-* legendFontColor
+* `legendFontColor`
 	* Modifies the color of the font used in the legend
 	* Defaults to `"#AAA"`
 	* Accepts any color string
-* legendBackground
+* `legendBackground`
 	* Modifies the background color of the legend
 	* Defaults to `"none"`
 	* Accepts any color string
-* legendShowBorder
+* `legendShowBorder`
  	* Determines whether a border will be drawn around the legend
-	* Defaults to `true`
+	* Defaults to `false`
 	* Accepts `true` or `false`
-* legendBorderColor
+* `legendBorderColor`
 	* Modifies the color of the border of the legend
 	* Defaults to `"#AAA"`
 	* Accepts any color string
