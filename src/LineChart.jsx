@@ -299,6 +299,8 @@ class LineChart extends React.Component {
     }
     let legendStyle = {
       fontColor: this.props.legendFontColor,
+      fontSize: this.props.legendFontSize,
+      fontFamily: this.props.legendFontFamily,
       backgroundColor: this.props.legendBackground,
       showBorder: this.props.legendShowBorder,
       borderColor: this.props.legendBorderColor,
@@ -429,6 +431,8 @@ LineChart.propTypes = {
 
   showLegend: PropTypes.bool,
   legendFontColor: PropTypes.string,
+  legendFontSize: PropTypes.string,
+  legendFontFamily: PropTypes.string,
   legendBackground: PropTypes.string,
   legendShowBorder: PropTypes.bool,
   legendBorderColor: PropTypes.string,
