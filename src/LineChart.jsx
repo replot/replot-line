@@ -415,7 +415,7 @@ LineChart.propTypes = {
 
   showLegend: PropTypes.bool,
   legendFontColor: PropTypes.string,
-  legendFontSize: PropTypes.string,
+  legendFontSize: PropTypes.number,
   legendFontFamily: PropTypes.string,
   legendBackground: PropTypes.string,
   legendShowBorder: PropTypes.bool,

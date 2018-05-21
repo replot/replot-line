@@ -59,7 +59,7 @@ render() {
         {index: "NASDAQ 100", year: 2015, value: 4593.27},
         {index: "NASDAQ 100", year: 2016, value: 4863.62},
     ]
-    
+
     return(
         <LineChart data={markets}
             groupKey="index"
@@ -81,7 +81,7 @@ group, however this prop is optional.
 ![ScreenshotLineDefault](https://github.com/replot/replot-line/raw/master/img/default.png)
 
 ### Dimensions
-Dimensions may be specified by passing in `width` and `height` props with numbers 
+Dimensions may be specified by passing in `width` and `height` props with numbers
 in the unit of pixels.
 
 ```javascript
@@ -323,7 +323,7 @@ render() {
   * modifies the thickness of axis gridlines
   * defaults to `1`
   * accepts any number
-  
+
 ```javascript
 render() {
   return(
@@ -335,7 +335,7 @@ render() {
   )
 }
 ```
-  
+
 * `axisOpacity`
   * modifies the opacity of axis lines
   * defaults to `1`
@@ -447,7 +447,7 @@ Users can customize the legend style by passing in the prop(s) below:
 	* Modifies the color of the border of the legend
 	* Defaults to `"#AAA"`
 	* Accepts any color string
-	
+
 ```javascript
 render() {
   return(
@@ -465,11 +465,35 @@ render() {
 :-------------------------:|:-------------------------:
 ![ScreenshotLineDefault](https://github.com/replot/replot-line/raw/master/img/default.png) | ![ScreenshotLegendStyle](https://github.com/replot/replot-line/raw/master/img/legend_style.png)
 
+* `legendFontSize`
+  * sets the font size of legend texts
+  * automatically calculated when unspecified
+  * accepts any number
+* `legendFontFamily`
+  * sets the font family of legend texts
+  * inherits when unspecified
+  * accepts any font family name string
+
+```javascript
+render() {
+  return(
+    <LineChart data={markets} groupKey="index" xKey="year" yKey="value"
+  legendFontSize={10}
+  legendFontFamily="Courier"
+    />
+  )
+}
+```
+
+ Default                   | legendFontSize={10}       | legendFontFamily="Courier"
+:-------------------------:|:-------------------------:|:-------------------------:
+![ScreenshotLineDefault](https://github.com/replot/replot-line/raw/master/img/default.png) | ![ScreenshotLegendFontSize](https://github.com/replot/replot-line/raw/master/img/legend_font_size.png) | ![ScreenshotLegendFontFamily](https://github.com/replot/replot-line/raw/master/img/legend_font_family.png)
+
 ### Area Customization
 Users can control the display of shaded areas under the lines of the graph.
 
 - `shadeArea`: defaults to `false`, controls display of the shaded areas
-	
+
 ```javascript
 render() {
   return(
