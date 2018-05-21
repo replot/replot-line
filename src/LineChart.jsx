@@ -280,31 +280,6 @@ class LineChart extends React.Component {
       lineWidth: this.props.lineWidth,
       pointWidth: this.props.pointWidth
     }
-    let axisStyle = {
-      titleColor: this.props.graphTitleColor,
-      titleFontSize: this.props.graphTitleFontSize,
-      titleFontFamily: this.props.graphTitleFontFamily,
-      labelColor: this.props.labelColor,
-      labelFontSize: this.props.labelFontSize,
-      labelFontFamily: this.props.labelFontFamily,
-      axisColor: this.props.axisColor,
-      lineWidth: this.props.axisWidth,
-      lineOpacity: this.props.axisOpacity,
-      gridColor: this.props.gridColor,
-      gridWidth: this.props.gridWidth,
-      gridOpacity: this.props.gridOpacity,
-      tickColor: this.props.tickColor,
-      tickWidth: this.props.tickWidth,
-      tickOpacity: this.props.tickOpacity,
-    }
-    let legendStyle = {
-      fontColor: this.props.legendFontColor,
-      fontSize: this.props.legendFontSize,
-      fontFamily: this.props.legendFontFamily,
-      backgroundColor: this.props.legendBackground,
-      showBorder: this.props.legendShowBorder,
-      borderColor: this.props.legendBorderColor,
-    }
 
     graph = (
       <Axis key="axis" width={this.props.width} height={this.props.height}
@@ -312,10 +287,21 @@ class LineChart extends React.Component {
         yTitle={this.props.yTitle} showXAxisLine={this.props.showXAxisLine}
         showXLabels={this.props.showXLabels} showYAxisLine={this.props.showYAxisLine}
         showYLabels={this.props.showYLabels} showGrid={this.props.showGrid}
-        axisStyle={axisStyle} minY={minY} maxY={maxY}
+        minY={minY} maxY={maxY}
         ySteps={this.props.ySteps} yScale={this.props.yScale}
-        legendValues={this.props.groupKey ? this.getLegend() : null} legendStyle={legendStyle}
+        legendValues={this.props.groupKey ? this.getLegend() : null}
         legendMode={this.props.legendMode} showLegend={this.props.showLegend}
+        legendFontColor={this.props.legendFontColor} legendFontSize={this.props.legendFontSize}
+        legendFontFamily={this.props.legendFontFamily} legendBackgroundColor={this.props.legendBackground}
+        legendShowBorder={this.props.legendShowBorder} legendBorderColor={this.props.legendBorderColor}
+        titleColor={this.props.graphTitleColor} titleFontSize={this.props.graphTitleFontSize}
+        titleFontFamily={this.props.graphTitleFontFamily} labelColor={this.props.labelColor}
+        labelFontSize={this.props.labelFontSize} labelFontFamily={this.props.labelFontFamily}
+        axisColor={this.props.axisColor} lineWidth={this.props.axisWidth}
+        lineOpacity={this.props.axisOpacity} gridColor={this.props.gridColor}
+        gridWidth={this.props.gridWidth} gridOpacity={this.props.gridOpacity}
+        tickColor={this.props.tickColor} tickWidth={this.props.tickWidth}
+        tickOpacity={this.props.tickOpacity}
         labels={xVals} xAxisMode="discrete" xStart="origin">
         <SeriesContainer data={this.props.data} max={maxY} min={minY} xVals={xVals}
           xKey={this.props.xKey} yKey={this.props.yKey} groupKey={this.props.groupKey}
@@ -373,8 +359,6 @@ LineChart.defaultProps = {
   yScale: "lin",
   lineWidth: 2.5,
   pointWidth: 5,
-  legendBackground: "none",
-  legendShowBorder: false,
   initialAnimation: true,
   tooltip: true
 }
