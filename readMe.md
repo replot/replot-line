@@ -14,11 +14,11 @@ modules, use as you would anything else.
 import LineChart from 'replot-line'
 ```
 
-## API
+## Quick Start
+
 replot-line is designed to create beautiful line charts right out of the box.
 The only *required* input is properly formatted data.
 
-### Basic Usage
 In the simplest case, just supply data (as a Javascript array) and specify the
 keys associated with the values:
 
@@ -79,6 +79,8 @@ Including a `groupKey` will draw multiple lines on your LineChart, one for each
 group, however this prop is optional.
 
 ![ScreenshotLineDefault](https://github.com/replot/replot-line/raw/master/img/default.png)
+
+## API
 
 ### Dimensions
 Dimensions may be specified by passing in `width` and `height` props with numbers
