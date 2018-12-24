@@ -47,7 +47,6 @@
     "humanize-plus": "^1.8.2",
     "prop-types": "^15.5.10",
     "react-motion": "^0.4.7",
-    "replot": "git+ssh://git@github.com/replot/replot-core.git",
-    "replot-core": "git+ssh://git@github.com/replot/replot-core.git"
+    "replot-core": "^0.2.1"
   }
 }
